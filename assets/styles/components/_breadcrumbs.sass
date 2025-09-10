@@ -1,0 +1,44 @@
+@use '../abstracts' as *
+
+.breadcrumbs
+  min-width: 0
+
+.breadcrumb
+  user-select: none
+  position: relative
+  white-space: nowrap
+
+  // > *
+  //   outline: $bg
+
+  //   > *
+  //     outline: $bg
+
+  &::after
+    content: '>'
+    position: absolute
+    right: -0.85em
+    top: 0  
+
+  &:last-of-type
+    overflow: hidden
+    text-overflow: ellipsis
+
+    &::after
+      content: none
+    
+  &__link
+    color: color('clever-navy')
+
+    +hover
+      color: color('clever-blue')
+
+    > .icon
+      width: 1.5em
+
+      > svg
+        fill: currentcolor
+
+    &--last
+      color: color('blue-grey')
+      pointer-events: none

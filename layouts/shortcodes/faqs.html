@@ -1,0 +1,54 @@
+{{/* 
+  Shortcode: faqs
+  Usage (front matter):   {{< faqs >}}
+  Usage (data file):      {{< faqs src="licensing" >}}  -> loads from data/faqs/licensing.(toml|yaml|json)
+  Optional params:
+    - name="faqs"   -> details[name] for single-open behavior per group
+    - schema="true" -> output FAQPage JSON-LD (default: true)
+*/}}
+
+{{- $name := .Get "name" | default "faqs" -}}
+{{- $emitSchema := (cond (eq (.Get "schema") "false") false true) -}}
+
+{{/* Resolve items: front matter by default; or data via src param */}}
+{{- $items := slice -}}
+{{- with .Get "src" -}}
+  {{- $data := index site.Data.faqs . -}}
+  {{- if $data -}}
+    {{- $items = $data.items | default (slice) -}}
+  {{- end -}}
+{{- else -}}
+  {{- $items = .Page.Params.faqs.items | default (slice) -}}
+{{- end -}}
+
+{{- if not (len $items) -}}
+  {{/* No items found: fail silently or show a dev hint uncommenting below
+  <p class="note">No FAQs configured.</p>
+  */}}
+  {{- return -}}
+{{- end -}}
+
+<div class="[ faqs ][ grid row-gap--1 mb--2 ]" role="list">
+  {{- $faqEntities := slice -}}
+  {{- range $i, $it := $items -}}
+    {{- $qid := printf "q-%s-%d" (.Page.File.UniqueID | default "page") $i -}}
+    {{- $aid := printf "a-%s-%d" (.Page.File.UniqueID | default "page") $i -}}
+
+    <details class="[ faq ]" name="{{ $name }}" role="listitem">
+      <summary class="[ question ][ flex between middle font--600 py--0.5 ]" id="{{ $qid }}" aria-controls="{{ $aid }}">
+        <span>{{ $it.question }}</span>
+        <span class="[ marker ][ flex middle ]">
+          {{- with (readFile "static/icons/tabler/chevron-down.svg") -}}
+            {{ . | safeHTML }}
+          {{- else -}}
+            ▶
+          {{- end -}}
+        </span>
+      </summary>
+      <div class="[ answer ][ pb--2 ]" id="{{ $aid }}" aria-labelledby="{{ $qid }}">
+        {{- $it.answer | markdownify -}}
+      </div>
+    </details>
+  {{- end -}}
+</div>
+

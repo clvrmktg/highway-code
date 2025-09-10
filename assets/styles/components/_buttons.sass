@@ -1,0 +1,163 @@
+@use 'sass:math'
+@use '../abstracts' as *
+
+$border: 0.15em
+$block: 0.5em
+$inline: 2em
+
+%btn
+  display: block
+  font-weight: 500
+  font-weight: 600
+  text-align: center
+  margin-top: 0.5em
+  margin-bottom: 0.5em
+  white-space: nowrap
+  // transition: 250ms ease-in-out
+  border-radius: em(5)
+  cursor: pointer
+  +transition((color, fill, background-color, border, border-color))
+
+  .arrow-right
+    +transition(transform)
+    
+  +hover
+
+    .arrow-right
+      transform: translateX(0.5em)
+
+  +breakpoint(desktop)
+    display: inline-flex
+
+
+.btn, button.btn
+  @extend %btn
+
+  &--sm
+    padding: (math.div($block, 2) - $border) (math.div($inline, 2) - $border)
+
+  &--lg
+    padding: ($block - $border) ($inline - $border)
+
+
+
+  &--share
+    color: var(--white)
+    padding: 0.5em 1em
+    border-radius: 2em
+    background-color: color('clvr-blue')
+    +transition('color, fill, background-color')
+    
+    svg
+      fill: currentcolor
+
+    +hover
+      background-color: color('clever-blue-dark')
+
+.icon
+
+  &--share
+    width: .95em
+
+.btn
+  
+  &--primary, &--download
+    color: color('white')
+    background-color: color('clever-blue')
+    position: relative
+
+    &::before
+      content: ''
+      width: 0
+      height: 100%
+      background-color: color('clever-blue-dark')
+      border-radius: inherit
+      position: absolute
+      top: 0
+      left: 100%
+      z-index: 1
+      +transition((width, left))
+
+    +hover
+
+      &::before
+        width: 100%
+        left: 0
+        +transition(width)
+
+  &--cta
+    color: color('clever-navy')
+    background-color: color('clever-cta')
+    position: relative
+
+    &::before
+      content: ''
+      width: 0
+      height: 100%
+      background-color: color('clever-cta-dark')
+      border-radius: inherit
+      position: absolute
+      top: 0
+      left: 100%
+      z-index: 1
+      +transition((width, left))
+
+    +hover
+
+      &::before
+        width: 100%
+        left: 0
+        +transition(width)
+
+  &--ghost
+    --button-color: #{color('clever-blue-light')}
+    color: var(--button-color)
+    border: $border solid var(--button-color)
+    position: relative
+    +transition((color, border))
+
+    &::before
+      content: ''
+      width: 0
+      height: 100%
+      background-color: var(--button-color)
+      position: absolute
+      top: 0
+      left: 100%
+      z-index: 1
+      +transition((width, left))
+
+    +hover
+      color: color('white')
+
+      &::before
+        width: 100%
+        left: 0
+        +transition(width)  
+  
+
+  &__text
+    position: relative
+    z-index: 2
+
+    svg
+      width: 0.65em
+      fill: currentColor
+
+  &--download .btn__text
+
+    svg
+      width: 1em
+
+      
+.ghost--white
+  color: color('white')
+  border: $border solid color('white')
+
+  &::before
+    color: color('white')
+    background-color: color('white')
+
+  +hover
+    color: color('clever-blue')
+    border: $border solid color('white')

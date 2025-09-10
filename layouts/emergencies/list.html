@@ -1,0 +1,6 @@
+{{- define "variables" -}}
+{{- .Store.Set "webpageType" "ContactPage" -}}
+{{- end -}}
+{{- define "main" -}}
+  {{ partial "section/page.html" (dict "Page" .) }}
+{{ end }}

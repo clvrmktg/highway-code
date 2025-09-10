@@ -1,0 +1,60 @@
+{{/* checklist.html
+  Usage A (single type for all):
+  {{< checklist type="do" >}}
+  - Keep a safe distance
+  - Slow near schools
+  {{< /checklist >}}
+  
+  Usage B (per-item tags):
+  {{< checklist >}}
+  - [do] Keep a safe distance
+  - [dont] Do not overtake on bends
+  - [warning] Watch for children crossing
+  {{< /checklist >}}
+  */}}
+  
+  {{- $defaultType := .Get "type" | default "" -}}
+  
+  {{/* Map types to Tabler icons (can override via site.Params.checklist_icons) */}}
+  {{- $iconMap := dict
+    "do"      "circle-check"
+    "dont"    "circle-x"
+    "warning" "alert-triangle"
+    "info"    "info-circle"
+  -}}
+  {{- $siteMap := site.Params.checklist_icons | default dict -}}
+  
+  {{- $lines := split .Inner "\n" -}}
+  
+  <ul class="[ checklist ][ grid row-gap--0.5 mb--2 ]">
+    {{- range $lines -}}
+      {{- $line := trim . " \t" -}}
+      {{- if hasPrefix $line "-" -}}
+        {{- $text := trim (strings.TrimPrefix "-" $line) " " -}}
+        {{- $type := $defaultType -}}
+  
+        {{/* If no global type, try to parse per-item tag: - [do] Text */}}
+        {{- if eq $type "" -}}
+          {{- $m := findRE `^\[(do|dont|warning|info)\]\s*(.*)$` $text -}}
+          {{- if $m -}}
+            {{- $type = (index $m 0 | replaceRE `^\[(.*?)\].*$` `$1`) -}}
+            {{- $text = (index $m 0 | replaceRE `^\[[^\]]+\]\s*(.*)$` `$1`) -}}
+          {{- else -}}
+            {{- $type = "do" -}} {{/* sensible default */}}
+          {{- end -}}
+        {{- end -}}
+  
+        {{- $iconName := index $siteMap $type | default (index $iconMap $type) | default "info-circle" -}}
+        {{- $iconPath := printf "static/icons/tabler/%s.svg" $iconName -}}
+        <li class="[ checklist__item checklist__item--{{ $type }} ][ flex col-gap--0.5 ]">
+          <span class="[ checklist__icon ][ flex pt--0.35 ]" aria-hidden="true">
+            {{- if fileExists $iconPath -}}
+              {{- readFile $iconPath | safeHTML -}}
+            {{- else -}}□{{- end -}}
+          </span>
+          <span class="checklist__text">{{ $text | markdownify }}</span>
+        </li>
+      {{- end -}}
+    {{- end -}}
+  </ul>
+  

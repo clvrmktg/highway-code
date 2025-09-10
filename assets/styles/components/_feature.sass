@@ -1,0 +1,58 @@
+@use 'abstracts' as *
+
+.get
+
+  &::before, &::after
+    content: ''
+    width: 100%
+    height: rem(1)
+    background-color: color('clever-navy')
+    position: absolute
+    left: 0
+
+  &::before
+    top: 0
+    
+  &::after
+    bottom: 0
+
+.attribute
+  position: relative
+
+  &::after
+    content: ''
+    width: 100%
+    height: em(2)
+    background-color: color('grey-300')
+    position: absolute
+    bottom: -0.5em
+    left: 0
+
+  &:last-of-type
+    
+    &::after
+      content: none
+  
+  .icon
+    width: rem(60)
+
+.line
+  height: em(2)
+
+.key
+  color: color('clever-blue-light')
+
+.icon
+  width: rem(32)
+
+  > svg
+      width: 100%
+      max-width: 100%
+      height: auto
+      display: block
+      // fill: color('clever-blue-light')
+      stroke: color('clever-blue-light')
+
+  &.icon--tabler
+    > svg
+      stroke: color('clever-blue-light')

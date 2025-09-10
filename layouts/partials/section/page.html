@@ -1,0 +1,92 @@
+{{- $p := .Page | default . -}}
+{{- $opts := .Options | default dict -}}
+
+<header class="[ hero hero--doc ][ full-width content-grid ]" role="banner">
+  <div class="[ wrapper ][ layout--padding ]">
+    {{ partial "breadcrumbs.html" $p }}
+
+    <h1 class="[ hero__title ][ display ]">{{ $p.Title }}</h1>
+
+    {{ with $p.Params.description }}
+      <p class="[ hero__lede ][ ch--60 ]">{{ . }}</p>
+    {{ end }}
+
+    <p class="[ hero__meta ][ flex middle col-gap--0.25 font--small ]">
+      <span class="[ meta__item ][ flex middle col-gap--0.5 ]">
+        <span class="[ flex middle ]" aria-hidden="true">
+          {{ readFile "static/icons/tabler/calendar.svg" | safeHTML }}
+        </span>
+        Updated: {{ $p.Lastmod.Format "Jan 2, 2006" }}
+      </span>
+      {{ with $p.ReadingTime }}
+        <span class="meta__dot">•</span>
+        <span class="meta__item">{{ . }} min read</span>
+      {{ end }}
+    </p>
+  </div>
+</header>
+<div class="[ grid layout--sidebar--left col-gap--4 layout--padding layout--spacing ]">
+  <div class="[ sidebar ]">
+    <div class="[ isSticky flex flex--column row-gap--2 ]">
+      <aside aria-labelledby="section-nav-title">
+        <h2 id="section-nav-title" class="visually-hidden">In This Section</h2>
+        {{ partial "section/sidebar-nav.html" (dict "Page" $p) }}
+      </aside>
+
+    </div>
+  </div>
+
+  <div class="[ content ]">
+  
+    <article class="[ longform ]">
+      {{/* Main content */}}
+      {{ $p.Content }}
+
+      {{ if $p.Params.footnotes }}
+      <footer>
+        {{- partial "footnotes.html" $p -}}
+      </footer>
+      {{ end }}
+    </article>
+    
+    {{/* Optional related links block */}}
+    {{ with $p.Params.related }}
+    <section class="section section--related">
+      <div class="wrapper">
+        <h2>Related</h2>
+        <ul class="grid gap--1">
+          {{ range . }}
+            <li><a href="{{ .url }}">{{ .label }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+    </section>
+    {{ end }}
+    
+    {{/* Prev/Next within section — locked to weight order */}}
+    {{ $in := $p.CurrentSection }}
+    {{ if $in }}
+      {{ $pages := (where $in.RegularPages "Draft" "ne" true).ByWeight }}
+      {{ $idx := -1 }}
+      {{ range $i, $pg := $pages }}{{ if eq $pg $p }}{{ $idx = $i }}{{ end }}{{ end }}
+    
+      {{ $prev := cond (and (ge $idx 1) (lt $idx (len $pages))) (index $pages (sub $idx 1)) nil }}
+      {{ $next := cond (lt (add $idx 1) (len $pages)) (index $pages (add $idx 1)) nil }}
+    
+      {{ if or $prev $next }}
+      <nav class="section section--pager" aria-label="Section pagination">
+        <div class="[ wrapper pager ][ grid ]">
+          <div class="pager__prev">
+            {{ with $prev }}<a rel="prev" href="{{ .RelPermalink }}" data-prefetch>&larr; {{ .Title }}</a>{{ end }}
+          </div>
+          <div class="pager__next">
+            {{ with $next }}<a rel="next" href="{{ .RelPermalink }}" data-prefetch>{{ .Title }} &rarr;</a>{{ end }}
+          </div>
+        </div>
+      </nav>
+      {{ end }}
+    {{ end }}
+  
+
+  </div>
+</div>

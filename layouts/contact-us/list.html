@@ -1,0 +1,61 @@
+{{- define "variables" -}}
+{{- .Store.Set "hasForm" true -}}
+{{- .Store.Set "hasObscure" true -}}
+{{- .Store.Set "webpageType" "ContactPage" -}}
+{{- end -}}
+{{- define "main" -}}
+{{ partial "hero.html" . }}
+<div class="[ grid lg:col--2 col-gap--4 layout--spacing section--padding lg:py--0 ]">
+  <div class="[ lg:py--5 ]">
+    <div class="[ grid row-gap--1 ]">
+      {{with .Params.intro }}
+      <section aria-labelledby="intro-heading">
+          <h2 id="intro-heading">{{ .heading }}</h2>
+          <p>{{ .text }}</p>
+      </section>
+      {{ end }}
+      <section class="contact-details" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="[ font--3 ]">Contact Details</h2>
+      
+        <p class="eyebrow">
+          Our Office — <strong>Nassau, Bahamas Web Design &amp; Marketing</strong>
+        </p>
+      
+        <address>
+          <p>Nassau, Bahamas</p>
+          <dl class="contact-list">
+            <div class="[ contact-list__row ][ flex col-gap--0.5 ]">
+              <dt class="[ font--700 ]">Phone:</dt>
+              <dd>
+                <template obscure="obscure" data-p1="+1" data-p2="242" data-p3="376" data-p4="3340">
+                  <a href="tel:%1%2%3%4" aria-label="Call Clever Marketing at (%2) %3-%4">(%2) %3-%4</a>
+                </template>
+              </dd>
+            </div>
+            <div class="[ contact-list__row ][ flex col-gap--0.5 ]">
+              <dt class="[ font--700 ]">Email:</dt>
+              <dd>
+                <template obscure="obscure" data-p1="lets" data-p2="getclever.marketing" aria-label="Email Clever Marketing at %1@%2"><a href="mailto:%1@%2">%1@%2</a></template>
+              </dd>
+            </div>
+          </dl>
+        </address>
+      </section>
+      <section class="business-hours" aria-labelledby="hours-title">
+        <h3 id="hours-title">Business Hours</h3>
+        <dl>
+          <div>
+            <dt>Monday – Friday</dt>
+            <dd>9:00 am – 5:00 pm (EST)</dd>
+          </div>
+        </dl>
+      </section>
+      <p class="follow-note">
+        Want to stay connected? <a href="#site-footer">Follow us on social media</a>.
+      </p>
+      
+    </div>
+  </div>
+  {{ partial "forms/contact.html" . }}
+</div>
+{{ end }}

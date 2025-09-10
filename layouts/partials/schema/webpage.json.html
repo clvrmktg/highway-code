@@ -1,0 +1,43 @@
+{{- /* WebPage / CollectionPage JSON-LD (safe for --minify) */ -}}
+
+{{- $type := .Store.Get "webpageType" | default .Params.webpageType -}}
+{{- if not $type -}}
+  {{- if .IsHome -}}
+    {{- $type = "WebPage" -}}
+  {{- else if .IsSection -}}
+    {{- $type = "CollectionPage" -}}
+  {{- else -}}
+    {{- $type = "WebPage" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $desc := (.Description | default .Summary | default .Title) | markdownify | plainify | chomp -}}
+{{- $webpageID := print .Permalink "#webpage" -}}
+
+{{- $schema := dict
+  "@context" "https://schema.org"
+  "@type"    $type
+  "@id"      $webpageID
+  "url"      .Permalink
+  "name"     .Title
+-}}
+
+{{- if $desc -}}
+  {{- $schema = merge $schema (dict "description" $desc) -}}
+{{- end -}}
+
+{{- $schema = merge $schema (dict
+  "isPartOf"   (dict "@id" (print .Site.BaseURL "#website"))
+  "about"      (dict "@id" (print .Site.BaseURL "#localbusiness"))
+  "breadcrumb" (dict "@id" (print .Permalink   "#breadcrumbs"))
+) -}}
+
+{{- $published := .Date.Format "2006-01-02T15:04:05Z07:00" -}}
+{{- $modified  := .Lastmod.Format "2006-01-02T15:04:05Z07:00" -}}
+{{- $schema = merge $schema (dict
+  "datePublished" $published
+  "dateModified"  $modified
+) -}}
+
+<!-- Webpage Schema -->
+<script type="application/ld+json">{{ $schema | jsonify (dict "indent" "  ") }}</script>

@@ -1,0 +1,19 @@
+@use 'abstracts' as *
+
+.footnotes
+
+  ol
+    // counter-reset: item
+
+    & > li
+      // counter-increment: item
+      color: var(--text-muted)
+
+      &::marker
+        font-size: var(--step--1)
+        color: currentcolor
+
+      // &::before
+      //   content: counters(item, ".") ". "
+      //   font-variant-numeric: tabular-nums
+      //   font-size: var(--step--1)

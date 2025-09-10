@@ -1,0 +1,63 @@
+{{/* LocalBusiness (ProfessionalService) JSON-LD — safe for --minify */}}
+
+{{- /* Build sameAs from site params */ -}}
+{{- $sameAs := slice -}}
+{{ with site.Params.social.facebook }}  {{ $sameAs = $sameAs | append (printf "https://www.facebook.com/%s" .) }} {{ end }}
+{{ with site.Params.social.instagram }} {{ $sameAs = $sameAs | append (printf "https://www.instagram.com/%s" .) }} {{ end }}
+{{ with site.Params.social.linkedin }}
+  {{- $base := cond (eq site.Params.social.linkedinType "company") "https://www.linkedin.com/company/" "https://www.linkedin.com/in/" -}}
+  {{- $sameAs = $sameAs | append (printf "%s%s" $base .) -}}
+{{ end }}
+{{ with site.Params.social.github }}    {{ $sameAs = $sameAs | append (printf "https://github.com/%s" .) }} {{ end }}
+{{ with site.Params.social.x }}         {{ $sameAs = $sameAs | append (printf "https://x.com/%s" .) }} {{ end }}
+
+{{- /* Logo/image (prefer params.logo; fallback to /logo.png) */ -}}
+{{- $logo := "" -}}
+{{ with site.Params.logo }}{{ $logo = . | absURL }}{{ end }}
+{{ if eq $logo "" }}{{ $logo = (print .Site.BaseURL "logo.png") }}{{ end }}
+
+{{- /* Opening hours */ -}}
+{{- $hours := slice (dict
+  "@type"    "OpeningHoursSpecification"
+  "dayOfWeek" (slice "Monday" "Tuesday" "Wednesday" "Thursday" "Friday")
+  "opens"   "09:00"
+  "closes"  "17:00"
+) -}}
+
+{{- /* Base schema object */ -}}
+{{- $schema := dict
+  "@context" "https://schema.org"
+  "@type"    "ProfessionalService"
+  "@id"      (print .Site.BaseURL "#localbusiness")
+  "name"     site.Title
+  "url"      .Site.BaseURL
+  "telephone" "+1-242-376-3340"
+  "email"     "lets@getclever.marketing"
+  "priceRange" "$$"
+  "logo"      $logo
+  "image"     $logo
+  "address" (dict
+    "@type"           "PostalAddress"
+    "streetAddress"   "Shirley Street"
+    "addressLocality" "Nassau"
+    "addressRegion"   "NP"
+    "postalCode"      "CR-56008"
+    "addressCountry"  "BS"
+  )
+  "geo" (dict
+    "@type"    "GeoCoordinates"
+    "latitude"  25.072479377698834
+    "longitude" -77.32984468747873
+  )
+  "openingHoursSpecification" $hours
+-}}
+
+{{- $short := site.Params.shortname | default "Clever" -}}
+{{- $schema = merge $schema (dict "legalName" site.Title "alternateName" $short) -}}
+
+{{- if gt (len $sameAs) 0 -}}
+  {{- $schema = merge $schema (dict "sameAs" $sameAs) -}}
+{{- end -}}
+
+<!-- Local Business Schema -->
+<script type="application/ld+json">{{ $schema | jsonify (dict "indent" "  ") }}</script>

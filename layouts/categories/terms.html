@@ -1,0 +1,28 @@
+{{- define "variables" -}}
+{{- .Store.Set "hasObscure" true -}}
+{{- .Store.Set "webpageType" "CollectionPage" -}}
+{{- end -}}
+{{- define "main" -}}
+<div class="[ section--padding ]">
+  <header class="[ section--padding-bottom ]">
+    <h1>{{ .Title }}</h1>
+    {{ partial "breadcrumbs.html" . }}
+    <p>{{ printf "Browse all %s on %s" (.Title | pluralize) site.Title }}</p>
+  </header>
+  <ul>
+    {{ with .Site.Taxonomies.categories }}
+      {{ range .ByCount }}
+        <li>
+          <a href="{{ if .Page }}{{ .Page.RelPermalink }}{{ else }}{{ (print "/industries/" (.Term | urlize) "/") | relLangURL }}{{ end }}" data-prefetch>
+            {{ if .Page }}{{ .Page.LinkTitle }}{{ else }}{{ .Term | humanize }}{{ end }}
+            <span class="count">({{ .Count }})</span>
+          </a>
+        </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+  
+  
+</div>
+
+{{ end }}

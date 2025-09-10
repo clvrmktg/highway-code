@@ -1,0 +1,19 @@
+<footer id="site-footer" class="[ footer ][ white ]">
+
+  <div class="[ copy ][ content-grid py--2 ]">
+    <div class="[ flex flex--column lg:flex--row lg:between lg:middle gap--2 ]">
+      <nav class="[ o--1 lg:o--2 ]">
+        <ul class="[ flex flex--column md:flex--row gap--1 ]">        
+          {{ range .Site.Menus.policies }}
+          <li>
+            <small>
+              <a href="{{ .URL }}" data-prefetch>{{ .Name }}</a>
+            </small>
+          </li>
+        {{end}}
+        </ul>
+      </nav>
+      <small class="[ o--2 lg:o--1 ]">© {{ time.Now.Format "2006"}} <a href="https://josephpinder.com" target="_blank" rel="noopener">Joseph Pinder</a>. All rights reserved.</small>
+    </div>
+  </div>
+</footer>

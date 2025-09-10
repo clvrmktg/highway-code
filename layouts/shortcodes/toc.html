@@ -1,0 +1,30 @@
+{{with .Page.Fragments }}
+<nav id="toc" class="[ toc ][ p--1 r--5 mb--2 ]">
+  <h2 id="toc-title" class="[ toc__title ][ font--4 flex middle col-gap--0.5 ]">{{ readFile "static/icons/tabler/list.svg" | safeHTML}} <span>Table of Contents</span></h2>
+  <ol class="[ entries ][ grid row-gap--0.25 ]">
+    <!-- toc level 1 -->
+    {{ range .Headings }}
+      <!-- toc level 2 -->
+      {{ $h2s := after 1 .Headings }}   <!-- skips the first H2 -->
+      {{ range $h2s }}
+        {{ if gt .Level 0 }}
+          <li class="[ entry ]">
+            <a class="[ entry__link ][ px--0.25 r--5 ]" href="#{{ .ID }}">{{ .Title | htmlUnescape }}</a>
+              {{ if gt .Level 0 }}
+              {{ end }}
+              {{ $h3s := where .Headings "Level" 3 }}
+              {{ if $h3s }}
+                <ol class="[ subentries ][ grid row-gap--0.25 ]">
+                  <!-- toc level 3 -->
+                  {{ range $h3s }}
+                    <li class="[ subentry ][ pl--1.5 ]"><a class="[ subentry__link ][ px--0.25 ]" href="#{{ .ID }}">{{ .Title | htmlUnescape }}</a></li>
+                  {{ end }}
+                </ol>
+              {{ end }}
+          </li>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </ol>
+</nav>
+{{ end }}

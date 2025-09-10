@@ -1,0 +1,147 @@
+baseURL = 'https://bahamashighwaycode.org/'
+languageCode = 'en-uk'
+title = 'Bahamas Highway Code Online'
+# enableGitInfo = true
+
+[sass]
+  use_dart_sass = true
+
+# upload_dir = "assets/uploads"
+# public_path = "/uploads"
+# disableKinds = [ "taxonomy", "term" ]
+
+[taxonomies]
+  tag  = "tags"     # for blog/Insights
+
+[pagination]
+  pagerSize = 9
+
+
+# config.toml
+[outputs]
+home     = ["HTML"]      # no /index.xml on homepage
+section  = ["HTML"]      # no /<section>/index.xml
+taxonomy = ["HTML"]      # no /<taxonomy>/index.xml
+term     = ["HTML"]      # no /<taxonomy>/<term>/index.xml
+
+
+[params]
+  twic = "clvrmktg"
+  share = "/fallbacks/clvr-cover.jpg"
+  logo = "/logo.png"
+
+  # Homepage Title | Tagline
+  tagline = 'Bahamas Web Design | Nassau, Bahamas'
+
+[params.google]
+  api_key = "AIzaSyDGa9bRzCbbmJ-L9PIX1hrZSymdSC4ZEtA"
+  place_id = "ChIJpwI7ux9nL4kRn7lrM-ie_dk"
+  app_id = 9879175018863603
+  # 384650276688740
+  error = true
+
+
+[params.social]
+  facebook = "clvrmktg"
+  instagram = "clvrmktg"
+  linkedin = "clvrmktg"
+  x = "clvrmktg"
+  whatsapp = "+1 (242) 376-3340"
+  linkedinType = "company" # or "in" for personal profile URLs
+
+
+# -------------------------------------------------
+# MAIN MENU
+# -------------------------------------------------
+# Defines the primary navigation at the top of the site.
+# - Includes top-level pages (Services, Portfolio, About Us, Contact Us).
+# - "Services" acts as a parent with child items for each service.
+# - Weights control left-to-right order in the header.
+# -------------------------------------------------
+
+[[menu.main]]
+  identifier = "rules"
+  name = "Rules"
+  url = "/rules/"
+  weight = 1
+
+[[menu.main]]
+  identifier = "signs"
+  name = "Signs"
+  url = "/signs/"
+  weight = 2
+
+[[menu.main]]
+  identifier = "law"
+  name = "Law"
+  url = "/law/"
+  weight = 3
+
+[[menu.main]]
+  identifier = "emergencies"
+  name = "Emergencies"
+  url = "/emergencies/"
+  weight = 4
+
+[[menu.main]]
+  identifier = "children-visitors"
+  name = "Children & Visitors"
+  url = "/children-visitors/"
+  weight = 5
+
+# -------------------------------------------------
+# POLICIES MENU
+# -------------------------------------------------
+# Defines the legal/utility links in the footer (bottom bar).
+# - Includes Privacy Policy, Terms of Service, Cookie Policy, Accessibility.
+# - Keeps compliance pages grouped and accessible sitewide.
+# - Weights control left-to-right order in the footer.
+# -------------------------------------------------
+
+[[menu.policies]]
+  identifier = "privacy-policy"
+  name = "Privacy Policy"
+  url = "/privacy-policy/"
+  weight = 1
+
+# [[menu.policies]]
+#   identifier = "terms-service"
+#   name = "Terms of Service"
+#   url = "/terms-service/"
+#   weight = 2
+
+[[menu.policies]]
+  identifier = "cookie-policy"
+  name = "Cookie Policy"
+  url = "/cookie-policy/"
+  weight = 3
+
+[[menu.policies]]
+  identifier = "accessibility-statement"
+  name = "Accessibility Statement"
+  url = "/accessibility-statement/"
+  weight = 4
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false
+      [markup.goldmark.parser.attribute]
+        block = true
+
+    # Links
+    [markup.goldmark.renderHooks]
+      [markup.goldmark.renderHooks.link]
+        enableDefault = true
+
+    [markup.goldmark.renderer]
+        unsafe = true
+        
+[security.funcs]
+  getenv = ['^HUGO_', '^GA_TRACKING_ID$', '^META_PIXEL_ID$']
+
+
+[sitemap]
+  filename = "sitemap.xml"
+  changefreq = "monthly"
+  priority = 0.5

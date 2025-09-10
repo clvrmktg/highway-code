@@ -1,0 +1,62 @@
+{{- $p := .Page -}}
+{{- $root := cond (and $p.CurrentSection (ne $p.Kind "section")) $p.CurrentSection $p -}}
+{{- if not $root.IsSection }}{{ $root = $p.Site.GetPage (printf "/%s" $p.Section) }}{{ end }}
+
+<nav class="[ sidebar__navigation ][ p--1 ]" aria-label="{{ if $root }}{{ $root.Title }}{{ else }}Section{{ end }}">
+  <ul class="[ sidebar__navigation__menu ][ grid row-gap--0.25 ]" role="list">
+    {{ if $root }}
+    {{/* mark the parent (root) as current when we\'re on the parent page */}}
+    {{- $isRootCurrent := eq $root.Permalink $p.Permalink -}}
+    <li class="[ sidebar__navigation__item {{ if $isRootCurrent }}current{{ end }} ]">
+      <a class="[ sidebar__navigation__link ]"
+         href="{{ $root.RelPermalink }}"
+         {{ if $isRootCurrent }}aria-current="page"{{ end }}
+         data-prefetch>
+        {{ $root.Title }}
+      </a>
+    </li>
+
+    {{/* children = sections + regular pages (no root), non-drafts */}}
+    {{- $children := where (union $root.Sections $root.RegularPages) "Params.draft" "ne" true -}}
+
+    {{/* de-dupe by permalink */}}
+    {{- $seen := dict -}}
+    {{- $list := slice -}}
+    {{- range $children.ByWeight -}}
+      {{- $perm := .Permalink -}}
+      {{- if not (isset $seen $perm) -}}
+        {{- $list = $list | append . -}}
+        {{- $seen = merge $seen (dict $perm true) -}}
+      {{- end -}}
+    {{- end -}}
+
+    
+      {{ range $list }}
+        {{- $isCurrent := eq .Permalink $p.Permalink -}}
+        <li class="[ sidebar__navigation__item {{ if $isCurrent }}current{{ end }} ]" role="listitem">
+          <a class="[ sidebar__navigation__link ]" href="{{ .RelPermalink }}" {{ if $isCurrent }}aria-current="page"{{ end }} data-prefetch>
+            {{ .Title }}
+          </a>
+
+          {{/* if this item is a section, show its children when ancestor/current */}}
+          {{ if .IsSection }}
+            {{- $kids := where (union .Sections .RegularPages) "Params.draft" "ne" true -}}
+            {{- $isAncestor := or (hasPrefix $p.RelPermalink .RelPermalink) (eq .Permalink $p.Permalink) -}}
+            {{ if gt (len $kids) 0 }}
+              <ul class="[ sidebar__navigation__submenu ]" role="list" {{ if not $isAncestor }}hidden{{ end }}>
+                {{ range $kids.ByWeight.ByTitle }}
+                  {{- $isChildCurrent := eq .Permalink $p.Permalink -}}
+                  <li class="[ sidebar__navigation__subitem {{ if $isChildCurrent }}current{{ end }} ]" role="listitem">
+                    <a class="[ sidebar__navigation__sublink ]" href="{{ .RelPermalink }}" {{ if $isChildCurrent }}aria-current="page"{{ end }} data-prefetch>
+                      {{ .Title }}
+                    </a>
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+</nav>

@@ -1,0 +1,70 @@
+@use 'abstracts' as *
+
+.social
+  // --fb-blue: #1877f2
+  // --tw-blue: #009bde
+  // --in-blue: #0077b5
+  // --ig-pink: #d62976
+  // --wa-green: #25d366
+
+  &__item
+    width: 2rem
+    height: 2rem
+
+  &__link
+    display: block
+    width: inherit
+    height: inherit
+    position: relative
+    z-index: 1
+
+    > svg
+      stroke: color('white')
+
+      &.icon-tabler-brand-x
+        fill: color('white')  
+
+    &::after
+      content: ''
+      width: 150%
+      height: 150%
+      background-color:  color('clever-blue-light')
+      border-radius: em(5)
+      position: absolute
+      top: 50%
+      left: 50%
+      z-index: -1
+      transform: translate(-50%, -55%)
+      +transition((fill, stroke, background-color))
+
+    
+    +hover
+
+      &::after
+        background-color:  color('clever-blue')
+    
+  &--dark
+
+    .social
+
+      &__link
+
+        > svg
+         stroke:  color('clever-blue-light')
+
+         &.icon-tabler-brand-x
+            fill: color('clever-blue-light')
+
+        &::after
+          background-color: #252525
+
+        +hover
+          > svg
+            stroke: color('white')
+            
+            &.icon-tabler-brand-x
+                fill: color('white')
+
+          &::after
+            background-color:  color('clever-blue-light')          
+

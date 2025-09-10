@@ -1,0 +1,27 @@
+{{- define "variables" -}}
+{{- .Store.Set "hasTwic" true -}}
+{{- .Store.Set "hasObscure" true -}}
+{{- .Store.Set "webpageType" "CollectionPage" -}}
+{{- end -}}
+{{- define "main" -}}
+<div class="[ grid layout--spacing section--padding ]">
+  <header>
+    <h1>{{ .Title }}</h1>
+    {{ partial "breadcrumbs.html" . }}
+    {{- /* Safely pull the taxonomy plural (e.g., "industries", "categories") */ -}}
+    {{- $plural := "" -}}
+    {{- with .Data }}{{- $plural = .Plural -}}{{- end -}}
+  
+    {{- /* Map plural → singular label and content noun */ -}}
+    {{- $singular := index (dict "industries" "industry" "categories" "category") $plural | default "topic" -}}
+    {{- $noun     := index (dict "industries" "case studies" "categories" "articles") $plural | default "content" -}}
+  
+    {{- /* e.g., "Explore case studies in the Accounting industry from Clever Marketing, Ltd." */ -}}
+    {{- $desc := printf "Explore %s in the %s %s from %s" $noun .Title $singular site.Title -}}
+    <p>{{- $desc -}}</p>
+  </header>
+    {{- $paginator := .Paginate (sort .RegularPages "Date" "desc") -}}
+    {{ partial "insights/loop.html" (dict "paginator" $paginator) }}
+    {{ partial "pagination.html" . }}
+</div>
+{{ end }}

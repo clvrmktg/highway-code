@@ -1,0 +1,56 @@
+@use 'abstracts' as *
+
+// section:has(.reviews)
+//   background-color: #F7F7F7
+
+
+.text--grey
+  color: #707070
+  
+.reviews
+  grid-template-rows: 1fr max-content
+
+.review
+  grid-template-rows: subgrid
+  grid-row: span 2
+  // background-color: color('white')
+  border: em(1) solid color('clever-navy')
+  
+  > blockquote
+    grid-template-rows: subgrid
+    grid-row: span 2
+
+.reviewer
+
+  > div
+    grid-template-rows: repeat(2, max-content)
+    // outline: $bg
+
+    > *
+      line-height: 1
+      // outline: $bg
+
+  cite
+    font-style: normal
+
+.avatar
+  width: em(64)
+  height: em(64)
+  border-radius: 50%
+
+  > picture, picture > img
+    height: 100%
+    border-radius: inherit
+
+  > picture > img
+    height: inherit
+    object-fit: cover
+    opacity: 1
+
+
+.star
+  width: 1em
+
+
+.quote
+  width: 1.5em

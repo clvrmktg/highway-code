@@ -1,0 +1,27 @@
+{{ define "main" }}
+<header class="[ hero hero--doc ][ full-width content-grid ]" role="banner">
+  <div class="[ wrapper ][ py--2 ]">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="[ hero__title ][ display ]">{{ .Title }}</h1>
+    {{ with .Params.description }}
+      <p class="[ hero__lede ][ ch--60 ]">{{ . }}</p>
+    {{ end }}
+
+    <p class="[ hero__meta ][ flex middle col-gap--0.25 font--small ]">
+      <span class="[ meta__item ][ flex middle col-gap--0.5 ]">
+        <span class="[ flex middle ]" aria-hidden="true">
+          {{ readFile "static/icons/tabler/calendar.svg" | safeHTML }}
+        </span>
+        Updated: {{ .Lastmod.Format "Jan 2, 2006" }}
+      </span>
+      {{ with .ReadingTime }}
+        <span class="meta__dot">•</span>
+        <span class="meta__item">{{ . }} min read</span>
+      {{ end }}
+    </p>
+  </div>
+</header>
+<div>
+  {{ .Content }}
+</div>
+{{ end }}

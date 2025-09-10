@@ -1,0 +1,91 @@
+@use '../abstracts' as *
+/* ====== On This Page — ToC (the .section--toc block you render inline) ====== */
+
+.toc
+  background-color: color('bg-soft')
+
+.entries, .subentries
+  counter-reset: item
+
+.entry, .subentry
+  counter-increment: item
+  position: relative
+
+  &::before
+    content: counters(item, ".") ". "
+    font-variant-numeric: tabular-nums
+    color: color-mix(in srgb, var(--toc-text), #000 35%)
+    opacity: .9
+
+  &__link
+    display: inline-block
+    color: var(--toc-link)
+    line-height: 1.35
+    outline: none
+
+    +hover
+      background-color: var(--toc-link-hover-bg)
+      text-decoration: underline
+      border: var(--toc-br)
+
+    &:focus-visible
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--toc-ring), #fff 70%)
+      text-decoration: none
+
+
+.section--toc
+  --toc-bg: #f8fafa
+  --toc-br: rgba(0,124,145,.15)
+  --toc-text: #0a1e46
+  --toc-link: #0a1e46
+  --toc-link-hover-bg: rgba(20, 100, 255, .08)
+  --toc-ring: #1464ff
+
+  background: color('bg-soft')
+  border: 1px solid var(--toc-br)
+  border-radius: 12px
+  color: var(--toc-text)
+  padding: 1rem
+
+
+/* Hugo’s .TableOfContents returns <nav id="TableOfContents"><ul>… */
+.toc__nav
+
+  ul, ol, .toc__list
+    list-style: none
+    counter-reset: item
+
+  /* numbered hierarchy: 1., 1.1, 1.1.1 */
+  li
+    counter-increment: item
+    margin: .2rem 0
+    position: relative
+
+    &::before
+      content: counters(item, ".") ". "
+      font-variant-numeric: tabular-nums
+      color: color-mix(in srgb, var(--toc-text), #000 35%)
+      opacity: .9
+
+  a
+    display: inline-block
+    text-decoration: none
+    color: var(--toc-link)
+    line-height: 1.35
+    padding: .125rem .25rem
+    border-radius: 6px
+    outline: none
+    border-left: 2px solid transparent
+    border-bottom: none
+
+    +hover
+      background: var(--toc-link-hover-bg)
+      text-decoration: underline
+
+    &:focus-visible
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--toc-ring), #fff 70%)
+      text-decoration: none
+
+    &.is-active, &[aria-current="true"]
+      border-left-color: var(--toc-ring)
+      background: color-mix(in srgb, var(--toc-ring), #fff 92%)

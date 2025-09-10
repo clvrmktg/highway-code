@@ -1,0 +1,48 @@
+@use '../abstracts' as *
+
+/* ===== Hero: documentation page (no dark mode) ===== */
+/* Hero fades from the same brand to white */
+.hero--doc
+  /* brand in rgb for alpha stops */
+  --brand: #007C91
+  --brand-rgb: 0, 124, 145
+
+  /* where the solid band ends (under the navbar + a little cushion) */
+  --fade-solid: calc(var(--nav-height, 64px) + 8px)
+
+  /* how far down the fade completes */
+  --fade-end: clamp(#{em(220)}, 22vw, #{em(340)})
+
+  /* sharpen the bottom divider */
+  --hero-border: color-mix(in srgb, var(--brand), #fff 65%)
+
+  background: linear-gradient(to bottom, rgba(var(--brand-rgb), 1) 0, rgba(var(--brand-rgb), .85) calc(var(--fade-solid) + 16px), rgba(var(--brand-rgb), .45) calc(var(--fade-solid) + 96px), rgba(var(--brand-rgb), 0)   var(--fade-end)), #fff
+  .wrapper
+    border-bottom: 1px solid var(--hero-border)
+
+  /* breadcrumbs */
+  nav.breadcrumbs, .breadcrumbs
+    margin-bottom: .75rem
+    color: var(--hero-sub)
+
+    a
+      color: inherit
+      text-decoration: none
+
+      &:hover
+        text-decoration: underline
+
+  .hero__title
+    letter-spacing: -.01em
+
+  .meta__dot
+    opacity: .5
+    margin-inline: .25rem
+
+/* compact modifier (optional) */
+.hero--doc.hero--compact
+  padding-block: .9rem
+
+/* ensure ToC jumps clear the sticky nav */
+:where(h2,h3,h4,h5,h6)[id]
+  scroll-margin-top: calc(var(--nav-height, 64px) + .75rem)

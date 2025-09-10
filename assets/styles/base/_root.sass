@@ -1,0 +1,78 @@
+@use 'sass:math'
+@use '../abstracts' as *
+
+\:root
+
+  +hsl('white', #fcfcfc)
+  +hsl('black', rgb(13 17 23))
+  +hsl('black', rgb(13 17 23), 3)
+  +hsl('black', rgb(13 17 23), 5)
+
+  +hsl('grey-300', #e0e0e0)
+
+  +hsl('red-700', #d32f2f)
+
+  +hsl('brand', #007C91)
+
+  $brand-500: #007C91   // primary brand color
+  $brand-700: darken($brand-500, 12%) // deeper shade for focus rings
+  $ink: #0a1e46         // body text / ink
+  $bg-soft: lighten($brand-500, 45%)  // soft background tint
+  $border: rgba($ink, .12)
+
+  // Brand
+  +hsl('brand-500', #007C91)
+  +hsl('brand-700', darken(#007C91, 12%))
+
+  // Alphas for subtle UI (10% / 20%)
+  +hsl('brand-500', #007C91, 8)
+  +hsl('brand-500', #007C91, 2)
+
+  // Text / ink
+  +hsl('ink', #0a1e46)
+
+  // Soft background tint
+  +hsl('bg-soft', mix($brand-500, #fff, 12%))
+
+  // Border (approx. 10% ink; mixin alpha is in tenths)
+  +hsl('ink', #0a1e46, 1)
+
+  // Text grayscale (good + safe progression)
+  +hsl('ink-900', #2E2E2E)  // 1 → Headings
+  +hsl('ink-700', #4E4E4E)  // 2 → Paragraph/body
+  +hsl('ink-500', #6E6E6E)  // 3 → Labels/secondary
+
+  // Common alphas (borders, dividers, subtle UI)
+  +hsl('ink-900', #2E2E2E, 1)   // 10%
+  +hsl('ink-900', #2E2E2E, 2)   // 20%
+
+  // Optional semantic aliases for convenience
+  --text-heading: color('ink-900')
+  --text-body:    color('ink-700')
+  --text-muted:   color('ink-500')
+  --border:       color('ink-900-1')  // subtle 10% border
+  // --border: #{color('ink-1')}
+
+  --toc-bg:            #{color('bg-soft')}        /* light brand tint */
+  --toc-br:            #{color('brand-500-8')}    /* 20% brand border */
+  --toc-text:          var(--text-body)        /* ink-700 */
+  --toc-link:          var(--text-heading)     /* ink-900 */
+  --toc-link-hover-bg: #{color('brand-500-1')}    /* 10% brand hover */
+  --toc-ring:          #{color('brand-700')}      /* focus ring */
+
+  --navbar-height: #{em(80)}
+  
+  // --monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+  
+  --sans-serif: Inter, system-ui, sans-serif
+
+  $headings: (large: 5, h1: 4, h2: 3, h3: 2, h4: 1, h5: 0, h6: -1)
+
+  @each $tag, $step in $headings
+    $min-size: type-scale($step, $min-font-size, $min-scale)
+    $max-size: type-scale($step, $max-font-size, $max-scale)
+
+    // @debug "Step: #{$step}, Min Size: #{$min-size}, Max Size: #{$max-size}"
+    +clamp('--step-#{$step}', $min-size, $max-size)
+
+  interpolate-size: allow-keywords

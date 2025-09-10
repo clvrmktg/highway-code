@@ -1,0 +1,62 @@
+{{/* Usage:
+  {{< callout type="warning" title="You MUST / MUST NOT" >}}Body…{{< /callout >}}
+  Optional: icon="hand-stop" compact="true" id="must-must-not"
+*/}}
+
+{{- $type        := .Get "type" | default "info" -}}
+{{- $titleIn     := .Get "title" -}}
+{{- $iconOverride:= .Get "icon" -}}
+{{- $compact     := .Get "compact" -}}
+{{- $id          := .Get "id" -}}
+{{- $nomargin    := .Get "nomargin" -}}
+
+{{/* Base maps */}}
+{{- $iconMap := dict
+  "warning" "alert-triangle"
+  "tip"     "bulb"
+  "info"    "info-circle"
+  "law"     "gavel"
+  "do"      "circle-check"
+  "dont"    "circle-x"
+-}}
+{{- $titleMap := dict
+  "warning" "Important"
+  "tip"     "Study Tip"
+  "info"    "Note"
+  "law"     "Law"
+  "do"      "Do This"
+  "dont"    "Don't Do This"
+-}}
+
+{{/* Optional site-wide overrides: params.callout_icons.{type} */}}
+{{- $siteMap := site.Params.callout_icons | default dict -}}
+
+{{/* Resolve icon & title */}}
+{{- $iconName := $iconOverride | default (index $siteMap $type | default (index $iconMap $type)) | default "info-circle" -}}
+{{- $iconPath := printf "static/icons/tabler/%s.svg" $iconName -}}
+{{- $title    := $titleIn | default (index $titleMap $type | default "Note") -}}
+
+{{/* ARIA role: warnings announce, others are notes */}}
+{{- $ariaRole  := cond (eq $type "warning") "alert" "note" -}}
+{{- $ariaLabel := $title -}}
+
+<aside
+  class="[ callout callout--{{ $type }} ][ grid row-gap--0.5 px--1 {{ if $compact }}py--0.5 {{else}}py--1 {{ end }} r--5 {{ if not $nomargin }}mb--2 {{end}}]"
+  role="{{ $ariaRole }}"
+  aria-label="{{ $ariaLabel }}"
+  {{ with $id }}id="{{ . }}"{{ end }}
+>
+  <div class="[ callout__header ][ flex middle col-gap--0.5 ]">
+    {{- if fileExists $iconPath -}}
+      <span class="[ callout__icon ][ flex middle ]" aria-hidden="true">
+        {{ readFile $iconPath | safeHTML }}
+      </span>
+    {{- else -}}
+      <span class="callout__icon callout__icon--missing" aria-hidden="true" title="{{ $iconName }}">□</span>
+    {{- end -}}
+    <strong class="[ callout__title ]">{{ $title }}</strong>
+  </div>
+  <div class="[ callout__body ]">
+    {{ .Inner | markdownify }}
+  </div>
+</aside>

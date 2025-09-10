@@ -1,0 +1,10 @@
+@use '../abstracts' as *
+
+.pager
+  grid-template-columns: [prev-start] auto [prev-end] 1fr [next-start] auto [next-end]
+
+  &__prev
+    grid-column: prev
+
+  &__next
+    grid-column: next
