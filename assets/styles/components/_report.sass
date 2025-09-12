@@ -27,12 +27,10 @@
       visibility: hidden
 
   // Collapsible panels (usefulness details + technical report)
-  &__details,
-  &__report
-    display: grid
+  &__details, &__report
     grid-template-rows: 0  // collapsed
     overflow: hidden
-    transition: grid-template-rows .24s ease
+    +transition(grid-template-rows)
 
     &.open
       grid-template-rows: 1fr // expanded
@@ -40,6 +38,9 @@
     > .panel
       min-height: 0
       overflow: hidden
+      
+      > form
+        overflow: hidden
 
     // Non-interactive when inert
     &[inert]

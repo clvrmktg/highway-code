@@ -1,28 +1,14 @@
 <footer class="[ issue ][ full-width content-grid ]">
   <div class="[ wrapper ][ grid py--1 ]">
     <!-- BAR -->
-    <div class="[ issue__bar ][ grid ]" id="feedback-bar" role="group" aria-label="Page feedback controls"
-         aria-hidden="false">
+    <div class="[ issue__bar ][ grid ]" id="feedback-bar" role="group" aria-label="Page feedback controls" aria-hidden="false">
+      
       <div class="[ page-use ][ flex col-gap--0.5 ]">
         <p class="[ flex middle font--700 pb--0 ]">Was this page useful?</p>
 
-        <button type="button"
-                id="btn-yes"
-                class="[ btn btn--sm btn--ghost black yes ]"
-                aria-controls="usefulness-details"
-                aria-expanded="false"
-                aria-pressed="false">
-          Yes
-        </button>
+        <button type="button" id="btn-yes" class="[ btn btn--sm btn--ghost black yes ]" aria-controls="usefulness-details" aria-expanded="false" aria-pressed="false">Yes</button>
 
-        <button type="button"
-                id="btn-no"
-                class="[ btn btn--sm btn--ghost black no ]"
-                aria-controls="usefulness-details"
-                aria-expanded="false"
-                aria-pressed="false">
-          No
-        </button>
+        <button type="button" id="btn-no" class="[ btn btn--sm btn--ghost black no ]" aria-controls="usefulness-details" aria-expanded="false" aria-pressed="false">No</button>
       </div>
 
       <div class="[ report-button ]">
@@ -37,15 +23,9 @@
     </div>
 
     <!-- “No” → usefulness reasons (content issues) -->
-    <section id="usefulness-details"
-             class="[ issue__details ][ grid ]"
-             role="region"
-             aria-labelledby="btn-no"
-             aria-hidden="true"
-             inert>
+    <section id="usefulness-details" class="[ issue__details ][ grid ]" role="region" aria-labelledby="btn-no" aria-hidden="true" inert>
       <div class="panel">
-        <form class="[ x--800 grid row-gap--1 layout--padding ]"
-              method="post" action="/feedback" name="usefulness">
+        <form class="[ x--800 grid row-gap--1 layout--padding ]" method="post" action="/feedback" name="usefulness">
           <input type="hidden" name="page_url" value="{{ .Permalink }}">
           <input type="hidden" name="page_title" value="{{ .Title }}">
           <input type="hidden" name="helpful" value="no">
@@ -57,7 +37,7 @@
           </div>
 
           <fieldset>
-            <legend class="sr-only">Reason this page wasn’t helpful</legend>
+            <legend class="visually-hidden">Reason this page wasn’t helpful</legend>
 
             <label class="[ chip chip--radio ]">
               <input id="reason-missing" type="radio" name="useful_reason" value="missing" required>
@@ -81,11 +61,7 @@
           </div>
 
           <div class="[ flex end col-gap--1 ]">
-            <button type="button"
-                    class="[ btn btn--sm btn--ghost black ]"
-                    data-close="usefulness-details">
-              Cancel
-            </button>
+            <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="usefulness-details">Cancel</button>
             <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
           </div>
         </form>
@@ -93,15 +69,9 @@
     </section>
 
     <!-- Technical/site problem -->
-    <section id="report-panel"
-             class="[ issue__report ][ grid ]"
-             role="region"
-             aria-labelledby="btn-report"
-             aria-hidden="true"
-             inert>
+    <section id="report-panel" class="[ issue__report ][ grid ]" role="region" aria-labelledby="btn-report" aria-hidden="true" inert>
       <div class="panel">
-        <form class="[ issue__form ][ x--800 grid row-gap--1 layout--padding ]"
-              method="post" action="/feedback" name="tech_issue">
+        <form class="[ issue__form ][ x--800 grid row-gap--1 layout--padding ]" method="post" action="/feedback" name="tech_issue">
           <input type="hidden" name="page_url" value="{{ .Permalink }}">
           <input type="hidden" name="page_title" value="{{ .Title }}">
 
@@ -121,13 +91,10 @@
           </div>
 
           <div class="[ flex end col-gap--1 ]">
-            <button type="button"
-                    class="[ btn btn--sm btn--ghost black ]"
-                    data-close="report-panel">
-              Cancel
-            </button>
+            <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="report-panel">Cancel</button>
             <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
           </div>
+
         </form>
       </div>
     </section>
