@@ -24,86 +24,81 @@
 
     <!-- “No” → usefulness reasons (content issues) -->
     <section id="usefulness-details" class="[ issue__details ][ grid ]" role="region" aria-labelledby="btn-no" aria-hidden="true" inert>
-      <div class="panel">
-        <form class="[ x--800 grid row-gap--1 layout--padding ]" method="post" action="/feedback" name="usefulness">
-          <input type="hidden" name="page_url" value="{{ .Permalink }}">
-          <input type="hidden" name="page_title" value="{{ .Title }}">
-          <input type="hidden" name="helpful" value="no">
+      <form class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]" method="post" action="/feedback" name="usefulness">
+        <input type="hidden" name="page_url" value="{{ .Permalink }}">
+        <input type="hidden" name="page_title" value="{{ .Title }}">
+        <input type="hidden" name="helpful" value="no">
 
-          <div>
-            <h4>Help us improve Bahamas Highway Code Online</h4>
-            <p>While we aim for accuracy, some information may be missing, out of date, or incorrect. If you notice something, please report it below.</p>
-            <p class="mb--0.25">What best describes the issue?</p>
-          </div>
+        <div>
+          <h4>Help us improve Bahamas Highway Code Online</h4>
+          <p>While we aim for accuracy, some information may be missing, out of date, or incorrect. If you notice something, please report it below.</p>
+          <p>What best describes the issue?</p>
+        </div>
 
-          <fieldset>
-            <legend class="visually-hidden">Reason this page wasn’t helpful</legend>
+        <fieldset>
+          <legend class="visually-hidden">Reason this page wasn’t helpful</legend>
 
-            <label class="[ chip chip--radio ]">
-              <input id="reason-missing" type="radio" name="useful_reason" value="missing" required>
-              <span>Missing</span>
-            </label>
+          <label class="[ chip chip--radio ]">
+            <input id="reason-missing" type="radio" name="useful_reason" value="missing" required>
+            <span>Missing</span>
+          </label>
 
-            <label class="[ chip chip--radio ]">
-              <input type="radio" name="useful_reason" value="out-of-date">
-              <span>Out of date</span>
-            </label>
+          <label class="[ chip chip--radio ]">
+            <input type="radio" name="useful_reason" value="out-of-date">
+            <span>Out of date</span>
+          </label>
 
-            <label class="[ chip chip--radio ]">
-              <input type="radio" name="useful_reason" value="incorrect">
-              <span>Incorrect</span>
-            </label>
-          </fieldset>
+          <label class="[ chip chip--radio ]">
+            <input type="radio" name="useful_reason" value="incorrect">
+            <span>Incorrect</span>
+          </label>
+        </fieldset>
 
-          <div class="[ form__field ][ grid row-gap--0.5 ]">
-            <label class="[ form__label ]" for="use-action">What were you trying to do?</label>
-            <textarea class="[ form_message ]" name="action" id="use-action" rows="4"></textarea>
-          </div>
+        <div class="[ form__field ][ grid row-gap--0.5 ]">
+          <label class="[ form__label ]" for="use-action">What were you trying to do?</label>
+          <textarea class="[ form_message ]" name="action" id="use-action" rows="4"></textarea>
+        </div>
 
-          <div class="[ flex end col-gap--1 ]">
-            <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="usefulness-details">Cancel</button>
-            <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
+        <div class="[ flex end col-gap--1 ]">
+          <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="usefulness-details">Cancel</button>
+          <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
+        </div>
+      </form>
     </section>
 
     <!-- Technical/site problem -->
     <section id="report-panel" class="[ issue__report ][ grid ]" role="region" aria-labelledby="btn-report" aria-hidden="true" inert>
-      <div class="panel">
-        <form class="[ issue__form ][ x--800 grid row-gap--1 layout--padding ]" method="post" action="/feedback" name="tech_issue">
-          <input type="hidden" name="page_url" value="{{ .Permalink }}">
-          <input type="hidden" name="page_title" value="{{ .Title }}">
+      <form class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]" method="post" action="/feedback" name="tech_issue">
+        <input type="hidden" name="page_url" value="{{ .Permalink }}">
+        <input type="hidden" name="page_title" value="{{ .Title }}">
 
-          <div>
-            <h2 class="[ font--3 mb--0.25 ]">Help us improve this website</h2>
-            <p>This is for website/technical issues (broken links, layout, accessibility).</p>
-          </div>
+        <div>
+          <h2 class="[ font--3 mb--0.25 ]">Help us improve this website</h2>
+          <p>This is for website/technical issues (broken links, layout, accessibility).</p>
+        </div>
 
-          <div class="[ form__field ][ grid row-gap--0.5 ]">
-            <label class="[ form__label ]" for="tech-action">What were you trying to do?</label>
-            <textarea class="[ form_message ]" name="action" id="tech-action" rows="4" data-autofocus></textarea>
-          </div>
+        <div class="[ form__field ][ grid row-gap--0.5 ]">
+          <label class="[ form__label ]" for="tech-action">What were you trying to do?</label>
+          <textarea class="[ form_message ]" name="action" id="tech-action" rows="4" data-autofocus></textarea>
+        </div>
 
-          <div class="[ form__field ][ grid row-gap--0.5 ]">
-            <label class="[ form__label ]" for="tech-problem">What went wrong?</label>
-            <textarea class="[ form_message ]" name="problem" id="tech-problem" rows="6"></textarea>
-          </div>
+        <div class="[ form__field ][ grid row-gap--0.5 ]">
+          <label class="[ form__label ]" for="tech-problem">What went wrong?</label>
+          <textarea class="[ form_message ]" name="problem" id="tech-problem" rows="6"></textarea>
+        </div>
 
-          <div class="[ flex end col-gap--1 ]">
-            <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="report-panel">Cancel</button>
-            <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
-          </div>
+        <div class="[ flex end col-gap--1 ]">
+          <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="report-panel">Cancel</button>
+          <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
+        </div>
 
-        </form>
-      </div>
+      </form>
     </section>
   </div>
 </footer>
 
 <script>
 (function () {
-  // Allow multiple instances per page
   document.querySelectorAll('.issue').forEach(setupFeedback);
 
   function setupFeedback(root) {
@@ -111,10 +106,11 @@
     const btnYes  = root.querySelector('#btn-yes');
     const btnNo   = root.querySelector('#btn-no');
     const btnRep  = root.querySelector('#btn-report');
-    const pnlHelp = root.querySelector('#usefulness-details');
+    const pnlHelp = root.querySelector('#usefulness-details'); // may be null (commented out)
     const pnlTech = root.querySelector('#report-panel');
 
-    if (!bar || !btnYes || !btnNo || !btnRep || !pnlHelp || !pnlTech) return;
+    // Require the bar, the three buttons, and the tech panel. Help panel is optional.
+    if (!bar || !btnYes || !btnNo || !btnRep || !pnlTech) return;
 
     let lastFocus = null;
 
@@ -126,83 +122,93 @@
     function setBarCollapsed(collapsed) {
       bar.classList.toggle('collapsed', collapsed);
       bar.setAttribute('aria-hidden', collapsed ? 'true' : 'false');
-      if (collapsed) {
-        bar.setAttribute('inert', '');
-      } else {
-        bar.removeAttribute('inert');
-      }
+      if (collapsed) bar.setAttribute('inert', '');
+      else bar.removeAttribute('inert');
     }
 
     function openPanel(panel, toggleBtn) {
-      closeAll();              // ensure exclusivity
+      closeAll();
       lastFocus = toggleBtn || null;
 
       panel.classList.add('open');
       panel.setAttribute('aria-hidden', 'false');
       panel.removeAttribute('inert');
 
-      // collapse the top bar
       setBarCollapsed(true);
 
-      // toggle attributes
-      if (panel === pnlHelp) {
+      if (panel === pnlHelp && btnNo) {
         btnNo.setAttribute('aria-expanded', 'true');
         btnNo.setAttribute('aria-pressed', 'true');
-        btnYes.setAttribute('aria-pressed', 'false');
+        if (btnYes) btnYes.setAttribute('aria-pressed', 'false');
       }
       if (panel === pnlTech) {
         btnRep.setAttribute('aria-expanded', 'true');
       }
 
-      // focus first meaningful control
       const first = panel.querySelector('[autofocus], [data-autofocus], input, textarea, select, button');
       if (first) first.focus();
     }
 
     function closeAll() {
-      [pnlHelp, pnlTech].forEach((p) => {
-        p.classList.remove('open');
-        p.setAttribute('aria-hidden', 'true');
-        p.setAttribute('inert', '');
-      });
-      btnNo.setAttribute('aria-expanded', 'false');
-      btnNo.setAttribute('aria-pressed', 'false');
+      // Only touch panels that exist
+      if (pnlHelp) {
+        pnlHelp.classList.remove('open');
+        pnlHelp.setAttribute('aria-hidden', 'true');
+        pnlHelp.setAttribute('inert', '');
+      }
+      pnlTech.classList.remove('open');
+      pnlTech.setAttribute('aria-hidden', 'true');
+      pnlTech.setAttribute('inert', '');
+
+      if (btnNo) {
+        btnNo.setAttribute('aria-expanded', 'false');
+        btnNo.setAttribute('aria-pressed', 'false');
+      }
       btnRep.setAttribute('aria-expanded', 'false');
-      btnYes.setAttribute('aria-pressed', 'false');
+      if (btnYes) btnYes.setAttribute('aria-pressed', 'false');
+
       setBarCollapsed(false);
     }
 
-    // Button wiring
-    btnYes.addEventListener('click', () => {
+    // YES
+    btnYes?.addEventListener('click', () => {
       closeAll();
       btnYes.setAttribute('aria-pressed', 'true');
       fireAnalytics('page_helpfulness', { value: 'yes' });
-      // Optional: brief visual acknowledgment here if desired
       btnYes.blur();
     });
 
-    btnNo.addEventListener('click', () => {
-      // toggle behavior: if already open, close; else open
-      if (pnlHelp.classList.contains('open')) {
-        closeAll();
-        if (btnNo) btnNo.focus();
-      } else {
-        openPanel(pnlHelp, btnNo);
+    // NO (only wire if the panel exists)
+    if (pnlHelp) {
+      btnNo.addEventListener('click', () => {
+        if (pnlHelp.classList.contains('open')) {
+          closeAll();
+          btnNo.focus();
+        } else {
+          openPanel(pnlHelp, btnNo);
+          fireAnalytics('page_helpfulness', { value: 'no' });
+        }
+      });
+    } else {
+      // If there's no usefulness panel, just log the click
+      btnNo.addEventListener('click', () => {
         fireAnalytics('page_helpfulness', { value: 'no' });
-      }
-    });
+        // Optional: brief toast/ack here
+      });
+    }
 
+    // REPORT
     btnRep.addEventListener('click', () => {
       if (pnlTech.classList.contains('open')) {
         closeAll();
-        if (btnRep) btnRep.focus();
+        btnRep.focus();
       } else {
         openPanel(pnlTech, btnRep);
         fireAnalytics('problem_selected', { value: 'technical' });
       }
     });
 
-    // Cancel buttons (data-close="panelId")
+    // Cancel buttons
     root.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-close]');
       if (!btn) return;
@@ -214,10 +220,10 @@
       }
     });
 
-    // ESC closes active panel and restores focus
+    // ESC closes
     root.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        const anyOpen = pnlHelp.classList.contains('open') || pnlTech.classList.contains('open');
+        const anyOpen = (pnlHelp?.classList.contains('open')) || pnlTech.classList.contains('open');
         if (anyOpen) {
           e.stopPropagation();
           closeAll();
@@ -225,7 +231,7 @@
             lastFocus.focus();
             lastFocus = null;
           } else {
-            btnNo.focus(); // reasonable default
+            (btnNo || btnRep).focus();
           }
         }
       }

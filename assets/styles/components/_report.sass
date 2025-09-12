@@ -3,6 +3,21 @@
 .issue
   background-color: color('bg-soft')
 
+  > .wrapper
+    grid-template-rows: max-content 0fr 0fr
+    +transition(grid-template-rows)
+    
+    > *
+      min-height: 0
+
+    /* when usefulness panel is open */
+    &:has(.issue__details.open)
+      grid-template-rows: 0fr 1fr 0fr
+
+    /* when tech report panel is open */
+    &:has(.issue__report.open)           /* <-- note double underscore */
+      grid-template-rows: 0fr 0fr 1fr
+
   // Top bar (Yes/No + Report button)
   &__bar
     grid-template-rows: 1fr
@@ -28,28 +43,36 @@
 
   // Collapsible panels (usefulness details + technical report)
   &__details, &__report
-    grid-template-rows: 0  // collapsed
-    overflow: hidden
-    +transition(grid-template-rows)
+    block-size: 0                // collapse when closed
+    overflow: hidden             // fallback
+    @supports (overflow: clip)
+    overflow: clip             // stronger clip when supported
 
-    &.open
-      grid-template-rows: 1fr // expanded
+    padding-block: 0             // prevent padding from forcing height
+    margin-block: 0
+    border-block-width: 0        // same for borders
 
-    > .panel
-      min-height: 0
-      overflow: hidden
-      
-      > form
-        overflow: hidden
+    visibility: hidden           // avoid paint when closed
+    pointer-events: none         // no clicks
+    clip-path: inset(0)          // robust paint clipping
 
+    min-width: 0
+    min-height: 0
     // Non-interactive when inert
     &[inert]
       pointer-events: none
 
     // Visually hidden (still no display:none)
-    &[aria-hidden="true"]
-      visibility: hidden
-
+    // &[aria-hidden="true"]
+    //   visibility: hidden
+    //   +transition(visibility)
+    &.open
+      block-size: auto
+      padding-block: var(--panel-padding, 1rem)
+      border-block-width: initial
+      visibility: visible
+      pointer-events: auto
+      clip-path: none
   // Respect reduced motion
   @media (prefers-reduced-motion: reduce)
     &__bar,

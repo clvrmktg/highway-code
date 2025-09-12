@@ -24,6 +24,8 @@ There are three basic types of traffic sign:
 
 Each type has its own **shape and colour rules**.
 
+{{< toc >}}
+
 ---
 
 ## Shapes and Meanings
