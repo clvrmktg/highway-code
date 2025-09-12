@@ -1,0 +1,57 @@
+@use '../abstracts' as *
+
+.issue
+  background-color: color('bg-soft')
+
+  // Top bar (Yes/No + Report button)
+  &__bar
+    grid-template-rows: 1fr
+    +transition((grid-template-rows, opacity))
+
+    +breakpoint(tablet)
+      grid-template-columns: [use-start] auto [use-end] 1fr [report-start] auto [report-end]
+      .page-use
+        grid-column: use
+      .report-button
+        grid-column: report
+
+    &.collapsed
+      grid-template-rows: 0
+      opacity: 0
+
+    > .bar-inner
+      min-height: 0         // lets the single track actually collapse
+      overflow: hidden
+
+    &[aria-hidden="true"]
+      visibility: hidden
+
+  // Collapsible panels (usefulness details + technical report)
+  &__details,
+  &__report
+    display: grid
+    grid-template-rows: 0  // collapsed
+    overflow: hidden
+    transition: grid-template-rows .24s ease
+
+    &.open
+      grid-template-rows: 1fr // expanded
+
+    > .panel
+      min-height: 0
+      overflow: hidden
+
+    // Non-interactive when inert
+    &[inert]
+      pointer-events: none
+
+    // Visually hidden (still no display:none)
+    &[aria-hidden="true"]
+      visibility: hidden
+
+  // Respect reduced motion
+  @media (prefers-reduced-motion: reduce)
+    &__bar,
+    &__details,
+    &__report
+      transition: none

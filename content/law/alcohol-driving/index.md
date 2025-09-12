@@ -3,7 +3,7 @@ title = "Alcohol & Driving"
 type = "emergencies"                 # layouts/law/*
 summary = "Legal alcohol limits and the consequences of driving under the influence."
 description = "Learn the laws on alcohol and driving in The Bahamas, including legal limits, how alcohol affects drivers, and the penalties for driving under the influence."
-icon = "wine"                # Tabler icon suggestion
+icon = "glass-full"                # Tabler icon suggestion
 weight = 80
 tags = ["law", "compliance", "alcohol", "dui"]
 

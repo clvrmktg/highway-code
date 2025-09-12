@@ -3,7 +3,7 @@ title = "Insurance & Documents"
 type = "emergencies"                 # layouts/law/*
 summary = "Documents you must carry and the legal rules on vehicle insurance in The Bahamas."
 description = "Learn what insurance and documents drivers must carry in The Bahamas, the minimum terms for policies, when they can be cancelled, and the penalties for failing to comply."
-icon = "id-card"
+icon = "files"
 weight = 30
 tags = ["law", "compliance", "insurance", "documents"]
 

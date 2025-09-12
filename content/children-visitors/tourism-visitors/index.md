@@ -2,9 +2,8 @@
 type="emergencies"
 title = "Tourism & Visitors"
 description = "Driving in The Bahamas as a visitor — licences, insurance, rental cars, roundabouts, and what documents to carry."
+icon = "plane"
 weight = 2
-
-[[toc]]
 
 # FAQs
 [[faqs.items]]
@@ -41,9 +40,11 @@ draft = false
 
 +++
 
-# Tourism & Visitors
+## Tourism & Visitors
 
 Visiting The Bahamas and planning to drive? This page explains the essentials—what licence you can use, insurance expectations (including rentals), how to handle roundabouts, and the documents you must carry.
+
+{{< toc >}}
 
 ---
 

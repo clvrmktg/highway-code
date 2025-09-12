@@ -1,62 +1,74 @@
+{{- /* Sidebar: root + its children always visible; expand only active child; only exact page is current */ -}}
 {{- $p := .Page -}}
-{{- $root := cond (and $p.CurrentSection (ne $p.Kind "section")) $p.CurrentSection $p -}}
-{{- if not $root.IsSection }}{{ $root = $p.Site.GetPage (printf "/%s" $p.Section) }}{{ end }}
+{{- $root := $p.Site.GetPage (printf "/%s" $p.Section) -}}
+{{- if not $root }}{{ if and $p.IsSection (ne $p.Section "") }}{{ $root = $p }}{{ end }}{{ end }}
 
-<nav class="[ sidebar__navigation ][ p--1 ]" aria-label="{{ if $root }}{{ $root.Title }}{{ else }}Section{{ end }}">
-  <ul class="[ sidebar__navigation__menu ][ grid row-gap--0.25 ]" role="list">
-    {{ if $root }}
-    {{/* mark the parent (root) as current when we\'re on the parent page */}}
-    {{- $isRootCurrent := eq $root.Permalink $p.Permalink -}}
-    <li class="[ sidebar__navigation__item {{ if $isRootCurrent }}current{{ end }} ]">
-      <a class="[ sidebar__navigation__link ]"
-         href="{{ $root.RelPermalink }}"
-         {{ if $isRootCurrent }}aria-current="page"{{ end }}
-         data-prefetch>
-        {{ $root.Title }}
-      </a>
-    </li>
-
-    {{/* children = sections + regular pages (no root), non-drafts */}}
-    {{- $children := where (union $root.Sections $root.RegularPages) "Params.draft" "ne" true -}}
-
-    {{/* de-dupe by permalink */}}
-    {{- $seen := dict -}}
-    {{- $list := slice -}}
-    {{- range $children.ByWeight -}}
-      {{- $perm := .Permalink -}}
-      {{- if not (isset $seen $perm) -}}
-        {{- $list = $list | append . -}}
-        {{- $seen = merge $seen (dict $perm true) -}}
-      {{- end -}}
+{{- define "render-icon" -}}
+  {{- $name := . -}}
+  {{- if $name -}}
+    {{- $path := printf "static/icons/tabler/%s.svg" $name -}}
+    {{- if fileExists $path -}}
+      <span class="[ icon-wrap ][ flex middle ]" aria-hidden="true">{{ readFile $path | safeHTML }}</span>
     {{- end -}}
+  {{- end -}}
+{{- end -}}
 
-    
-      {{ range $list }}
-        {{- $isCurrent := eq .Permalink $p.Permalink -}}
-        <li class="[ sidebar__navigation__item {{ if $isCurrent }}current{{ end }} ]" role="listitem">
-          <a class="[ sidebar__navigation__link ]" href="{{ .RelPermalink }}" {{ if $isCurrent }}aria-current="page"{{ end }} data-prefetch>
-            {{ .Title }}
+<nav class="[ sidebar__navigation ][ p--1 r--5 ]"
+     aria-label="{{ if $root }}{{ $root.Title }}{{ else }}Section{{ end }}">
+  <ul class="[ sidebar__navigation__menu ][ grid row-gap--0.5 ]" role="list">
+    {{- if $root -}}
+      {{- /* Root link */ -}}
+      {{- $isRootCurrent := eq $root.Permalink $p.Permalink -}}
+      <li class="[ sidebar__navigation__item ]" role="listitem">
+        <a class="[ sidebar__navigation__link ][ flex middle col-gap--0.5 px--0.5 py--0.25 r--5 {{ if $isRootCurrent }}current{{ end }} ]"
+           href="{{ $root.RelPermalink }}"
+           {{ if $isRootCurrent }}aria-current="page"{{ end }}
+           data-prefetch>
+          {{ template "render-icon" $root.Params.icon }}
+          <span class="label">{{ $root.Title }}</span>
+        </a>
+      </li>
+
+      {{- /* Root\'s direct children (always visible) */ -}}
+      {{- $children := where (union $root.Sections $root.RegularPages) "Params.draft" "ne" true -}}
+      {{- range $child := $children.ByWeight -}}
+        {{- $isChildCurrent := eq $child.Permalink $p.Permalink -}}
+        {{- $isAncestor := hasPrefix $p.RelPermalink $child.RelPermalink -}}
+        {{- $isOpen := and (not $isChildCurrent) $isAncestor -}} {{/* open when ancestor but not current */}}
+
+        <li class="[ sidebar__navigation__item {{ if $isOpen }}open{{ end }} ]"
+            role="listitem"
+            aria-expanded="{{ if $isOpen }}true{{ else }}false{{ end }}">
+          <a class="[ sidebar__navigation__link ][ flex middle col-gap--0.5 px--0.5 py--0.25 r--5 {{ if $isChildCurrent }}current{{ end }} ]"
+             href="{{ $child.RelPermalink }}"
+             {{ if $isChildCurrent }}aria-current="page"{{ end }}
+             data-prefetch>
+            {{ template "render-icon" $child.Params.icon }}
+            <span class="label">{{ $child.Title }}</span>
           </a>
 
-          {{/* if this item is a section, show its children when ancestor/current */}}
-          {{ if .IsSection }}
-            {{- $kids := where (union .Sections .RegularPages) "Params.draft" "ne" true -}}
-            {{- $isAncestor := or (hasPrefix $p.RelPermalink .RelPermalink) (eq .Permalink $p.Permalink) -}}
-            {{ if gt (len $kids) 0 }}
-              <ul class="[ sidebar__navigation__submenu ]" role="list" {{ if not $isAncestor }}hidden{{ end }}>
-                {{ range $kids.ByWeight.ByTitle }}
-                  {{- $isChildCurrent := eq .Permalink $p.Permalink -}}
-                  <li class="[ sidebar__navigation__subitem {{ if $isChildCurrent }}current{{ end }} ]" role="listitem">
-                    <a class="[ sidebar__navigation__sublink ]" href="{{ .RelPermalink }}" {{ if $isChildCurrent }}aria-current="page"{{ end }} data-prefetch>
-                      {{ .Title }}
+          {{- /* Only expand grandchildren for the open (ancestor) child OR when the child itself is the current page */ -}}
+          {{- if and $child.IsSection (or $isOpen $isChildCurrent) -}}
+            {{- $grand := where (union $child.Sections $child.RegularPages) "Params.draft" "ne" true -}}
+            {{- if gt (len $grand) 0 -}}
+              <ul class="[ sidebar__navigation__submenu ][ pt--0.5 ]" role="list">
+                {{- range $g := $grand.ByWeight -}}
+                  {{- $isGrandCurrent := eq $g.Permalink $p.Permalink -}}
+                  <li class="[ sidebar__navigation__subitem ][ pl--2 ]" role="listitem">
+                    <a class="[ sidebar__navigation__sublink ][ flex middle col-gap--0.5 px--0.5 py--0.25 r--5 {{ if $isGrandCurrent }}current{{ end }} ]"
+                       href="{{ $g.RelPermalink }}"
+                       {{ if $isGrandCurrent }}aria-current="page"{{ end }}
+                       data-prefetch>
+                      {{ template "render-icon" $g.Params.icon }}
+                      <span class="label">{{ $g.Title }}</span>
                     </a>
                   </li>
-                {{ end }}
+                {{- end -}}
               </ul>
-            {{ end }}
-          {{ end }}
+            {{- end -}}
+          {{- end -}}
         </li>
-      {{ end }}
-    </ul>
-  {{ end }}
+      {{- end -}}
+    {{- end -}}
+  </ul>
 </nav>

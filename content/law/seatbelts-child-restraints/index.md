@@ -3,7 +3,7 @@ title = "Seatbelts & Child Restraints"
 type = "emergencies"           # layouts/emergency/*
 summary = "Who must wear a seatbelt and when child restraints are required."
 description = "Learn the laws on seatbelts and child restraints in The Bahamas, including who must wear them, child safety requirements, and penalties for non-compliance."
-icon = "seatbelt"
+icon = "shield"
 weight = 50
 tags = ["law", "compliance", "safety"]
 

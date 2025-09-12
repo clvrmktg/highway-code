@@ -3,7 +3,7 @@ title = "Reversing"
 type = "emergencies"           # layouts/emergency/*
 summary = "How and where you may reverse safely."
 description = "Learn the rules for reversing in The Bahamas, including legal limits, safe practice, and when reversing is prohibited."
-icon = "rotate-ccw"
+icon = "rotate"
 weight = 80
 tags = ["rules", "reversing", "exam"]
 

@@ -3,7 +3,7 @@ title = "Licensing & Tests"
 type = "law"                 # layouts/law/*
 summary = "Steps to obtain a driver's licence, from learner's permit to full licence."
 description = "Learn the legal requirements for licensing in The Bahamas, including minimum age, provisional permits, the knowledge exam, and the road test for obtaining a full driver's licence."
-icon = "id-card"             # Tabler icon suggestion for licensing
+icon = "id"             # Tabler icon suggestion for licensing
 weight = 10
 tags = ["law", "compliance", "licensing", "tests"]
 

@@ -3,7 +3,7 @@ title = "Special Licences"
 type = "law"                 # layouts/law/*
 summary = "Public service, commercial, and international driver's licences in The Bahamas."
 description = "Learn about special categories of licences in The Bahamas, including public service licences for taxi and omnibus drivers, commercial licences for heavy vehicles, and international licences for driving abroad."
-icon = "briefcase"            # Tabler icon suggestion
+icon = "id-badge"            # Tabler icon suggestion
 weight = 20
 tags = ["law", "compliance"]
 

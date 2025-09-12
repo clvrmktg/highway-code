@@ -63,92 +63,30 @@ $inline: 2em
   
   &--primary, &--download
     color: color('white')
-    background-color: color('clever-blue')
+    background-color: color('brand-500')
     position: relative
-
-    &::before
-      content: ''
-      width: 0
-      height: 100%
-      background-color: color('clever-blue-dark')
-      border-radius: inherit
-      position: absolute
-      top: 0
-      left: 100%
-      z-index: 1
-      +transition((width, left))
+    +transition('background-color')
 
     +hover
+      background-color: color('brand-700')
 
-      &::before
-        width: 100%
-        left: 0
-        +transition(width)
-
-  &--cta
-    color: color('clever-navy')
-    background-color: color('clever-cta')
-    position: relative
-
-    &::before
-      content: ''
-      width: 0
-      height: 100%
-      background-color: color('clever-cta-dark')
-      border-radius: inherit
-      position: absolute
-      top: 0
-      left: 100%
-      z-index: 1
-      +transition((width, left))
-
-    +hover
-
-      &::before
-        width: 100%
-        left: 0
-        +transition(width)
 
   &--ghost
-    --button-color: #{color('clever-blue-light')}
+    --button-color: #{color('brand-500')}
     color: var(--button-color)
     border: $border solid var(--button-color)
     position: relative
-    +transition((color, border))
-
-    &::before
-      content: ''
-      width: 0
-      height: 100%
-      background-color: var(--button-color)
-      position: absolute
-      top: 0
-      left: 100%
-      z-index: 1
-      +transition((width, left))
+    +transition((color, background-color))
 
     +hover
       color: color('white')
+      background-color: var(--button-color)
 
-      &::before
-        width: 100%
-        left: 0
-        +transition(width)  
-  
+    &.white
+      --button-color: #{color('white')}
 
-  &__text
-    position: relative
-    z-index: 2
-
-    svg
-      width: 0.65em
-      fill: currentColor
-
-  &--download .btn__text
-
-    svg
-      width: 1em
-
+    &.black
+      --button-color: #{color('black')}
       
 .ghost--white
   color: color('white')

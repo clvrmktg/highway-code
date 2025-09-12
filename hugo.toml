@@ -68,7 +68,7 @@ term     = ["HTML"]      # no /<taxonomy>/<term>/index.xml
 [[menu.main]]
   identifier = "signs"
   name = "Signs"
-  url = "/signs/"
+  url = "/signs-markings-signals/"
   weight = 2
 
 [[menu.main]]

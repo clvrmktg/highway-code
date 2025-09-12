@@ -2,8 +2,7 @@
 /* ====== Sidebar behaviors ====== */
 
 .sidebar
-  position: relative
-  overflow: visible
+  grid-template-rows: 1fr auto
 //   outline: $bg
 
 $min: $min-font-size * 3
@@ -22,47 +21,32 @@ $brand-500: #007C91   // primary brand color
 $brand-700: darken($brand-500, 12%) // deeper shade for focus rings
 $ink: #0a1e46         // body text / ink
 $bg-soft: lighten($brand-500, 45%)  // soft background tint
-$border: var(--border)
+$border: color-mix(in srgb, var(--brand), #fff 65%)
 
 // Sidebar nav
 .sidebar__navigation
   border: 1px solid $border
-  border-radius: 12px
-  background: #fff
   box-shadow: 0 1px 0 rgba(10,30,70,.05)
 
-  &__menu
-    list-style: none
-    margin: 0
-    padding: 0
-    display: grid
-    row-gap: .25rem
-
-  &__item
-    // default state
-    &.current .sidebar__navigation__link
-      background: color('bg-soft')
+  &__link, &__sublink
+    
+    &.current
+      background-color: color('bg-soft')
       box-shadow: inset 0 0 0 2px mix($brand-500, transparent, 35%)
       font-weight: 700
 
-  &__link
-    display: block
-    padding: .5rem .625rem
-    border-radius: 10px
+  &__link, &__sublink
     text-decoration: none
     color: $ink
-    line-height: 1.25
-    transition: background .15s ease, box-shadow .15s ease
-    outline: 0
+    +transition((background-color, box-shadow))
 
-    &:hover
+    +hover
       background-color: #D1ECEF // soft teal tint
       color: #0A1E46
 
     &:focus-visible
-      outline: 3px solid mix($brand-700, transparent, 70%)
+      outline: em(3) solid mix($brand-700, transparent, 70%)
       outline-offset: 2px
-      border-radius: 8px
 
 // Utilities
 .visually-hidden
@@ -86,19 +70,4 @@ $border: var(--border)
   clip: auto
   white-space: inherit
 
-// Responsive
-@media (max-width: 960px)
-  aside[aria-labelledby="section-nav-title"]
-    position: static
-  .sidebar__navigation
-    padding: .75rem
 
-
-// tr
-//   display: grid
-//   grid-template-columns: 30% 1fr max-content
-//   column-gap: 1em
-//   padding:
-//     top: 0.5em
-//     bottom: 0.5em
-//   border-bottom: em(2) solid color('grey-300')

@@ -1,6 +1,6 @@
 +++
 title = "Emergencies"
-type = "emergency"           # layouts/emergency/*
+type = "emergencies"           # layouts/emergency/*
 summary = "What to do when things go wrong on the road."
 description = "Calm, step-by-step guidance for breakdowns, crashes, fires, floods, and first aid situations in The Bahamas."
 icon = "alert-triangle"
@@ -24,8 +24,9 @@ From a flat tire to a serious collision, how you respond in those first few minu
 {{< /callout >}}
 
 ---
+## Be Prepared For Emergencies
 
-{{< checklist title="Be Prepared For Emergencies" >}}
+{{< checklist >}}
 - Know how to pull over safely and use hazard lights.  
 - Carry a basic first-aid kit, reflective vest, and warning triangle.  
 - Save important numbers: police (919), ambulance (919), hospitals, tow services.  
@@ -44,7 +45,7 @@ In this section you’ll learn:
 
 ---
 
-{{< callout type="law" title="Legal Notice" >}}
+{{< callout type="warning" title="Legal Reminder" >}}
 The law requires drivers to **stop and give information** if involved in an accident.  
 Failing to do so is a serious offence under the *Road Traffic Act*.  
 {{< /callout >}}

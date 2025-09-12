@@ -26,13 +26,17 @@
   </div>
 </header>
 <div class="[ grid layout--sidebar--left col-gap--4 layout--padding layout--spacing ]">
-  <div class="[ sidebar ]">
-    <div class="[ isSticky flex flex--column row-gap--2 ]">
-      <aside aria-labelledby="section-nav-title">
-        <h2 id="section-nav-title" class="visually-hidden">In This Section</h2>
-        {{ partial "section/sidebar-nav.html" (dict "Page" $p) }}
-      </aside>
-
+  <div class="[ sidebar ][ grid row-gap--2 ]">
+    <div>
+      <div class="[ isSticky flex flex--column row-gap--2 ]">
+        <aside aria-labelledby="section-nav-title">
+          <h2 id="section-nav-title" class="visually-hidden">In This Section</h2>
+          {{ partial "section/sidebar-nav.html" (dict "Page" $p) }}
+        </aside>
+      </div>
+    </div>
+    <div>
+      <a href="#navbar">↑ Back to top</a>
     </div>
   </div>
 
