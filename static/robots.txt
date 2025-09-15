@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+# Algolia verification
+# applicationId: XIVQ2UYD9Y
