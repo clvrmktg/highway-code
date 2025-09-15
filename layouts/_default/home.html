@@ -33,16 +33,18 @@
           {{ $kids := union $section.Sections $section.RegularPages }}
           {{ $kids = where $kids "Draft" "ne" true }}
           {{ if gt (len $kids) 0 }}
-            <ul class="[ grid md:col--2 lg:col--3 gap--2 ]">
+            <ul class="[ guides ][ grid md:col--2 lg:col--3 gap--2 ]">
               {{ range $kids.ByWeight }}
-                <li>
-                  <a href="{{ .RelPermalink }}" data-prefetch>
+                <li class="[ guide ][ grid ]">
+                  <a class="[ guide__link ][ grid px--1 py--2 r--5 row-gap--1 text--center ]" href="{{ .RelPermalink }}" data-prefetch>
                     {{ with .Params.icon }}
-                      <span class="icon" aria-hidden="true">
+                    <div class="[ flex center ]">
+                      <span class="[ guide__icon ][ flex middle p--1 r--5 ]" aria-hidden="true">
                         {{ readFile (printf "static/icons/tabler/%s.svg" .) | safeHTML }}
                       </span>
+                    </div>
                     {{ end }}
-                    <h3>{{ .LinkTitle }}</h3>
+                    <h3 class="[ font--4 ]">{{ .LinkTitle }}</h3>
       
                     {{/* Child summary: prefer params.summary, then .Summary */}}
                     {{ with .Params.summary }}
