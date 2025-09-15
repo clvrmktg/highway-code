@@ -12,7 +12,7 @@
       {{/* Get the section page behind this menu item */}}
       {{ $section := .Page }}
       {{ if not $section }}
-        {{/* Fallback: resolve by URL if .Page wasn’t bound */}}
+        {{/* Fallback: resolve by URL if .Page wasn\'t bound */}}
         {{ $section = site.GetPage .URL }}
       {{ end }}
     
