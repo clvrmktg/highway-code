@@ -62,17 +62,15 @@
     {{ partial "script.html" (dict "path" "scripts/components/notice.js" "targetPath" "scripts/notice.js") }}
     {{ partial "analytics/mpixel.html" . }}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css">
-    <script src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
-
-    <script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
+    <script type="text/javascript">
       algoliasearchNetlify({
-        appId:    "6243BLB7JI",
-        apiKey:   "334d8d51895c249d5de1b668a77e3c63",   // search-only key, safe for frontend
-        siteId:   "ef671c8a-75b3-40bb-aca3-e68ed1ea9214",  // from your Netlify dashboard
-        branch:   "main",                  // or the branch you deployed
-        selector: "div#search",
-        placeholder: "Search the Highway Code…",
+        appId: 'XIVQ2UYD9Y',
+        apiKey: '<YOUR_ALGOLIA_SEARCH_API_KEY>',
+        siteId: 'ef671c8a-75b3-40bb-aca3-e68ed1ea9214',
+        branch: 'main',
+        selector: 'div#search',
         hitsPerPage: 5
       });
     </script>
