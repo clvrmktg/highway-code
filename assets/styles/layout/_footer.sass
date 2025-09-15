@@ -11,12 +11,15 @@
 //   box-shadow: 0.5em 0.5em em(18) 0 rgba(0,0,0,0.3)
 //   transform: rotateZ(3deg)
 
+$min: $min-font-size * 2
+$max: $max-font-size * 3
+  
 .footer
-  background-color: #2d2d2d
+  background-color: color('bg-soft')
+  border-top: em(4) solid color('brand-500')
 
-  +breakpoint(desktop)
-    .wrapper
-      grid-template-columns: minmax(#{em(280)},1fr) repeat(3, max-content)
+  > .wrapper
+    +clamp(padding-block, $min, $max)
 
   a:not(.logo)
     color: inherit    
@@ -32,18 +35,13 @@
     > svg
       fill: color('white')
 
-  // +breakpoint(desktop)
-  //   .explore
-  //     grid-template-columns: repeat(3, max-content)
-
-
 .slogan
   grid-template-rows: min-content min-content 1fr
 
 .copy
-  background-color: #252525
-
-
+  > hr
+    width: 100%
+    
 .footer h3, .cookie-banner h2
 
   &::before, &::after

@@ -5,4 +5,61 @@
 {{- define "main" -}}
   {{ partial "hero.html" . }}
 
+  
+  <div class="[ grid layout--padding layout--spacing ]">
+    {{/* Loop top-level items in main menu */}}
+    {{ range site.Menus.main }}
+      {{/* Get the section page behind this menu item */}}
+      {{ $section := .Page }}
+      {{ if not $section }}
+        {{/* Fallback: resolve by URL if .Page wasn’t bound */}}
+        {{ $section = site.GetPage .URL }}
+      {{ end }}
+    
+      {{ if $section }}
+        <section class="[ grid layout--spacing ]" aria-label="{{ $section.Title | urlize }}">
+          <div>
+            <h2 id="{{ $section.Title | urlize }}">{{ $section.Title }}</h2>
+    
+            {{/* Section summary: prefer front matter summary, then .Summary */}}
+            {{ with $section.Params.summary }}
+              <p class="[ ch--35 ]">{{ . }}</p>
+            {{ else }}
+              {{ with $section.Summary }}<p>{{ . }}</p>{{ end }}
+            {{ end }}
+          </div>
+    
+          {{/* Children = subsections + regular pages; filter drafts */}}
+          {{ $kids := union $section.Sections $section.RegularPages }}
+          {{ $kids = where $kids "Draft" "ne" true }}
+          {{ if gt (len $kids) 0 }}
+            <ul class="[ grid md:col--2 lg:col--3 gap--2 ]">
+              {{ range $kids.ByWeight }}
+                <li>
+                  <a href="{{ .RelPermalink }}" data-prefetch>
+                    {{ with .Params.icon }}
+                      <span class="icon" aria-hidden="true">
+                        {{ readFile (printf "static/icons/tabler/%s.svg" .) | safeHTML }}
+                      </span>
+                    {{ end }}
+                    <h3>{{ .LinkTitle }}</h3>
+      
+                    {{/* Child summary: prefer params.summary, then .Summary */}}
+                    {{ with .Params.summary }}
+                      <p>{{ . }}</p>
+                    {{ else }}
+                      {{ with .Summary }}<p>{{ . }}</p>{{ end }}
+                    {{ end }}
+                  </a>
+                </li>
+              {{ end }}
+            </ul>
+          {{ end }}
+        </section>
+      {{ end }}
+    {{ end }}
+  </div>
+  
+
+
 {{- end -}}

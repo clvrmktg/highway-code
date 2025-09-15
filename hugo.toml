@@ -99,16 +99,16 @@ term     = ["HTML"]      # no /<taxonomy>/<term>/index.xml
 # -------------------------------------------------
 
 [[menu.policies]]
+  identifier = "disclaimer"
+  name = "Disclaimer"
+  url = "/disclaimer/"
+  weight = 1
+
+[[menu.policies]]
   identifier = "privacy-policy"
   name = "Privacy Policy"
   url = "/privacy-policy/"
-  weight = 1
-
-# [[menu.policies]]
-#   identifier = "terms-service"
-#   name = "Terms of Service"
-#   url = "/terms-service/"
-#   weight = 2
+  weight = 2
 
 [[menu.policies]]
   identifier = "cookie-policy"

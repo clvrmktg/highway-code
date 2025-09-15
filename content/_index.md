@@ -3,16 +3,12 @@ date = 2024-11-25T07:05:00-04:00
 draft = false
 
 # Page Description
-description = "Clever designs and develops fast, secure, SEO-friendly websites for Bahamian businesses — helping you get online, reach more customers, and focus on what matters most."
+description = "An accessible guide to safe driving, licensing, and traffic rules in The Bahamas. Simple, reliable, and easy to understand for all road users."
 
 # Hero
-title = 'Bahamas Road Traffic Laws & Highway Code'
-subtitle = "Your guide to safe driving, licensing, and traffic rules in The Bahamas."
+title = 'Bahamas Highway Code'
+summary = "Simple, reliable guidance on safe driving, licensing, and traffic rules in The Bahamas — easier to study, easier to use, and accessible to all."
 
-
-[hero]
-path = "young-black-woman-blue-hoodie-pointing.jpg"
-alt = "Young Black woman working on a laptop at a colorful café in The Bahamas, sipping coffee and smiling"
 
 
 [snapshot]

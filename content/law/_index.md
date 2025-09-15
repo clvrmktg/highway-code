@@ -1,7 +1,7 @@
 +++
 title = "Laws of the Road"
 type = "emergencies"                 # layouts/law/*
-# summary = "One-line summary of the legal topic."
+summary = "The main road laws in The Bahamas — from licences and tests to offences, penalties, and alcohol limits."
 description = "Understand the key laws of the road in The Bahamas — licensing, tests, offences, penalties, and alcohol regulations."
 icon = "scale"               # Tabler icon
 weight = 10

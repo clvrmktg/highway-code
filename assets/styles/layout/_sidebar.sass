@@ -52,13 +52,16 @@ $border: color-mix(in srgb, var(--brand), #fff 65%)
 .visually-hidden
   position: absolute !important
   width: 1px
-  height: 1px
-  padding: 0
+  height: 0
   margin: -1px
-  overflow: hidden
-  clip: rect(0 0 0 0)
-  white-space: nowrap
+  padding: 0
   border: 0
+  overflow: hidden
+  oberflow: clip
+  clip: rect(0 0 0 0)
+  clip-path: inset(50%)
+  white-space: nowrap
+
 
 .visually-hidden-focusable:active,
 .visually-hidden-focusable:focus

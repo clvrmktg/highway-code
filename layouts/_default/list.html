@@ -3,10 +3,10 @@
 {{ .Store.Set "noPadding" true }}
 {{ end }}
 {{ define "main" }}
-<article class="[ x--800 grid layout--spacing section--padding ]">
+<article class="[ x--800 grid layout--spacing layout--padding ]">
   <header>
-    <h1 class="[ pb--0 ]">{{ .Title }}</h1>
     {{ partial "breadcrumbs.html" . }}
+    <h1 class="[ pb--0 ]">{{ .Title }}</h1>
   </header>
   <div class="[ longform ]">
     {{ .Content }}

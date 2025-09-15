@@ -1,12 +1,11 @@
 {{ if .IsHome -}}
 <header class="[ hero hero--doc ][ full-width content-grid ]" role="banner">
-  <div class="[ wrapper ][ py--2 ]">
-    <h1 class="[ hero__title ][ display ]">{{ .Title }}</h1>
-    {{ with .Params.description }}
+  <div class="[ wrapper ][ layout--padding ]">
+    <h1 class="[ hero__title ][ display ch--35 ]">{{ .Title }}</h1>
+    {{ with .Params.Summary }}
       <p class="[ hero__lede ][ ch--60 ]">{{ . }}</p>
     {{ end }}
-
-
+    <a class="[ btn btn--lg btn--primary ]" href="/rules/" data-prefetch>Start Learning</a>
   </div>
 </header>
 {{- else -}}

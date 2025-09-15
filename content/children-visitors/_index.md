@@ -2,6 +2,7 @@
 
 type = "emergencies"
 title = "Children & Visitors"
+summary = "Special road safety rules for children and visitors in The Bahamas — from learning the Highway Code early to knowing the rules for driving on a foreign licence."
 description = "Special road safety rules for children and visitors in The Bahamas — from learning the Highway Code at an early age to knowing what visitors must do when driving."
 icon = "users"
 weight = 1

@@ -25,8 +25,10 @@
 
     +breakpoint(tablet)
       grid-template-columns: [use-start] auto [use-end] 1fr [report-start] auto [report-end]
+
       .page-use
         grid-column: use
+
       .report-button
         grid-column: report
 
@@ -44,15 +46,14 @@
   // Collapsible panels (usefulness details + technical report)
   &__details, &__report
     block-size: 0                // collapse when closed
-    overflow: hidden             // fallback
+    overflow: hidden            // fallback
     @supports (overflow: clip)
-    overflow: clip             // stronger clip when supported
-
+      overflow: clip             // stronger clip when supported
     padding-block: 0             // prevent padding from forcing height
     margin-block: 0
     border-block-width: 0        // same for borders
 
-    visibility: hidden           // avoid paint when closed
+    // visibility: hidden           // avoid paint when closed
     pointer-events: none         // no clicks
     clip-path: inset(0)          // robust paint clipping
 
@@ -63,9 +64,10 @@
       pointer-events: none
 
     // Visually hidden (still no display:none)
-    // &[aria-hidden="true"]
-    //   visibility: hidden
-    //   +transition(visibility)
+    &[aria-hidden="true"]
+      visibility: hidden
+      +transition(visibility)
+      
     &.open
       block-size: auto
       padding-block: var(--panel-padding, 1rem)

@@ -1,6 +1,8 @@
 +++
 type="emergencies"
 title = "Tourism & Visitors"
+summary = "Key road rules for visitors driving in The Bahamas — licences, insurance, rentals, and required documents."
+
 description = "Driving in The Bahamas as a visitor — licences, insurance, rental cars, roundabouts, and what documents to carry."
 icon = "plane"
 weight = 2

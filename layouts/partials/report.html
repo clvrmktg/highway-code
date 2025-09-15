@@ -28,15 +28,15 @@
         <input type="hidden" name="page_url" value="{{ .Permalink }}">
         <input type="hidden" name="page_title" value="{{ .Title }}">
         <input type="hidden" name="helpful" value="no">
+        
+          <div>
+            <h4>Help us improve Bahamas Highway Code Online</h4>
+            <p>While we aim for accuracy, some information may be missing, out of date, or incorrect. If you notice something, please report it below.</p>
+            <p>What best describes the issue?</p>
+          </div>
 
-        <div>
-          <h4>Help us improve Bahamas Highway Code Online</h4>
-          <p>While we aim for accuracy, some information may be missing, out of date, or incorrect. If you notice something, please report it below.</p>
-          <p>What best describes the issue?</p>
-        </div>
-
-        <fieldset>
-          <legend class="visually-hidden">Reason this page wasn’t helpful</legend>
+        <fieldset class="[ flex col-gap--1 ]">
+          <legend class="visually-hidden">Reason this page wasn't helpful</legend>
 
           <label class="[ chip chip--radio ]">
             <input id="reason-missing" type="radio" name="useful_reason" value="missing" required>

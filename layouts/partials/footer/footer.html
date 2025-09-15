@@ -1,7 +1,41 @@
-<footer id="site-footer" class="[ footer ][ white ]">
+<footer id="site-footer" class="[ footer ][ full-width content-grid ]">
 
-  <div class="[ copy ][ content-grid py--2 ]">
-    <div class="[ flex flex--column lg:flex--row lg:between lg:middle gap--2 ]">
+  <div class="[ wrapper ]">
+    <div class="[ grid md:col--2 lg:col--5  ]">
+      {{ range site.Menus.main }}
+        {{ $section := .Page }}
+        {{ if not $section }}
+          {{ $section = site.GetPage .URL }}
+        {{ end }}
+
+        {{ if and $section $section.IsSection }}
+          <nav class="footer-nav__block" aria-labelledby="footer-{{ $section.Title | urlize }}">
+            <h3 id="footer-{{ $section.Title | urlize }}" class="[ font--5 ]">
+              <a href="{{ $section.RelPermalink }}" data-prefetch>{{ $section.LinkTitle | default $section.Title }}</a>
+            </h3>
+
+            {{/* Collect children: subsections + regular pages, skip drafts */}}
+            {{ $kids := union $section.Sections $section.RegularPages }}
+            {{ $kids = where $kids "Draft" "ne" true }}
+            {{ $kids = $kids.ByWeight }}
+
+            {{ if gt (len $kids) 0 }}
+              <ul class="footer-nav__list" role="list">
+                {{ range $kids }}
+                  <li>
+                    <a href="{{ .RelPermalink }}" data-prefetch><small>{{ .LinkTitle | default .Title }}</small></a>
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          </nav>
+        {{ end }}
+      {{ end }}
+    </div>    
+  </div>
+
+  <div class="[ copy ][ full-width content-grid py--2 ]">
+    <div class="[ flex flex--column lg:flex--row lg:between gap--2 ]">
       <nav class="[ o--1 lg:o--2 ]">
         <ul class="[ flex flex--column md:flex--row gap--1 ]">        
           {{ range .Site.Menus.policies }}
@@ -10,10 +44,15 @@
               <a href="{{ .URL }}" data-prefetch>{{ .Name }}</a>
             </small>
           </li>
-        {{end}}
+          {{end}}
         </ul>
       </nav>
-      <small class="[ o--2 lg:o--1 ]">© {{ time.Now.Format "2006"}} <a href="https://josephpinder.com" target="_blank" rel="noopener">Joseph Pinder</a>. All rights reserved.</small>
+      <div class="[ o--2 lg:o--1 ]">
+        <small>© {{ time.Now.Format "2006"}} <a href="https://josephpinder.com" target="_blank" rel="noopener">Joseph Pinder</a>. All rights reserved.</small>
+        <p class="[ ch--60 ]"><small>Bahamas Highway Code Online is an independent public resource by Joseph Pinder. It is not an official publication — please consult the Road Traffic Act (Ch. 220) and the Road Traffic Department for authoritative guidance.</small></p>
+        <small>Site by <a href="https://getclever.marketing" target="_blank" rel="noopener">Clever Marketing, Ltd.</a></small>
+      </div>
+
     </div>
   </div>
 </footer>
