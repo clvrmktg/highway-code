@@ -70,12 +70,12 @@ Sponsorships are **annual (12 months)** and renewable. Recognition remains visib
 
 1. **Choose a tier** (and preferred section, if applicable).  
 2. **Submit the support form** with your details, logo (if applicable), and recognition preferences.  
-3. **Invoice & payment** — we’ll send invoice details and payment options.  
+3. **Invoice & payment** — we'll send invoice details and payment options.  
 4. **Listing & credit** — once payment is received, we add your recognition to the site for 12 months.  
 
-**Upgrades/Renewals:** You can upgrade your tier at any time (pro-rate the difference), and we’ll remind you 30 days before renewal.  
+**Upgrades/Renewals:** You can upgrade your tier at any time (pro-rate the difference), and we'll remind you 30 days before renewal.  
 
-**Logos & links:** Please provide a high-quality SVG/PNG and the URL you’d like linked.  
+**Logos & links:** Please provide a high-quality SVG/PNG and the URL you'd like linked.  
 
 ---
 

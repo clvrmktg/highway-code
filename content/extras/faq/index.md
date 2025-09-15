@@ -10,7 +10,7 @@ tags = ["faq", "questions", "highway-code", "bahamas", "drivers", "exam-prep"]
   [[faqs.items]]
   question = "Is this the official Highway Code of The Bahamas?"
   answer = """
-  No. **Bahamas Highway Code Online** is an **educational resource** based on the official *Highway Code*, the *Road Traffic Act*, and current amendments. It’s designed to make the rules easier to study and use, but it does **not** replace official government publications.
+  No. **Bahamas Highway Code Online** is an **educational resource** based on the official *Highway Code*, the *Road Traffic Act*, and current amendments. It's designed to make the rules easier to study and use, but it does **not** replace official government publications.
   """
 
   [[faqs.items]]
@@ -47,13 +47,13 @@ tags = ["faq", "questions", "highway-code", "bahamas", "drivers", "exam-prep"]
   [[faqs.items]]
   question = "How can I give feedback on a page?"
   answer = """
-  At the bottom of each page, you can let us know if it was **helpful**. If not, you can also report if there’s a **content issue** (like missing, unclear, or outdated information) or a **technical problem** with the page. Every bit of feedback helps us make the site better.
+  At the bottom of each page, you can let us know if it was **helpful**. If not, you can also report if there's a **content issue** (like missing, unclear, or outdated information) or a **technical problem** with the page. Every bit of feedback helps us make the site better.
   """
 
   [[faqs.items]]
   question = "Can I support the site financially?"
   answer = """
-  Yes. This project is maintained independently, and every improvement—whether it’s creating graphics, adding explanations, or dedicating developer time—takes resources.  
+  Yes. This project is maintained independently, and every improvement—whether it's creating graphics, adding explanations, or dedicating developer time—takes resources.  
 
   - **Donate** — Individual contributions help cover ongoing costs.  
   - **Sponsor** — Businesses can support road safety and visibility by becoming sponsors.  
