@@ -1,0 +1,105 @@
+<form name="support" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="[ form grid row-gap--1 ]">
+  <input type="hidden" name="form-name" value="support">
+  <p class="visually-hidden">
+    <label>Don't fill this out: <input name="bot-field"></label>
+  </p>
+
+  <fieldset class="[ grid md:col--2 row-gap--0.5 ]">
+    <legend class="[ font--700 ]">How would you like to help?</legend>
+    <label class="[ form__field ]">
+      <input type="radio" name="support_type" value="donation" required>
+      <span>Make a donation</span>
+    </label>
+    <label class="[ form__field ]">
+      <input type="radio" name="support_type" value="sponsorship">
+      <span>Become a sponsor</span>
+    </label>
+  </fieldset>
+
+  <div class="[ grid md:col--2 gap--1 ]">   
+    <div>
+      <div class="[ form__field ][ grid row-gap--0.5 ]">
+        <label class="[ form__label ][ font--500 font--600 ]" for="first_name">
+          <span>First Name</span>
+          <abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>
+        </label>
+        <input class="[ form__input ][ px--0.5  ]"
+          name="first_name" id="first_name" type="text"
+          minlength="2"
+          placeholder="i.e. John/Jane"
+          autocomplete="given-name"
+          required />
+      </div>
+    </div>
+    <div>
+      <div class="[ form__field ][ grid row-gap--0.5 ]">
+        <label class="[ form__label ][ font--500 font--600 ]" for="last_name">
+          <span>Last Name</span>
+          <abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>
+        </label>
+        <input class="[ form__input ][ px--0.5  ]"
+          name="last_name" id="last_name" type="text"
+          minlength="2"
+          placeholder="i.e. Doe"
+          autocomplete="family-name" />
+      </div>
+    </div>
+  </div>
+
+  <div class="[ grid md:col--2 gap--1 ]">
+    <div>
+      <div class="[ form__field ][ grid row-gap--0.5 ]">
+        <label class="[ form__label ][ font--500 font--600 ]" for="email">
+          Email<abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>
+        </label>
+        <input class="[ form__input ][ px--0.5  ]"
+          name="email" id="email" type="email"
+          placeholder="i.e. your@email.com"
+          autocomplete="email"
+          required />
+      </div>
+    </div>
+  
+    <div>
+      <div class="[ form__field ][ grid row-gap--0.5 ]">
+        <label class="[ form__label ][ font--500 font--600 ]" for="organization">Organization</label>
+        <input class="[ form__input ][ px--0.5  ]"
+          name="organization" id="organization" type="text"
+          minlength="2"
+          placeholder="i.e. My Business Name"
+          autocomplete="organization" />
+      </div>
+    </div>
+  </div>
+
+  <label class="[ form__field ][ grid row-gap--0.5 ]">
+    <span>Amount (if donating)</span>
+    <input type="number" name="amount" min="1" step="1" placeholder="e.g., 50">
+  </label>
+
+  <div class="[ form__field ][ grid row-gap--0.5 ]">
+    <label class="[ form__label ][ font--500 font--600 ]" for="message">
+      Message<abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>
+    </label>
+    <textarea class="[ form__message ][ px--0.5  ]"
+      name="message" id="message"
+      placeholder="Tell us if you prefer a specific section to support, need an invoice/receipt, or have recognition preferences."
+      minlength="10" maxlength="2000"
+      autocomplete="off" spellcheck="true"
+      required></textarea>
+  </div>
+
+  <label class="[ form__checkbox ]">
+    <input type="checkbox" name="needs_receipt">
+    <span>Please send an invoice/receipt.</span>
+  </label>
+
+  <label class="[ form__checkbox ]">
+    <input type="checkbox" name="consent" required>
+    <span>I consent to being contacted about my contribution.</span>
+  </label>
+
+  <div class="[ flex col-gap--0.5 ]">
+    <button type="submit" class="[ btn btn--lg btn--primary ]">Submit</button>
+  </div>
+</form>

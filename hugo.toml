@@ -89,6 +89,12 @@ term     = ["HTML"]      # no /<taxonomy>/<term>/index.xml
   url = "/children-visitors/"
   weight = 5
 
+[[menu.main]]
+  identifier = "extras"
+  name = "Extras"
+  url = "/extras/"
+  weight = 5
+
 # -------------------------------------------------
 # POLICIES MENU
 # -------------------------------------------------

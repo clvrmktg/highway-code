@@ -5,7 +5,7 @@ title = 'Rules of the Road'
 summary = "Core rules every driver in The Bahamas must follow."
 description = "Learn the mandatory road rules from the Road Traffic Act and Highway Code — covering speed, overtaking, junctions, roundabouts, parking, and more."
 icon = "traffic-cone"
-weight = 20
+weight = 10
 tags = ["rules", "road-traffic", "bahamas"]
 
 date = 2025-09-05T12:46:53-04:00
