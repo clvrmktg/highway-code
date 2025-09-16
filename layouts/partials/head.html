@@ -9,19 +9,6 @@
   {{- $desc := "" -}}
   {{- if .Description -}}
     {{- $desc = .Description -}}
-  {{- else if eq .Kind "taxonomy" -}}
-    {{- $desc = printf "Browse all %s on %s" (.Title | pluralize) site.Title -}}
-  {{- else if eq .Kind "term" -}}
-  {{- /* Safely pull the taxonomy plural (e.g., "industries", "categories") */ -}}
-  {{- $plural := "" -}}
-  {{- with .Data }}{{- $plural = .Plural -}}{{- end -}}
-
-  {{- /* Map plural → singular label and content noun */ -}}
-  {{- $singular := index (dict "industries" "industry" "categories" "category") $plural | default "topic" -}}
-  {{- $noun     := index (dict "industries" "case studies" "categories" "articles") $plural | default "content" -}}
-
-  {{- /* e.g., "Explore case studies in the Accounting industry from Clever Marketing, Ltd." */ -}}
-  {{- $desc := printf "Explore %s in the %s %s from %s." $noun .Title $singular site.Title -}}
   {{- end -}}
   
   {{- $feature := .Params.feature -}}
@@ -38,7 +25,9 @@
   {{ partial "assets.html" . }}
   <link rel="icon" type="image/png" href="/favicon.svg">
   <link rel="mask-icon" href="/favicon-light.svg" color="#9395A1">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0d1117">
   {{- $iso := "2006-01-02T15:04:05Z07:00" -}}
