@@ -6,7 +6,7 @@ summary = "How to read road signs, follow road markings, and obey traffic signal
 description = "An overview of traffic control systems in The Bahamas—traffic signs, road markings, and traffic signals. Understand what each does and where to find detailed guidance."
 icon = "sign-right"                  # Tabler icon suggestion
 weight = 20
-tags = ["signs", "markings", "signals", "exam"]
+keywords = ["signs", "markings", "signals", "exam"]
 
 date = 2025-09-05T12:49:24-04:00
 draft = false

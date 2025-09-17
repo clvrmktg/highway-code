@@ -1,7 +1,7 @@
 baseURL = 'https://bahamashighwaycode.org/'
 languageCode = 'en-uk'
 title = 'Bahamas Highway Code Online'
-# enableGitInfo = true
+enableGitInfo = true
 
 [sass]
   use_dart_sass = true
@@ -11,7 +11,7 @@ title = 'Bahamas Highway Code Online'
 disableKinds = [ "taxonomy", "term" ]
 
 [taxonomies]
-  tag  = "tags"     # for blog/Insights
+  # tag  = "tags"     # for blog/Insights
 
 [pagination]
   pagerSize = 9
@@ -21,8 +21,8 @@ disableKinds = [ "taxonomy", "term" ]
 [outputs]
 home     = ["HTML"]      # no /index.xml on homepage
 section  = ["HTML"]      # no /<section>/index.xml
-taxonomy = ["HTML"]      # no /<taxonomy>/index.xml
-term     = ["HTML"]      # no /<taxonomy>/<term>/index.xml
+# taxonomy = ["HTML"]      # no /<taxonomy>/index.xml
+# term     = ["HTML"]      # no /<taxonomy>/<term>/index.xml
 
 
 [params]
