@@ -18,15 +18,25 @@
     
       {{ if $section }}
         <section class="[ grid layout--spacing ]" aria-label="{{ $section.Title | urlize }}">
-          <div>
-            <h2 id="{{ $section.Title | urlize }}">{{ $section.Title }}</h2>
-    
-            {{/* Section summary: prefer front matter summary, then .Summary */}}
-            {{ with $section.Params.summary }}
-              <p class="[ ch--35 ]">{{ . }}</p>
-            {{ else }}
-              {{ with $section.Summary }}<p>{{ . }}</p>{{ end }}
-            {{ end }}
+          <div class="[ flex ]">
+
+            <div>
+              <h2 id="{{ $section.Title | urlize }}">{{ $section.Title }}</h2>
+      
+              {{/* Section summary: prefer front matter summary, then .Summary */}}
+              {{ with $section.Params.summary }}
+                <p class="[ ch--35 ]">{{ . }}</p>
+              {{ else }}
+                {{ with $section.Summary }}<p>{{ . }}</p>{{ end }}
+              {{ end }}
+            </div>
+
+            <div>
+              <a class="[ btn btn--lg btn--ghost ]" href="{{ $section.RelPermalink }}" data-prefetch>
+                Learn More
+              </a>
+            </div>
+
           </div>
     
           {{/* Children = subsections + regular pages; filter drafts */}}

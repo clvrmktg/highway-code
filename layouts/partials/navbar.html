@@ -1,11 +1,11 @@
 <header class="[ navbar ][ full-width content-grid ]" id="navbar">
-  <div class="[ wrapper ][ flex between col-gap--2 relative ]">
+  <div class="[ wrapper ][ middle col-gap--2 relative ]">
     <div class="[ backdrop ]"></div>
-    <a class="[ logo ][ flex middle py--1 ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
+    <a class="[ logo ][ flex middle ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
       {{- readFile "static/icons/logo.svg" | safeHTML }}
     </a>
-
-    <div class="[ flex col-gap--2 ]">
+    <!-- Menu & Search -->
+    <div class="[ menu-search ][ flex col-gap--2 px--1 ]">
       <nav class="[ navigation--main ][ none lg:middle col-gap--1 ]" role="navigation" aria-label="Main">
         <ul class="[ menu menu--main ][ col-gap--2 ]">
         {{- $context := .context -}}
@@ -19,29 +19,15 @@
         {{end}}
         </ul>
       </nav>
-      
-      <div class="[ flex ]">
-        <!-- Toggles -->
-        <button class="[ dropdown-toggle ][ middle relative p--1 ]"
-                data-toggle="panel" data-target="#panel-menu"
-                aria-controls="panel-menu" aria-expanded="false">
-          <span class="[ flex middle ]">
-            {{ readFile "static/icons/tabler/chevron-down.svg" | safeHTML }}
-            <span class="[ font--600 ]">Menu</span>
-          </span>
-        </button>
-  
-        <button class="[ search-toggle ][ flex center middle ]"
-                data-toggle="panel" data-target="#panel-search"
-                aria-controls="panel-search" aria-expanded="false" aria-label="Search">
-          {{ readFile "static/icons/tabler/search.svg" | safeHTML }}
-        </button>
-      </div>
+      <div id="search" class="[ search ]"></div>
     </div>
-  </div>
-  <div class="[ search--wrapper ][ full-width content-grid ]">
-    <div class="[ py--1 ]">
-      <div id="search"></div>
-    </div>
+    <!-- Dropdown -->
+    <label class="[ toggle ][ lg:none ]" for="click">
+      <input class="[ hidden ]" type="checkbox" name="click" id="click">
+      <span class="[ flex middle ]">
+        {{ readFile "static/icons/tabler/chevron-down.svg" | safeHTML }}
+        <span class="[ font--600 ]">Menu</span>
+      </span>
+    </label>
   </div>
 </header>
