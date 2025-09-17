@@ -9,7 +9,10 @@
   > .wrapper
     height: inherit
     z-index: 15
-    outline: $by
+    // outline: $by
+    display: flex
+    justify-content: space-between
+    align-items: center
 
     +device(desktop)
       display: grid
@@ -18,6 +21,7 @@
 .backdrop
   width: 100vw
   height: inherit
+  background-color: color('brand')
   position: absolute
   inset-block: 0
   left: 50%
@@ -30,38 +34,41 @@
   fill: color('white')
 
 .menu-search
-  width: 100vw
-  height: 100vh
-  @supports (height: 100dvh)
-    height: 100dvh
-  background-color: color('bg-soft')
-  flex-direction: column
-  padding-top: 2em
-  position: absolute
-  left: 50%
-  transform: translateX(-50%)
+  display: flex
 
-  top: var(--navbar-height)
+  +device(tablet)
+    width: 100vw
+    height: 100vh
+    @supports (height: 100dvh)
+      height: 100dvh
+    overflow: hidden
+    background-color: color('bg-soft')
+    flex-direction: column
+    padding-top: 2em
+    position: absolute
+    left: 50%
+    transform: translateX(-50%)
+    visibility: hidden
+    top: -200vw
+    z-index: -2
+    +transition(top)
+  
+  +device(desktop)
+    display: grid
+    grid-template-columns: 1fr minmax(#{em(200)}, #{em(280)})
+    
 
 .navigation--main
-  order: 2
 
-  // +device(tablet)
-  //   display: block
-  //   width: em(338)
-  //   height: 100vh
-  //   // padding-top: 1em
-  //   border-top: em(4) solid color('clever-blue-light')
-  //   visibility: hidden
-  //   position: absolute
-  //   top: var(--navbar-height)
-  //   left: 200vw
-  //   z-index: -5
-  //   +transition((visibility, left, background-color))
+  +device(tablet)
+    display: block
+    border-top: em(4) solid color('brand-500')
+    order: 2
+    // +transition((visibility, left, background-color))
 
-  // +device(desktop)
-  //   display: flex
-  //   height: 100%
+  +device(desktop)
+    display: flex
+    height: 100%
     // outline: $bg
 
 
@@ -72,9 +79,9 @@
 
   +device(desktop)
     height: inherit
+    flex-direction: row
 
   &__item
-    color: color('white')
     align-items: center
 
     +device(desktop)
@@ -96,11 +103,10 @@
 
     +device(tablet)
       display: block
-      +clamp(padding-right, 10, 20)
-      +clamp(padding-left, 10, 20)
+      +clamp((padding-right, padding-left), 10, 20)
 
     +device(desktop)
-      color: inherit
+      color: color('white')
 
       &::before, &::after
         content: ''
@@ -169,14 +175,10 @@
       bottom: 0
       transform: rotate(-90deg)
 
-.container:has(#search-toggle:checked)
+.container:has(#click:checked)
   
-  .search
-    
-    &--toggle
-      color: color('brand-500')
-      background-color: color('white')
-
-    &--wrapper
-      height: auto
+  .menu-search
+    top: var(--navbar-height)
+    visibility: visible
+    +transition(top)
 
