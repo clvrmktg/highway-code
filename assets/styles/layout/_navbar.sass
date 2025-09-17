@@ -2,34 +2,13 @@
 @use '../abstracts' as *
 
 .navbar
-  --_animationStartsAfter: 50vh
-  --_animationDistance: 400px
   background-color: color('brand')
   width: 100%
-  height: var(--navbar-height)
-  // position: sticky
-  // top: 0
-  // left: 0
-  // z-index: 10
-
-  @supports (animation-timeline: view())
-    // position: fixed
-    top: calc(var(--navbar-height) * -1)
-
-    animation: navScroll linear forwards
-    animation-timeline: view()
-    animation-range-start: calc(100vh + var(--_animationStartsAfter))
-    animation-range-end: calc(100vh + var(--_animationStartsAfter) + var(--_animationDistance))
+  min-height: var(--navbar-height)
 
   > .wrapper
-    display: flex
-    justify-content: space-between
-    height: inherit
     z-index: 15
 
-    +device(desktop)
-      display: grid
-      grid-template-columns: max-content 1fr
 
 .backdrop
   width: 100vw
@@ -45,11 +24,7 @@
   +clamp(width, 100, 120)
   fill: color('white')
 
-
-
 .navigation--main
-  height: inherit
-  // background-color: color('white')
 
   +device(tablet)
     display: block
@@ -65,49 +40,9 @@
     +transition((visibility, left, background-color))
 
   +device(desktop)
-    display: grid
-    grid-template-columns: [menu-start] max-content [menu-end] 1fr [actions-start] max-content [actions-end]
-
-.icon.icon--arrow
-  width: rem(24)
-  transform: rotate(0deg)
-  +transition(transform)
-
-  > svg
-    stroke: color('clever-navy')
-    +transition(stroke)
-
-.arrow
-
-  +device(tablet)
-    width: 3em
-    position: relative
-    cursor: pointer
-
-    &::before
-      content: ''
-      width: em(2)
-      height: 100%
-      background-color: color('black')
-      position: absolute
-      left: 0
-      top: 0
-
-    &:has(#submenu:focus-visible)
-      outline: -webkit-focus-ring-color auto 1px
-
-  +device(desktop)
-    display: block
-    pointer-events: none
-    user-select: none
-    cursor: not-allowed
-
-    > input
-      display: none
-      visibility: hidden
-      pointer-events: inherit
-      user-select: inherit
-      cursor: inherit
+    display: flex
+    height: 100%
+    // outline: $bg
 
 
 .menu
@@ -119,8 +54,6 @@
 
   +device(desktop)
     height: inherit
-    padding-left: 1em
-    grid-column: menu
 
   &__item
     color: color('white')
@@ -129,50 +62,7 @@
     +device(desktop)
       display: flex
 
-      > div
-        height: 100%
-        display: flex
-        align-items: center
 
-      &:focus-within
-        color: color('clever-blue-light')
-
-      &::after
-        content: ''
-        background-color: color('clever-blue-light')
-        width: 0
-        height: em(4)
-        position: absolute
-        bottom: 0
-        left: 0
-        +transition(width)
-
-      +hover
-        color: color('clever-blue-light')
-        
-        &::after
-          width: 100%
-
-        > .submenu
-          top: 100%
-          z-index: -2
-
-        .icon--arrow
-          transform: rotate(180deg)
-          
-          > svg
-            stroke: color('clever-blue-light')
-
-      &.current
-        color: color('clever-blue-light')
-        
-        &::after
-          width: 100%
-
-        .icon--arrow
-          
-          > svg
-            stroke: color('clever-blue-light')
           
     +device(tablet)
       flex-direction: column
@@ -180,32 +70,6 @@
         top: 1em
         bottom: 1em
       border-bottom: em(2) solid color('grey-300')
-
-
-      > div
-        display: grid
-        grid-template-columns: 1fr min-content
-
-      &:has(#submenu)
-        padding:
-          top: 0
-          bottom: 0
-
-        > div
-          padding:
-            top: 1em
-            bottom: 1em
-          justify-content: space-between
-
-      &:has(#submenu:checked)
-
-        .icon--arrow
-          transform: rotate(-180deg)
-
-        .submenu
-          max-height: 2000em
-          visibility: visible
-        
 
   &__link
     color: inherit
@@ -217,100 +81,44 @@
       +clamp(padding-right, 10, 20)
       +clamp(padding-left, 10, 20)
 
-
-.submenu
-
-  +device(tablet)
-    max-height: 0
-    background-color: color('section-background')
-    visibility: hidden
-    overflow: hidden
-    +transition((max-height, visibility))
-
-  +device(desktop)
-    // background-color: color('white')
-    border-bottom: em(6) solid color('clever-blue-light')
-    box-shadow: 0 em(4) em(4) color('black-3')
-    position: absolute
-    top: -500%
-    left: 0
-    z-index: -2
-
-    +transition(top)
-  
-  &__item
-    +device(tablet)
-      border-bottom: em(1) solid color('grey-300')
-
-      &:first-of-type
-        border-top: em(1) solid color('grey-300')
-
-
-  &__link
-    color: color('white')
-    position: relative
-    
-    &::after
-      content: ''
-      width: 100%
-      height: rem(1)
-      background-color: color('clever-light')
-      position: absolute
-      bottom: 0
-      left: 0
-      z-index: 1
-
-    &:last-of-type::after
-      content: none
-
-    +device(tablet)
-      position: relative
-
-      +clamp(padding-right, 10, 20)
-      +clamp(padding-left, 10, 20)
-
-      +hover
-        color: color('white')
-        background-color: color('clever-blue-light')
-
     +device(desktop)
-      padding: 
-        right: 1em
-        left: 1em
-      +transition((color, background-color))
+      &::before, &::after
+        content: ''
+        position: absolute
+        width: 100%
+        height: 2px
+        background-color: color('white')
+        left: 0
+        transform: scaleX(0)
+        +transition(transform)
+
+      &::before
+        top: 0
+        transform-origin: right
+
+      &::after
+        bottom: 0
+        transform-origin: left
 
       +hover
-        color: color('white')
-        background-color: color('clever-blue-light')
+        &::after, &::before
+          transform: scaleX(1)
 
-
-.nav-actions
- 
-
-  +device(tablet)
-    text-align: center
-    padding:
-      top: 1em
-      right: 1em
-      left: 1em
-
-  +device(desktop)
-    display: flex
-    grid-column: actions
- 
-.phone-link
-  color: color('clever-navy')
-
-  +device(tablet)
-    font-size: var(--step-2)
-
-.navicon
-  width: em(25)
-  height: em(20)
+      &.current
+        
+        &::after, &::before
+          transform: scaleX(1)
+          
+.dropdown-toggle
   display: flex
+  color: color('white')
   position: relative
   z-index: 2
   cursor: pointer
+
+  +hover
+    color: color('brand-500')
+    background-color: color('white')
 
   +device(desktop)
     display: none
@@ -318,33 +126,23 @@
   &:has(#click:focus-visible)
     outline: -webkit-focus-ring-color auto 1px
 
-.bar
-  width: inherit
-  height: em(2)
-  background-color: color('white')
-  border-radius: em(1)
-  position: relative
-  +transition((transform, background-color))
-  cursor: inherit
 
-  &::before, &::after
-    content: ''
-    width: inherit
-    height: inherit
-    background-color: inherit
-    border-radius: inherit
-    position: absolute
-    right: 0
-    z-index: 1
+.search
   
-  &::before
-    top: em(math.div(25, 2) - 3)
-    +transition((top, opacity))
+  &-toggle
+    color: color('white')
+    width: 4em
+    height: 100%
+    cursor: pointer
 
-  &::after
-    bottom: em(math.div(25, 2) - 3)
-    +transition((bottom, transform)) 
+    +hover
+      color: color('brand-500')
+      background-color: color('white')
 
+  &--wrapper
+    background-color: color('white')
+    height: 0
+    overflow: hidden
 
 .container:has(#click:checked)
   overflow: hidden
@@ -367,3 +165,15 @@
     &::after
       bottom: 0
       transform: rotate(-90deg)
+
+.container:has(#search-toggle:checked)
+  
+  .search
+    
+    &--toggle
+      color: color('brand-500')
+      background-color: color('white')
+
+    &--wrapper
+      height: auto
+

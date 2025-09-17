@@ -1,48 +1,47 @@
 <header class="[ navbar ][ full-width content-grid ]" id="navbar">
-  <div class="[ wrapper ][ middle col-gap--2 relative ]">
+  <div class="[ wrapper ][ flex between col-gap--2 relative ]">
     <div class="[ backdrop ]"></div>
-    <a class="[ logo ][ flex middle ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
+    <a class="[ logo ][ flex middle py--1 ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
       {{- readFile "static/icons/logo.svg" | safeHTML }}
     </a>
-    <label class="[ navicon ][ middle relative ]" id="navicon" for="click">
-      <input class="[ hidden ]" id="click" type="checkbox" aria-label="Menu"><b class="[ bar ][ block ]"></b>
-    </label>
-    <nav class="[ navigation--main ][ none lg:middle col-gap--1 ]" role="navigation" aria-label="Main">
-      <ul class="[ menu menu--main ][ col-gap--2 ]">
-      {{- $context := .context -}}
-      {{- $currentPage := .currentPage -}}
-      {{with $context}}
-        {{ range .Site.Menus.main }}
-        <li class="[ menu__item ][ font--600 relative no-wrap {{ if eq $.currentPage.RelPermalink .URL }}current {{ end }}]">
-            {{ if .HasChildren }}
-            <div class="[ col-gap--0.25 ]">
-              <a class="[ menu__link ][ flex flex--column center ]" href="{{ .URL }}" {{ if eq $.currentPage.RelPermalink .URL }}aria-current="page"{{ end }} data-prefetch>{{ .Name }}</a>
-              <label class="[ arrow ][ flex center middle ]" for="submenu">
-                <input class="[ hidden ]" id="submenu" type="checkbox" aria-label="Submenu">
-                <span class="[ icon icon--arrow ]">
-                  {{- readFile "static/icons/tabler/chevron-down.svg" | safeHTML }}
-                </span>
-              </label>
-            </div>
-            {{else}}
-            <a class="[ menu__link ][ flex flex--column center ]" href="{{ .URL }}" {{ if eq $.currentPage.RelPermalink .URL }}aria-current="page"{{ end }} data-prefetch>
-              <span>{{ .Name }}</span>
-            </a>
-            {{ end }}
-          {{ if .HasChildren }}
-          <ul id="submenu-{{ .Weight }}" class="[ submenu ]">
-            {{ range .Children }}
-              <li class="[ submenu__item ]">
-                <a class="[ submenu__link ][ block no-wrap py--1 ]" href="{{ .URL }}" data-prefetch>{{ .Name }}</a>
-              </li>
-            {{ end }}
-          </ul>
-          {{ end }}
-        </li>
-        {{ end }}
-      {{end}}
-      </ul>
-      <div id="search"></div>
 
+    <div class="[ flex col-gap--2 ]">
+      <nav class="[ navigation--main ][ none lg:middle col-gap--1 ]" role="navigation" aria-label="Main">
+        <ul class="[ menu menu--main ][ col-gap--2 ]">
+        {{- $context := .context -}}
+        {{- $currentPage := .currentPage -}}
+        {{with $context}}
+          {{ range .Site.Menus.main }}
+          <li class="[ menu__item ][ font--600 relative no-wrap ]">
+              <a class="[ menu__link ][ inline-block {{ if eq $.currentPage.RelPermalink .URL }}current {{ end }}]" href="{{ .URL }}" {{ if eq $.currentPage.RelPermalink .URL }}aria-current="page"{{ end }} data-prefetch>{{ .Name }}</a>
+          </li>
+          {{ end }}
+        {{end}}
+        </ul>
+      </nav>
+      
+      <div class="[ flex ]">
+        <!-- Toggles -->
+        <button class="[ dropdown-toggle ][ middle relative p--1 ]"
+                data-toggle="panel" data-target="#panel-menu"
+                aria-controls="panel-menu" aria-expanded="false">
+          <span class="[ flex middle ]">
+            {{ readFile "static/icons/tabler/chevron-down.svg" | safeHTML }}
+            <span class="[ font--600 ]">Menu</span>
+          </span>
+        </button>
+  
+        <button class="[ search-toggle ][ flex center middle ]"
+                data-toggle="panel" data-target="#panel-search"
+                aria-controls="panel-search" aria-expanded="false" aria-label="Search">
+          {{ readFile "static/icons/tabler/search.svg" | safeHTML }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="[ search--wrapper ][ full-width content-grid ]">
+    <div class="[ py--1 ]">
+      <div id="search"></div>
+    </div>
   </div>
 </header>
