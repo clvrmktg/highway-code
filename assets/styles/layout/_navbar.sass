@@ -51,7 +51,7 @@
     visibility: hidden
     top: -200vw
     z-index: -2
-    +transition(top)
+    +transition((top, visibility))
   
   +device(desktop)
     display: grid
@@ -62,19 +62,14 @@
 
   +device(tablet)
     display: block
-    border-top: em(4) solid color('brand-500')
     order: 2
-    // +transition((visibility, left, background-color))
 
   +device(desktop)
     display: flex
     height: 100%
-    // outline: $bg
-
 
 .menu
   display: flex
-  // background-color: color('white')
   flex-direction: column
 
   +device(desktop)
@@ -87,8 +82,6 @@
     +device(desktop)
       display: flex
 
-
-          
     +device(tablet)
       flex-direction: column
       padding:
@@ -142,15 +135,14 @@
   z-index: 2
   cursor: pointer
 
-  +hover
-    color: color('brand-500')
-    background-color: color('white')
-
   +device(desktop)
     display: none
 
   &:has(#click:focus-visible)
     outline: -webkit-focus-ring-color auto 1px
+
+  .icon
+    +transition(transform)
 
 
 .container:has(#click:checked)
@@ -178,7 +170,12 @@
 .container:has(#click:checked)
   
   .menu-search
-    top: var(--navbar-height)
+    top: var(--navbar-height) // particularly here
     visibility: visible
     +transition(top)
 
+
+  .toggle .icon
+    transform: rotate(-180deg)
+
+// balbury@bahamasbus.com

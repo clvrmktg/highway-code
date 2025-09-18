@@ -61,14 +61,14 @@ $inline: 2em
 
 .btn
   
-  &--primary, &--download
-    color: color('white')
-    background-color: color('brand-500')
+  &--primary
+    color: color('ink') // dark ink text for contrast
+    background-color: color('bahamas-gold')
     position: relative
-    +transition('background-color')
+    +transition(background-color)
 
     +hover
-      background-color: color('brand-700')
+      background-color: color('bahamas-gold-dark')
 
 
   &--ghost
@@ -88,14 +88,3 @@ $inline: 2em
     &.black
       --button-color: #{color('black')}
       
-.ghost--white
-  color: color('white')
-  border: $border solid color('white')
-
-  &::before
-    color: color('white')
-    background-color: color('white')
-
-  +hover
-    color: color('clever-blue')
-    border: $border solid color('white')

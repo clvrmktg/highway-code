@@ -18,7 +18,7 @@
     
       {{ if $section }}
         <section class="[ grid layout--spacing ]" aria-label="{{ $section.Title | urlize }}">
-          <div class="[ flex ]">
+          <div class="[ flex flex--wrap between gap--2 ]">
 
             <div>
               <h2 id="{{ $section.Title | urlize }}">{{ $section.Title }}</h2>
