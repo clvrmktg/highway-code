@@ -1,0 +1,58 @@
+<form id="usefulness" class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]"
+      name="usefulness"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-netlify-recaptcha="true"
+      data-validate
+      novalidate>
+
+  <!-- Hidden fields -->
+  <input type="hidden" name="form-name" value="usefulness" />
+  <input type="hidden" name="page_url" value="{{ .Permalink }}">
+  <input type="hidden" name="page_title" value="{{ .Title }}">
+  <input type="hidden" name="helpful" value="no">
+
+  <!-- Honeypot -->
+  <p class="visually-hidden">
+    <label>Don't fill this out: <input name="bot-field"></label>
+  </p>
+
+  <div>
+    <h4>Help us improve Bahamas Highway Code Online</h4>
+    <p>While we aim for accuracy, some information may be missing, out of date, or incorrect. If you notice something, please report it below.</p>
+    <p>What best describes the issue?</p>
+  </div>
+
+  <fieldset class="[ flex col-gap--1 ]">
+    <legend class="visually-hidden">Reason this page wasn't helpful</legend>
+
+    <label class="[ chip chip--radio ]">
+      <input id="reason-missing" type="radio" name="useful_reason" value="missing" required>
+      <span>Missing</span>
+    </label>
+
+    <label class="[ chip chip--radio ]">
+      <input type="radio" name="useful_reason" value="out-of-date">
+      <span>Out of date</span>
+    </label>
+
+    <label class="[ chip chip--radio ]">
+      <input type="radio" name="useful_reason" value="incorrect">
+      <span>Incorrect</span>
+    </label>
+  </fieldset>
+
+  <div class="[ form__field ][ grid row-gap--0.5 ]">
+    <label class="[ form__label ]" for="use-action">What were you trying to do?</label>
+    <textarea class="[ form_message ][ px--0.5 ]" name="action" id="use-action" rows="4" required></textarea>
+  </div>
+
+  <!-- reCAPTCHA -->
+  <div data-netlify-recaptcha="true"></div>
+
+  <div class="[ flex end col-gap--1 ]">
+    <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="usefulness-details">Cancel</button>
+    <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
+  </div>
+</form>

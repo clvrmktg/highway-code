@@ -24,75 +24,12 @@
 
     <!-- “No” → usefulness reasons (content issues) -->
     <section id="usefulness-details" class="[ issue__details ][ grid ]" role="region" aria-labelledby="btn-no" aria-hidden="true" inert>
-      <form class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]" method="post" action="/feedback" name="usefulness">
-        <input type="hidden" name="page_url" value="{{ .Permalink }}">
-        <input type="hidden" name="page_title" value="{{ .Title }}">
-        <input type="hidden" name="helpful" value="no">
-        
-          <div>
-            <h4>Help us improve Bahamas Highway Code Online</h4>
-            <p>While we aim for accuracy, some information may be missing, out of date, or incorrect. If you notice something, please report it below.</p>
-            <p>What best describes the issue?</p>
-          </div>
-
-        <fieldset class="[ flex col-gap--1 ]">
-          <legend class="visually-hidden">Reason this page wasn't helpful</legend>
-
-          <label class="[ chip chip--radio ]">
-            <input id="reason-missing" type="radio" name="useful_reason" value="missing" required>
-            <span>Missing</span>
-          </label>
-
-          <label class="[ chip chip--radio ]">
-            <input type="radio" name="useful_reason" value="out-of-date">
-            <span>Out of date</span>
-          </label>
-
-          <label class="[ chip chip--radio ]">
-            <input type="radio" name="useful_reason" value="incorrect">
-            <span>Incorrect</span>
-          </label>
-        </fieldset>
-
-        <div class="[ form__field ][ grid row-gap--0.5 ]">
-          <label class="[ form__label ]" for="use-action">What were you trying to do?</label>
-          <textarea class="[ form_message ]" name="action" id="use-action" rows="4"></textarea>
-        </div>
-
-        <div class="[ flex end col-gap--1 ]">
-          <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="usefulness-details">Cancel</button>
-          <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
-        </div>
-      </form>
+      {{ partial "forms/usefulness.html" . }}
     </section>
 
     <!-- Technical/site problem -->
     <section id="report-panel" class="[ issue__report ][ grid ]" role="region" aria-labelledby="btn-report" aria-hidden="true" inert>
-      <form class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]" method="post" action="/feedback" name="tech_issue">
-        <input type="hidden" name="page_url" value="{{ .Permalink }}">
-        <input type="hidden" name="page_title" value="{{ .Title }}">
-
-        <div>
-          <h2 class="[ font--3 mb--0.25 ]">Help us improve this website</h2>
-          <p>This is for website/technical issues (broken links, layout, accessibility).</p>
-        </div>
-
-        <div class="[ form__field ][ grid row-gap--0.5 ]">
-          <label class="[ form__label ]" for="tech-action">What were you trying to do?</label>
-          <textarea class="[ form_message ]" name="action" id="tech-action" rows="4" data-autofocus></textarea>
-        </div>
-
-        <div class="[ form__field ][ grid row-gap--0.5 ]">
-          <label class="[ form__label ]" for="tech-problem">What went wrong?</label>
-          <textarea class="[ form_message ]" name="problem" id="tech-problem" rows="6"></textarea>
-        </div>
-
-        <div class="[ flex end col-gap--1 ]">
-          <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="report-panel">Cancel</button>
-          <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
-        </div>
-
-      </form>
+      {{ partial "forms/technical.html" . }}
     </section>
   </div>
 </footer>

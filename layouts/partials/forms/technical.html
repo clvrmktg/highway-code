@@ -1,0 +1,41 @@
+<form class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]"
+      name="tech_issue"
+      method="POST"
+      action="/thank-you/"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-netlify-recaptcha="true">
+
+  <!-- Hidden fields -->
+  <input type="hidden" name="form-name" value="tech_issue" />
+  <input type="hidden" name="page_url" value="{{ .Permalink }}">
+  <input type="hidden" name="page_title" value="{{ .Title }}">
+
+  <!-- Honeypot -->
+  <p class="visually-hidden">
+    <label>Don’t fill this out: <input name="bot-field"></label>
+  </p>
+
+  <div>
+    <h2 class="[ font--3 mb--0.25 ]">Help us improve this website</h2>
+    <p>This is for website/technical issues (broken links, layout, accessibility).</p>
+  </div>
+
+  <div class="[ form__field ][ grid row-gap--0.5 ]">
+    <label class="[ form__label ]" for="tech-action">What were you trying to do?</label>
+    <textarea class="[ form_message ]" name="action" id="tech-action" rows="4" data-autofocus required></textarea>
+  </div>
+
+  <div class="[ form__field ][ grid row-gap--0.5 ]">
+    <label class="[ form__label ]" for="tech-problem">What went wrong?</label>
+    <textarea class="[ form_message ]" name="problem" id="tech-problem" rows="6" required></textarea>
+  </div>
+
+  <!-- reCAPTCHA -->
+  <div data-netlify-recaptcha="true"></div>
+
+  <div class="[ flex end col-gap--1 ]">
+    <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="report-panel">Cancel</button>
+    <button class="[ btn btn--sm btn--primary ]" type="submit">Submit</button>
+  </div>
+</form>

@@ -17,24 +17,6 @@
       {{ partial "notice.html" . }}
     */}}
     {{partial "script.html" (dict "path" "scripts/components/prefetch.js" "targetPath" "scripts/prefetch.js" "attributes" (dict "defer" true))}}
-    <script type="speculationrules">
-    {
-      "prerender": [
-        {
-          "source": "document",
-          "where": { "href_matches": "/*" },
-          "eagerness": "moderate"
-        }
-      ],
-      "prefetch": [
-        {
-          "source": "document",
-          "where": { "href_matches": "/*" },
-          "eagerness": "conservative"
-        }
-      ]
-    }
-    </script>
     {{ if or .IsHome ( $.Store.Get "hasObscure" ) }}
     {{ partial "script.html" (dict "path" "scripts/components/obscure.js" "targetPath" "scripts/obscure.js" "attributes" (dict "defer" true))}}
     {{- end }}
@@ -49,10 +31,8 @@
     {{- if .Store.Get "project" -}}
     {{ partial "script.html" (dict "path" "scripts/vendor/lightgallery.js" "targetPath" "scripts/lightgallery.js") }}
     {{end}}
-    {{ if .Store.Get "hasForm" }}
     {{ partial "script.html" (dict "path" "scripts/vendor/bouncer.polyfills.js" "targetPath" "scripts/bouncer.js" "raw" true "attributes" (dict "defer" true))}}
     {{ partial "script.html" (dict "path" "scripts/components/validate.js" "targetPath" "scripts/validate.js") }}
-    {{ end }}
     {{ if .Store.Get "hasThankYou" }}
     {{ partial "script.html" (dict "path" "scripts/components/thank-you.js" "targetPath" "scripts/thank-you.js") }}
     {{ end }}

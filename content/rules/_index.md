@@ -41,7 +41,7 @@ This section brings the two together: the legal requirements you **must** follow
 
 ## What You'll Learn in This Section
 
-- [Before You Set Off](/rules/before-set-off/) – licences, insurance, inspections, and checks.  
+- [Before You Set Off](/rules/before-you-set-off/) – licences, insurance, inspections, and checks.  
 - [Speed](/rules/speed/) – limits, enforcement, and penalties.  
 - [Lane Discipline](/rules/lane-discipline/) – staying in lane and changing lanes safely.  
 - [Overtaking](/rules/overtaking/) – when it's legal and when it's dangerous.  

@@ -20,7 +20,7 @@ function countdown() {
   const noticeTemplate = document.getElementById('notice');
   const noticeText = noticeTemplate.innerHTML;
 
-  let seconds = 5;
+  let seconds = 10;
   const notice = document.createElement('small');
   notice.setAttribute('id', 'notice');
 
