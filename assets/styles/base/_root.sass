@@ -1,4 +1,5 @@
 @use 'sass:math'
+@use 'sass:color'
 @use '../abstracts' as *
 
 \:root
@@ -34,7 +35,7 @@
   +hsl('ink', #0a1e46)
 
   // Soft background tint
-  +hsl('bg-soft', mix($brand-500, #fff, 12%))
+  +hsl('bg-soft', color.mix($brand-500, #fff, 12%))
 
   // Border (approx. 10% ink; mixin alpha is in tenths)
   +hsl('ink', #0a1e46, 1)
@@ -53,7 +54,7 @@
   --text-body:    #{color('ink-700')}
   --text-muted:   #{color('ink-500')}
   --border:       #{color('ink-900-2')}  // subtle 10% border
-  // --border: #{color('ink-1')}
+  --border--light: #{color.mix($brand-500, #fff, 65%)}
 
   --toc-bg:            #{color('bg-soft')}        /* light brand tint */
   --toc-br:            #{color('brand-500-8')}    /* 20% brand border */
