@@ -1,6 +1,7 @@
 {{- if .IsHome -}}
   {{- $siteID := print .Site.BaseURL "#website" -}}
-  {{- $desc := (.Description | default site.Params.description | default site.Params.tagline | default "") | markdownify | plainify | chomp -}}
+  {{- $orgID  := print .Site.BaseURL "#organization" -}}
+  {{- $desc   := (.Description | default site.Params.description | default site.Params.tagline | default "") | markdownify | plainify | chomp -}}
 
   {{- $schema := dict
       "@context"  "https://schema.org"
@@ -8,7 +9,7 @@
       "@id"       $siteID
       "url"       .Site.BaseURL
       "name"      site.Title
-      "publisher" (dict "@id" (print .Site.BaseURL "#localbusiness"))
+      "publisher" (dict "@id" $orgID)
     -}}
 
   {{- if $desc -}}
@@ -17,4 +18,18 @@
 
   <!-- WebSite Schema -->
   <script type="application/ld+json">{{ $schema | jsonify (dict "indent" "  ") }}</script>
+
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {{
+    dict
+      "@context" "https://schema.org"
+      "@type"    "Organization"
+      "@id"      $orgID
+      "name"     site.Title
+      "url"      .Site.BaseURL
+      "description" $desc
+    | jsonify (dict "indent" "  ")
+  }}
+  </script>
 {{- end -}}

@@ -13,6 +13,8 @@
 
 {{- $desc := (.Description | default .Summary | default .Title) | markdownify | plainify | chomp -}}
 {{- $webpageID := print .Permalink "#webpage" -}}
+{{- $siteID := print .Site.BaseURL "#website" -}}
+{{- $aboutID := .Site.Params.schema.aboutID | default "" -}}
 
 {{- $schema := dict
   "@context" "https://schema.org"
@@ -20,24 +22,53 @@
   "@id"      $webpageID
   "url"      .Permalink
   "name"     .Title
+  "inLanguage" (.Site.Language.Lang | default "en")
 -}}
 
 {{- if $desc -}}
   {{- $schema = merge $schema (dict "description" $desc) -}}
 {{- end -}}
 
-{{- $schema = merge $schema (dict
-  "isPartOf"   (dict "@id" (print .Site.BaseURL "#website"))
-  "about"      (dict "@id" (print .Site.BaseURL "#localbusiness"))
-  "breadcrumb" (dict "@id" (print .Permalink   "#breadcrumbs"))
-) -}}
+{{- /* base isPartOf -> WebSite */ -}}
+{{- $isPartOf := slice (dict "@id" $siteID) -}}
+{{- with .Parent }}
+  {{- $isPartOf = $isPartOf | append (dict "@id" (print .Permalink "#webpage")) -}}
+{{- end -}}
+{{- $schema = merge $schema (dict "isPartOf" $isPartOf) -}}
 
+{{- /* optional about node only if provided */ -}}
+{{- if $aboutID -}}
+  {{- $schema = merge $schema (dict "about" (dict "@id" $aboutID)) -}}
+{{- end -}}
+
+{{- /* Breadcrumb node reference (assumes separate BreadcrumbList partial renders #breadcrumbs) */ -}}
+{{- $schema = merge $schema (dict "breadcrumb" (dict "@id" (print .Permalink "#breadcrumbs"))) -}}
+
+{{- /* Dates */ -}}
 {{- $published := .Date.Format "2006-01-02T15:04:05Z07:00" -}}
 {{- $modified  := .Lastmod.Format "2006-01-02T15:04:05Z07:00" -}}
-{{- $schema = merge $schema (dict
-  "datePublished" $published
-  "dateModified"  $modified
-) -}}
+{{- $schema = merge $schema (dict "datePublished" $published "dateModified" $modified) -}}
+
+{{- /* If this is a section (CollectionPage), expose children as an ItemList */ -}}
+{{- if .IsSection -}}
+  {{- $children := where .Pages "Draft" "ne" true | first 9999 -}}
+  {{- if gt (len $children) 0 -}}
+    {{- $items := slice -}}
+    {{- range $i, $p := $children.ByWeight.ByTitle -}}
+      {{- $items = $items | append (dict
+        "@type" "ListItem"
+        "position" (add $i 1)
+        "item" (dict
+          "@type" "WebPage"
+          "@id" (print $p.Permalink "#webpage")
+          "name" $p.Title
+          "url"  $p.Permalink
+        )
+      ) -}}
+    {{- end -}}
+    {{- $schema = merge $schema (dict "hasPart" (dict "@type" "ItemList" "itemListElement" $items)) -}}
+  {{- end -}}
+{{- end -}}
 
 <!-- Webpage Schema -->
 <script type="application/ld+json">{{ $schema | jsonify (dict "indent" "  ") }}</script>

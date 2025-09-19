@@ -9,11 +9,17 @@
     grid-row: span 3
   
   &__link
+    color: var(--text-body)
+    border: em(1) solid var(--brand)
+
+
     @supports (grid-template-rows: subgrid)
       grid-template-rows: inherit
       grid-row: span 3
-    border: em(1) solid color-mix(in srgb, var(--brand), #fff 65%)
 
+    +hover
+      background-color: color('bg-soft')
+  
   &__icon
     color: color('white')
     background-color: color('brand-500')

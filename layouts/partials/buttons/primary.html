@@ -4,9 +4,7 @@
       {{ if .hidden -}}
       <span class="[ hidden ]">{{ .hidden }}</span>
       {{- end }}
-    </span>
-    <span class="[ arrow-right ]">
-      {{ readFile "static/icons/arrow-right.svg" | safeHTML }}
+      &rarr;
     </span>
   </span>
 </a>
