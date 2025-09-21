@@ -1,7 +1,7 @@
 <header class="[ navbar ][ full-width content-grid ]" id="navbar">
   <div class="[ wrapper ][ middle col-gap--2 relative ]">
     <div class="[ backdrop ]"></div>
-    <a class="[ logo ][ flex middle ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
+    <a class="[ logo logo--navbar ][ flex middle ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
       {{- readFile "static/icons/logo.svg" | safeHTML }}
     </a>
     <!-- Menu & Search -->

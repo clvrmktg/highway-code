@@ -30,8 +30,12 @@
   z-index: -1
 
 .logo
+  
   +clamp(width, 100, 120)
-  fill: color('white')
+
+  &--navbar
+    color: color('white')
+    fill: currentcolor
 
 .menu-search
   display: flex

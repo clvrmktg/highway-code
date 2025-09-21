@@ -1,37 +1,32 @@
 <footer id="site-footer" class="[ footer ][ full-width content-grid ]">
 
-  <div class="[ wrapper ]">
-    <div class="[ grid md:col--2 lg:col--5 gap--2 ]">
-      {{ range site.Menus.main }}
-        {{ $section := .Page }}
-        {{ if not $section }}
-          {{ $section = site.GetPage .URL }}
+  <div class="[ wrapper ][ grid ]">
+
+    <div class="[ grid ]">
+      <div>
+        <a class="[ logo logo--footer ][ flex middle ]" href="/">
+          {{ readFile "static/icons/logo.svg" | safeHTML }}
+        </a>
+      </div>
+      <div>
+        <p class="[ font--small ]">All plain-language content, design, and materials are the intellectual property of the project team.</p>
+        <p class="[ font--small ]">
+          Based on the <em>Road Traffic Act (Ch. 220)</em> and amendments.
+          <br>
+          Independent educational resource, not an official government publication.
+        </p>
+      </div>
+    </div>
+    
+    <nav class="footer-nav__block">
+      <ul class="[ flex flex--column md:flex--row row-gap--1 col-gap--2 ]">
+        {{ range site.Menus.main }}
+        <li>
+          <a href="{{ .URL }}" data-prefetch>{{ .Name }}</a>
+        </li>
         {{ end }}
-
-        {{ if and $section $section.IsSection }}
-          <nav class="footer-nav__block" aria-labelledby="footer-{{ $section.Title | urlize }}">
-            <h3 id="footer-{{ $section.Title | urlize }}" class="[ font--5 ]">
-              <a href="{{ $section.RelPermalink }}" data-prefetch>{{ $section.LinkTitle | default $section.Title }}</a>
-            </h3>
-
-            {{/* Collect children: subsections + regular pages, skip drafts */}}
-            {{ $kids := union $section.Sections $section.RegularPages }}
-            {{ $kids = where $kids "Draft" "ne" true }}
-            {{ $kids = $kids.ByWeight }}
-
-            {{ if gt (len $kids) 0 }}
-              <ul class="footer-nav__list" role="list">
-                {{ range $kids }}
-                  <li>
-                    <a href="{{ .RelPermalink }}" data-prefetch><small>{{ .LinkTitle | default .Title }}</small></a>
-                  </li>
-                {{ end }}
-              </ul>
-            {{ end }}
-          </nav>
-        {{ end }}
-      {{ end }}
-    </div>    
+      </ul>
+    </nav>
   </div>
 
   <div class="[ copy ][ full-width content-grid py--2 ]">
@@ -47,8 +42,8 @@
           {{end}}
         </ul>
       </nav>
-      <div class="[ o--2 lg:o--1 ]">
-        <small>© {{ time.Now.Format "2006"}} <a href="https://josephpinder.com" target="_blank" rel="noopener">Joseph Pinder</a>. All rights reserved.</small>
+      <div class="[ grid o--2 lg:o--1 ]">
+        <small>© {{ time.Now.Format "2006"}} Bahamas Highway Code Online. All rights reserved.</small>
         <small>Site by <a href="https://getclever.marketing" target="_blank" rel="noopener">Clever Marketing, Ltd.</a></small>
       </div>
 

@@ -15,11 +15,12 @@ $min: $min-font-size * 2
 $max: $max-font-size * 3
   
 .footer
-  background-color: color('bg-soft')
+  background-color: #edf5ff
   border-top: em(4) solid color('brand-500')
 
   > .wrapper
-    +clamp(padding-block, $min, $max)
+    +clamp(padding-top, $min, $max)
+    +clamp(gap, $min, $max)
 
   a:not(.logo)
     color: inherit    
@@ -32,8 +33,8 @@ $max: $max-font-size * 3
 
   .logo
 
-    > svg
-      fill: color('white')
+    &--footer
+      color: color('brand-500')
 
 .slogan
   grid-template-rows: min-content min-content 1fr
