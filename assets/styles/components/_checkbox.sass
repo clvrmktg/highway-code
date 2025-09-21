@@ -1,0 +1,55 @@
+@use 'abstracts' as *
+
+.checkbox
+  grid-template-columns: em(20) 1fr
+  position: relative
+  user-select: none
+  cursor: pointer
+
+  > input
+    // visibility: hidden
+    -webkit-appearance: none
+    opacity: 0
+
+
+    &:focus-visible
+      
+      ~ .checkmark
+        outline: em(3) solid color('brand-500') 
+        outline-offset: em(3)
+
+.checkmark
+  width: em(19)
+  height: em(19)
+  background-color: color('bg-soft')
+  border: em(2) solid color('border--light')
+  border-radius: em(2)
+  position: absolute
+  top: 50%
+  left: 0
+  transform: translateY(-50%)
+
+// .checkbox:hover input + .checkmark 
+//   background-color: color('light-purple')
+
+.checkbox input:checked + .checkmark 
+  background-color: color('brand-500')
+
+.checkbox .checkmark:after 
+  width: em(5)
+  height: em(8)
+  color: white
+  top: em(5)
+  left: 0.1em
+
+  
+.checkbox input:checked ~ .checkmark:after 
+ display: flex
+ align-items: center
+ 
+//To hide the checkmark when not checked//
+
+.checkmark:after 
+ content:'✓'
+ position: absolute
+ display: none

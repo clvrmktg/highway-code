@@ -1,4 +1,6 @@
-<form name="support" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="[ form grid row-gap--1 ]">
+<form class="[ form grid row-gap--1 ]" name="support"action="/thank-you/" method="POST"
+data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true"
+data-validate novalidate>
   <input type="hidden" name="form-name" value="support">
   <p class="visually-hidden">
     <label>Don't fill this out: <input name="bot-field"></label>
@@ -15,6 +17,90 @@
       <span>Become a sponsor</span>
     </label>
   </fieldset>
+
+  <!-- Contribution details -->
+  <fieldset class="[ grid row-gap--1 ]" aria-describedby="contrib-help">
+    <legend class="[ font--700 ]">Contribution details</legend>
+    <p id="contrib-help" class="[ form__hint ]">
+      Choose one option below based on how you’re helping.
+    </p>
+
+    <!-- Donation ONLY -->
+    <div id="block-donation">
+      <div class="[ form__field ][ grid row-gap--0.5 ]">
+        <label class="[ form__label ][ font--500 font--600 ]" for="amount_preset">
+          Donation amount
+        </label>
+        <select class="[ form__input ][ px--0.5 ]" name="amount_preset" id="amount_preset">
+          <option value="">— Select an amount —</option>
+          <option value="25">$25</option>
+          <option value="50">$50</option>
+          <option value="75">$75</option>
+          <option value="100">$100</option>
+          <option value="custom">Custom amount…</option>
+        </select>
+      </div>
+
+      <div class="[ form__field ][ grid row-gap--0.5 ]" id="amount-custom-wrap">
+        <label class="[ form__label ]" for="amount_custom">Custom amount (if selected above)</label>
+        <input class="[ form__input ][ px--0.5 ]"
+          type="number" name="amount_custom" id="amount_custom"
+          min="1" step="1" inputmode="numeric" placeholder="e.g., 40" />
+        <small class="[ form__hint ]">
+          If you selected “Custom amount…”, enter your amount here.
+        </small>
+      </div>
+    </div>
+
+    <!-- Sponsorship ONLY -->
+    <div id="block-sponsorship">
+      <div class="[ form__field ][ grid row-gap--0.5 ]">
+        <label class="[ form__label ][ font--500 font--600 ]" for="tier">
+          Sponsorship tier
+        </label>
+        <select class="[ form__input ][ px--0.5 ]" name="tier" id="tier" aria-describedby="tier-help">
+          <option value="">— Select a sponsorship tier —</option>
+          <optgroup label="Individuals">
+            <option value="supporter">Supporter — $25 (one-time)</option>
+            <option value="friend">Friend of the Project — $100/year</option>
+          </optgroup>
+          <optgroup label="Businesses">
+            <option value="community">Community Sponsor — $250/year</option>
+            <option value="section">Section Sponsor — $500/year</option>
+            <option value="project">Project Sponsor — $1,000+/year</option>
+          </optgroup>
+        </select>
+        <small id="tier-help" class="[ form__hint ]">
+          Tiers include recognition as described above. For Project Sponsor, you may optionally indicate your intended amount below.
+        </small>
+      </div>
+
+      <div class="[ form__field ][ grid row-gap--0.5 ]" id="preferred-section-wrap">
+        <label class="[ form__label ]" for="preferred_section">Preferred section (for Section Sponsors)</label>
+        <select class="[ form__input ][ px--0.5 ]" name="preferred_section" id="preferred_section">
+          <option value="">— Select a section (optional) —</option>
+          <option value="rules">Rules</option>
+          <option value="signs-markings-signals">Signs, Markings &amp; Signals</option>
+          <option value="law">Law</option>
+          <option value="emergencies">Emergencies</option>
+          <option value="children-visitors">Children &amp; Visitors</option>
+        </select>
+      </div>
+
+      <div class="[ form__field ][ grid row-gap--0.5 ]" id="extra-amount-wrap">
+        <label class="[ form__label ]" for="amount_sponsor_extra">Optional extra amount</label>
+        <input class="[ form__input ][ px--0.5 ]"
+          type="number" name="amount_sponsor_extra" id="amount_sponsor_extra"
+          min="1" step="1" inputmode="numeric" placeholder="e.g., 1000" />
+        <small class="[ form__hint ]">
+          Useful for **Project Sponsor ($1,000+)** or if you wish to add to your tier.
+        </small>
+      </div>
+    </div>
+  </fieldset>
+
+
+
 
   <div class="[ grid md:col--2 gap--1 ]">   
     <div>
@@ -72,10 +158,11 @@
     </div>
   </div>
 
-  <label class="[ form__field ][ grid row-gap--0.5 ]">
-    <span>Amount (if donating)</span>
-    <input type="number" name="amount" min="1" step="1" placeholder="e.g., 50">
-  </label>
+  {{ partial "inputs/number.html" (dict
+    "name" "amount"
+    "label" "Amount (BSD)"
+    "required" true
+  ) }}
 
   <div class="[ form__field ][ grid row-gap--0.5 ]">
     <label class="[ form__label ][ font--500 font--600 ]" for="message">
@@ -89,17 +176,54 @@
       required></textarea>
   </div>
 
-  <label class="[ form__checkbox ]">
-    <input type="checkbox" name="needs_receipt">
-    <span>Please send an invoice/receipt.</span>
-  </label>
+  {{ partial "inputs/checkbox.html" (dict "name" "needs_receipt" "label" "Please send an invoice/receipt." )}}
 
-  <label class="[ form__checkbox ]">
-    <input type="checkbox" name="consent" required>
-    <span>I consent to being contacted about my contribution.</span>
-  </label>
+  {{ partial "inputs/checkbox.html" (dict "name" "consent" "label" "I consent to being contacted about my contribution." )}}
 
   <div class="[ flex col-gap--0.5 ]">
     <button type="submit" class="[ btn btn--lg btn--primary ]">Submit</button>
   </div>
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const typeRadios = document.querySelectorAll('input[name="support_type"]');
+  const blockDonation = document.getElementById('block-donation');
+  const blockSponsorship = document.getElementById('block-sponsorship');
+
+  const preset = document.getElementById('amount_preset');
+  const customWrap = document.getElementById('amount-custom-wrap');
+  const custom = document.getElementById('amount_custom');
+
+  const tier = document.getElementById('tier');
+  const sectionWrap = document.getElementById('preferred-section-wrap');
+  const extraWrap = document.getElementById('extra-amount-wrap');
+
+  function syncUI() {
+    const supportType = document.querySelector('input[name="support_type"]:checked')?.value;
+
+    // Toggle donation vs sponsorship blocks
+    blockDonation.style.display = supportType === 'donation' ? '' : 'none';
+    blockSponsorship.style.display = supportType === 'sponsorship' ? '' : 'none';
+
+    // Donation: custom amount when "custom" selected
+    const wantsCustom = preset?.value === 'custom';
+    customWrap.style.display = (supportType === 'donation' && wantsCustom) ? '' : 'none';
+    if (supportType !== 'donation' || !wantsCustom) custom.value = '';
+
+    // Sponsorship: show Preferred section only for Section Sponsor
+    sectionWrap.style.display = (supportType === 'sponsorship' && tier?.value === 'section') ? '' : 'none';
+
+    // Sponsorship: show Extra amount if Project Sponsor or any tier that wants to add more
+    const showExtra = (supportType === 'sponsorship' && (tier?.value === 'project' || tier?.value));
+    extraWrap.style.display = showExtra ? '' : 'none';
+  }
+
+  typeRadios.forEach(r => r.addEventListener('change', syncUI));
+  preset?.addEventListener('change', syncUI);
+  tier?.addEventListener('change', syncUI);
+
+  // Initial state
+  syncUI();
+});
+</script>
+

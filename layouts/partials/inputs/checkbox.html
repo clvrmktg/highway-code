@@ -1,0 +1,15 @@
+{{/* layouts/partials/form/checkbox.html */}}
+{{- $name := .name -}}
+{{- $id := or .id $name -}}
+
+<label class="[ checkbox ][ flex middle col-gap--1 ]" for="{{ $id }}">
+  <input
+    id="{{ $id }}"
+    name="{{ $name }}"
+    type="checkbox"
+    value="{{ default "1" .value }}"
+    {{ if .required }}required aria-required="true"{{ end }}
+    {{ if .checked }}checked{{ end }}>
+  <span class="checkmark"></span>
+  <span class="[ checkbox__label ]">{{ .label | safeHTML }}{{ if .required }}<abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>{{ end }}</span>
+</label>
