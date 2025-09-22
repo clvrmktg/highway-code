@@ -23,13 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-if (window.location.search.includes('success=true')) {
-  document.addEventListener('DOMContentLoaded', () => {
-    const tmpl = document.getElementById('feedback-thankyou');
-    if (!tmpl) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const tmpl = document.getElementById('feedback-thankyou');
+  const panel = document.getElementById('feedback__panel');
 
-    const clone = tmpl.content.cloneNode(true);
-    const panel = document.getElementById('feedback__panel');
-    if (panel) panel.replaceWith(clone);
+  // 1. After successful submit, set flag before redirect
+  const forms = document.querySelectorAll('form[data-netlify="true"]');
+  forms.forEach(form => {
+    form.addEventListener('submit', () => {
+      try { localStorage.setItem('feedbackSubmitted', 'true'); } catch(e) {}
+    });
   });
-}
+
+  // 2. On page load, check flag
+  if (localStorage.getItem('feedbackSubmitted') === 'true') {
+    if (tmpl && panel) {
+      panel.replaceChildren(tmpl.content.cloneNode(true));
+    }
+    // 3. Clear flag so it only shows once
+    localStorage.removeItem('feedbackSubmitted');
+  }
+});
