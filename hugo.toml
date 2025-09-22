@@ -16,7 +16,6 @@ disableKinds = [ "taxonomy", "term" ]
 [pagination]
   pagerSize = 9
 
-
 # config.toml
 [outputs]
 home     = ["HTML"]      # no /index.xml on homepage

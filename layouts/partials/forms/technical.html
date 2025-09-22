@@ -1,13 +1,14 @@
 <form id="technical_feedback"
-class="[ x--700 row-gap--1 py--2 ]"
-name="technical_feedback"
-method="POST"
-action="{{ .RelPermalink }}"
-data-netlify="true"
-netlify-honeypot="bot-field"
-data-netlify-recaptcha="true"
-data-validate
-novalidate>
+  class="[ x--700 row-gap--1 py--2 ]"
+  name="technical_feedback"
+  method="POST"
+  action="{{ .RelPermalink }}"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  data-netlify-recaptcha="true"
+  data-validate
+  novalidate>
+
 
   <aside class="[ callout callout--info ][ grid row-gap--0.5 px--1 py--1 r--5 ]"
     role="note"
@@ -30,10 +31,11 @@ novalidate>
   </aside>
 
   <!-- Hidden fields -->
+  <!-- Hidden fields -->
   <input type="hidden" name="form-name" value="technical_feedback">
   <input type="hidden" name="page_url" value="{{ .Permalink }}">
   <input type="hidden" name="page_title" value="{{ .Title }}">
-
+  <input type="hidden" name="redirect" value="{{ .RelPermalink }}?success=true">
   <!-- Honeypot -->
   <label class="visually-hidden">Don't fill this out: <input name="bot-field"></label>
 
