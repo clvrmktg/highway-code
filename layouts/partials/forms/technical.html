@@ -2,6 +2,7 @@
   class="[ x--700 row-gap--1 py--2 ]"
   name="technical_feedback"
   method="POST"
+  action="{{ .RelPermalink }}"
   data-netlify="true"
   netlify-honeypot="bot-field"
   data-netlify-recaptcha="true"
@@ -14,19 +15,19 @@
     aria-label="Note"
     id="callout-example">
 
-  <div class="[ callout__header ][ flex middle col-gap--0.5 ]">
-  <span class="[ callout__icon ][ flex middle ]" aria-hidden="true">
-    <!-- Inline SVG icon goes here -->
-    {{ readFile "static/icons/tabler/info-circle.svg" | safeHTML }}
-  </span>
-  <strong class="[ callout__title ]">Note</strong>
-  </div>
+    <div class="[ callout__header ][ flex middle col-gap--0.5 ]">
+        <span class="[ callout__icon ][ flex middle ]" aria-hidden="true">
+          <!-- Inline SVG icon goes here -->
+          {{ readFile "static/icons/tabler/info-circle.svg" | safeHTML }}
+        </span>
+      <strong class="[ callout__title ]">Note</strong>
+    </div>
 
-  <div class="[ callout__body ]">
-  <p>You will not receive a reply. We will consider your feedback to help improve the site.</p>
+    <div class="[ callout__body ]">
+      <p>You will not receive a reply. We will consider your feedback to help improve the site.</p>
 
-  <p>Don't include any personal or financial information, for example National Insurance, credit card numbers, or phone numbers.</p>
-  </div>
+      <p>Don't include any personal or financial information, for example National Insurance, credit card numbers, or phone numbers.</p>
+    </div>
   </aside>
 
   <!-- Hidden fields -->
@@ -35,6 +36,7 @@
   <input type="hidden" name="page_url" value="{{ .Permalink }}">
   <input type="hidden" name="page_title" value="{{ .Title }}">
   <input type="hidden" name="redirect" value="{{ .RelPermalink }}?success=true">
+  
   <!-- Honeypot -->
   <label class="visually-hidden">Don't fill this out: <input name="bot-field"></label>
 
@@ -105,7 +107,7 @@
 
   <!-- Actions -->
   <div>
-  <button class="[ btn btn--sm btn--primary ]" type="submit">Send feedback &rarr;</button>
+  <button class="[ btn btn--sm btn--primary ]" form="technical_feedback" type="submit" value="submit">Send feedback &rarr;</button>
   </div>
 
   <!-- Live region for validation announcements (optional) -->
