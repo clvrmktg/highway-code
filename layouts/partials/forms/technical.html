@@ -31,7 +31,6 @@
   </aside>
 
   <!-- Hidden fields -->
-  <!-- Hidden fields -->
   <input type="hidden" name="form-name" value="technical_feedback">
   <input type="hidden" name="page_url" value="{{ .Permalink }}">
   <input type="hidden" name="page_title" value="{{ .Title }}">
@@ -96,8 +95,8 @@
       Tell us more about the problem you're having with this page.<abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>
     </label>
     <textarea class="[ form__message ][ p--0.5 ]"
-      name="message" id="message"
-      minlength="10" maxlength="2000"
+      name="message" id="technical_message"
+      minlength="10" maxlength="3000"
       autocomplete="off" spellcheck="true"
       required></textarea>
   </div>
@@ -111,5 +110,6 @@
   </div>
 
   <!-- Live region for validation announcements (optional) -->
-  <div id="form-errors" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  
+  <div id="technical_errors" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
 </form>
