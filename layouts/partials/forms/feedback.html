@@ -1,58 +1,63 @@
-      <form id="general_feedback"
-            class="[ x--700 row-gap--1 py--2 ]"
-            name="general_feedback"
-            method="POST"
-            action="{{ .Permalink }}"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            data-netlify-recaptcha="true"
-            data-validate
-            novalidate>
-  
-        <aside class="[ callout callout--info ][ grid row-gap--0.5 px--1 py--1 r--5 ]"
-              role="note"
-              aria-label="Note"
-              id="callout-example">
-  
-          <div class="[ callout__header ][ flex middle col-gap--0.5 ]">
-            <span class="[ callout__icon ][ flex middle ]" aria-hidden="true">
-              <!-- Inline SVG icon goes here -->
-              {{ readFile "static/icons/tabler/info-circle.svg" | safeHTML }}
-            </span>
-            <strong class="[ callout__title ]">Note</strong>
-          </div>
-  
-          <div class="[ callout__body ]">
-            <p>You will not receive a reply. We will consider your feedback to help improve the site.</p>
-  
-            <p>Don't include any personal or financial information, for example National Insurance, credit card numbers, or phone numbers.</p>
-          </div>
-        </aside>
-  
-        <!-- Hidden fields -->
-        <input type="hidden" name="form-name" value="page_feedback">
-        <input type="hidden" name="page_url" value="{{ .Permalink }}">
-        <input type="hidden" name="page_title" value="{{ .Title }}">
-  
-        <!-- Honeypot -->
-        <label class="visually-hidden">Don't fill this out: <input name="bot-field"></label>
-  
-        <!-- Main message -->
-        <div>
-          <div class="[ form__field ][ grid row-gap--0.5 ]">
-            <label class="[ form__label ]" for="fb-details">Tell us more about the problem you're having with this page.</label>
-            <textarea id="fb-details" name="details" rows="6" required></textarea>
-          </div>
-        </div>
-  
-        <!-- reCAPTCHA -->
-        <div data-netlify-recaptcha="true"></div>
-  
-        <!-- Actions -->
-        <div>
-          <button class="[ btn btn--sm btn--primary ]" type="submit">Send feedback &rarr;</button>
-        </div>
-  
-        <!-- Live region for validation announcements (optional) -->
-        <div id="form-errors" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
-      </form>
+<form id="general_feedback"
+      class="[ x--700 row-gap--1 py--2 ]"
+      name="general_feedback"
+      action="{{ .RelPermalink }}"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-netlify-recaptcha="true"
+      data-validate
+      novalidate>
+
+  <aside class="[ callout callout--info ][ grid row-gap--0.5 px--1 py--1 r--5 ]"
+        role="note"
+        aria-label="Note"
+        id="callout-example">
+
+    <div class="[ callout__header ][ flex middle col-gap--0.5 ]">
+      <span class="[ callout__icon ][ flex middle ]" aria-hidden="true">
+        <!-- Inline SVG icon goes here -->
+        {{ readFile "static/icons/tabler/info-circle.svg" | safeHTML }}
+      </span>
+      <strong class="[ callout__title ]">Note</strong>
+    </div>
+
+    <div class="[ callout__body ]">
+      <p>You will not receive a reply. We will consider your feedback to help improve the site.</p>
+
+      <p>Don't include any personal or financial information, for example National Insurance, credit card numbers, or phone numbers.</p>
+    </div>
+  </aside>
+
+  <!-- Hidden fields -->
+  <input type="hidden" name="form-name" value="general_feedback">
+  <input type="hidden" name="page_url" value="{{ .Permalink }}">
+  <input type="hidden" name="page_title" value="{{ .Title }}">
+
+  <!-- Honeypot -->
+  <label class="visually-hidden">Don't fill this out: <input name="bot-field"></label>
+
+  <!-- Main message -->
+  <div class="[ form__field ][ grid row-gap--0.5 ]">
+    <label class="[ form__label ][ font--500 font--600 ]" for="message">
+      Enter your feedback<abbr class="[ required ]" title="This field is required" aria-label="This field is required">*</abbr>
+    </label>
+    <textarea class="[ form__message ][ p--0.5 ]"
+      name="message" id="message"
+      placeholder="Tell us how we can help..."
+      minlength="10" maxlength="2000"
+      autocomplete="off" spellcheck="true"
+      required></textarea>
+  </div>
+
+  <!-- reCAPTCHA -->
+  <div data-netlify-recaptcha="true"></div>
+
+  <!-- Actions -->
+  <div>
+    <button class="[ btn btn--sm btn--primary ]" form="general_feedback" type="submit" value="submit">Send feedback &rarr;</button>
+  </div>
+
+  <!-- Live region for validation announcements (optional) -->
+  <div id="form-errors" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+</form>
