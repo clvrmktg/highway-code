@@ -19,7 +19,7 @@
     </div>
     
     <nav class="footer-nav__block">
-      <ul class="[ flex flex--column md:flex--row row-gap--1 col-gap--2 ]">
+      <ul class="[ flex flex--column md:flex--row gap--1 ]">
         {{ range site.Menus.main }}
         <li>
           <a href="{{ .URL }}" data-prefetch>{{ .Name }}</a>
@@ -29,10 +29,10 @@
     </nav>
   </div>
 
-  <div class="[ copy ][ full-width content-grid py--2 ]">
-    <div class="[ flex flex--column lg:flex--row lg:between gap--2 ]">
+  <div class="[ copy ][ py--2 ]">
+    <div class="[ flex flex--column lg:flex--row lg:between col-gap--1 row-gap--1 ]">
       <nav class="[ o--1 lg:o--2 ]">
-        <ul class="[ flex flex--column md:flex--row gap--1 ]">        
+        <ul class="[ flex flex--column md:flex--row start gap--1 ]">        
           {{ range .Site.Menus.policies }}
           <li>
             <small>
@@ -43,7 +43,7 @@
         </ul>
       </nav>
       <div class="[ grid o--2 lg:o--1 ]">
-        <small>© {{ time.Now.Format "2006"}} Bahamas Highway Code Online. All rights reserved.</small>
+        <small>© {{ time.Now.Format "2006"}} Bahamas Highway Code Online<sup>TM</sup>. All rights reserved.</small>
         <small>Site by <a href="https://getclever.marketing" target="_blank" rel="noopener">Clever Marketing, Ltd.</a></small>
       </div>
 

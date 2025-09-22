@@ -1,178 +1,42 @@
-<footer class="[ issue ][ full-width content-grid ]">
-  <div class="[ wrapper ][ grid py--1 ]">
-    <!-- BAR -->
-    <div class="[ issue__bar ][ grid ]" id="feedback-bar" role="group" aria-label="Page feedback controls" aria-hidden="false">
-      
-      <div class="[ page-use ][ flex col-gap--0.5 ]">
-        <p class="[ flex middle font--700 pb--0 ]">Was this page useful?</p>
+<section class="[ issue ][ full-width content-grid ]" aria-labelledby="feedback_heading">
+  
+  <h2 id="feedback_heading" class="[ feedback__heading ][ full-width content-grid font--5 py--1 ]">
+    <label class="[ feedback__control ][ flex between middle ]" for="feedback-control">
+      <input id="feedback-control" class="[ hidden ]" type="checkbox">
+      <span>Help improve this page — send your feedback</span>
+      {{ readFile "static/icons/tabler/circle-arrow-down.svg" | safeHTML }}
+    </label>
+  </h2>
 
-        <button type="button" id="btn-yes" class="[ btn btn--sm btn--ghost black yes ]" aria-controls="usefulness-details" aria-expanded="false" aria-pressed="false">Yes</button>
+  <div id="feedback__panel" class="[ issue__panel ][ grid ]">
 
-        <button type="button" id="btn-no" class="[ btn btn--sm btn--ghost black no ]" aria-controls="usefulness-details" aria-expanded="false" aria-pressed="false">No</button>
-      </div>
-
-      <div class="[ report-button ]">
-        <button type="button"
-                id="btn-report"
-                class="[ btn btn--sm btn--ghost black ]"
-                aria-controls="report-panel"
-                aria-expanded="false">
-          Report a problem with this page
-        </button>
-      </div>
+    <!-- What do you want to do? -->
+    <div class="[ py--1 ]">
+      <fieldset class="[ grid row-gap--0.5 ]">
+        <legend class="[ form__label ][ font--3 font--700 ]">What do you want to do?</legend>
+  
+        <div class="[ flex col-gap--1 wrap ]">
+          <label class="[ chip chip--radio ]">
+            <input type="radio" name="about" id="problem" value="problem" required>
+            <span>Report a problem</span>
+          </label>
+  
+          <label class="[ chip chip--radio ]">
+            <input type="radio" name="about" id="feedback" value="feedback" required>
+            <span>Leave feedback</span>
+          </label>
+  
+        </div>
+      </fieldset>
     </div>
 
-    <!-- “No” → usefulness reasons (content issues) -->
-    <section id="usefulness-details" class="[ issue__details ][ grid ]" role="region" aria-labelledby="btn-no" aria-hidden="true" inert>
-      {{ partial "forms/usefulness.html" . }}
-    </section>
+    
+    <div class="[ issue__form ][ grid ]">
 
-    <!-- Technical/site problem -->
-    <section id="report-panel" class="[ issue__report ][ grid ]" role="region" aria-labelledby="btn-report" aria-hidden="true" inert>
       {{ partial "forms/technical.html" . }}
-    </section>
+      
+      {{ partial "forms/feedback.html" . }}
+    </div>
+    
   </div>
-</footer>
-
-<script>
-(function () {
-  document.querySelectorAll('.issue').forEach(setupFeedback);
-
-  function setupFeedback(root) {
-    const bar     = root.querySelector('#feedback-bar');
-    const btnYes  = root.querySelector('#btn-yes');
-    const btnNo   = root.querySelector('#btn-no');
-    const btnRep  = root.querySelector('#btn-report');
-    const pnlHelp = root.querySelector('#usefulness-details'); // may be null (commented out)
-    const pnlTech = root.querySelector('#report-panel');
-
-    // Require the bar, the three buttons, and the tech panel. Help panel is optional.
-    if (!bar || !btnYes || !btnNo || !btnRep || !pnlTech) return;
-
-    let lastFocus = null;
-
-    function fireAnalytics(name, props) {
-      if (window.gtag) gtag('event', name, props || {});
-      if (window.plausible) plausible(name, { props: props || {} });
-    }
-
-    function setBarCollapsed(collapsed) {
-      bar.classList.toggle('collapsed', collapsed);
-      bar.setAttribute('aria-hidden', collapsed ? 'true' : 'false');
-      if (collapsed) bar.setAttribute('inert', '');
-      else bar.removeAttribute('inert');
-    }
-
-    function openPanel(panel, toggleBtn) {
-      closeAll();
-      lastFocus = toggleBtn || null;
-
-      panel.classList.add('open');
-      panel.setAttribute('aria-hidden', 'false');
-      panel.removeAttribute('inert');
-
-      setBarCollapsed(true);
-
-      if (panel === pnlHelp && btnNo) {
-        btnNo.setAttribute('aria-expanded', 'true');
-        btnNo.setAttribute('aria-pressed', 'true');
-        if (btnYes) btnYes.setAttribute('aria-pressed', 'false');
-      }
-      if (panel === pnlTech) {
-        btnRep.setAttribute('aria-expanded', 'true');
-      }
-
-      const first = panel.querySelector('[autofocus], [data-autofocus], input, textarea, select, button');
-      if (first) first.focus();
-    }
-
-    function closeAll() {
-      // Only touch panels that exist
-      if (pnlHelp) {
-        pnlHelp.classList.remove('open');
-        pnlHelp.setAttribute('aria-hidden', 'true');
-        pnlHelp.setAttribute('inert', '');
-      }
-      pnlTech.classList.remove('open');
-      pnlTech.setAttribute('aria-hidden', 'true');
-      pnlTech.setAttribute('inert', '');
-
-      if (btnNo) {
-        btnNo.setAttribute('aria-expanded', 'false');
-        btnNo.setAttribute('aria-pressed', 'false');
-      }
-      btnRep.setAttribute('aria-expanded', 'false');
-      if (btnYes) btnYes.setAttribute('aria-pressed', 'false');
-
-      setBarCollapsed(false);
-    }
-
-    // YES
-    btnYes?.addEventListener('click', () => {
-      closeAll();
-      btnYes.setAttribute('aria-pressed', 'true');
-      fireAnalytics('page_helpfulness', { value: 'yes' });
-      btnYes.blur();
-    });
-
-    // NO (only wire if the panel exists)
-    if (pnlHelp) {
-      btnNo.addEventListener('click', () => {
-        if (pnlHelp.classList.contains('open')) {
-          closeAll();
-          btnNo.focus();
-        } else {
-          openPanel(pnlHelp, btnNo);
-          fireAnalytics('page_helpfulness', { value: 'no' });
-        }
-      });
-    } else {
-      // If there's no usefulness panel, just log the click
-      btnNo.addEventListener('click', () => {
-        fireAnalytics('page_helpfulness', { value: 'no' });
-        // Optional: brief toast/ack here
-      });
-    }
-
-    // REPORT
-    btnRep.addEventListener('click', () => {
-      if (pnlTech.classList.contains('open')) {
-        closeAll();
-        btnRep.focus();
-      } else {
-        openPanel(pnlTech, btnRep);
-        fireAnalytics('problem_selected', { value: 'technical' });
-      }
-    });
-
-    // Cancel buttons
-    root.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-close]');
-      if (!btn) return;
-      e.preventDefault();
-      closeAll();
-      if (lastFocus) {
-        lastFocus.focus();
-        lastFocus = null;
-      }
-    });
-
-    // ESC closes
-    root.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const anyOpen = (pnlHelp?.classList.contains('open')) || pnlTech.classList.contains('open');
-        if (anyOpen) {
-          e.stopPropagation();
-          closeAll();
-          if (lastFocus) {
-            lastFocus.focus();
-            lastFocus = null;
-          } else {
-            (btnNo || btnRep).focus();
-          }
-        }
-      }
-    });
-  }
-})();
-</script>
+</section>

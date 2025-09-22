@@ -80,3 +80,8 @@ for = "/*"
   status = 301
   force = true
 
+[[redirects]]
+  from = "/disclaimer/"
+  to = "/terms-conditions/"
+  status = 301
+  force = true

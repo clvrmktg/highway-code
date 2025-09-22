@@ -1,13 +1,13 @@
 <header class="[ navbar ][ full-width content-grid ]" id="navbar">
-  <div class="[ wrapper ][ middle col-gap--2 relative ]">
+  <div class="[ wrapper ][ middle relative ]">
     <div class="[ backdrop ]"></div>
     <a class="[ logo logo--navbar ][ flex middle ]" href="/" aria-label="{{ site.Title }} — Home" {{ if .IsHome }}aria-current="page"{{ end }} rel="home">
       {{- readFile "static/icons/logo.svg" | safeHTML }}
     </a>
     <!-- Menu & Search -->
-    <div class="[ menu-search ][ col-gap--2 px--1 ]">
+    <div class="[ menu-search ][ px--1 ]">
       <nav class="[ navigation--main ][ none lg:middle col-gap--1 ]" role="navigation" aria-label="Main">
-        <ul class="[ menu menu--main ][ col-gap--2 ]">
+        <ul class="[ menu menu--main ]">
         {{- $context := .context -}}
         {{- $currentPage := .currentPage -}}
         {{with $context}}

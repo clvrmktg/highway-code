@@ -1,6 +1,9 @@
 @use 'sass:math'
 @use '../abstracts' as *
 
+$min: $min-font-size * 0.5
+$max: $max-font-size * 2
+
 .navbar
   background-color: color('brand')
   width: 100%
@@ -9,10 +12,11 @@
   > .wrapper
     height: inherit
     z-index: 15
-    // outline: $by
     display: flex
     justify-content: space-between
     align-items: center
+    +clamp(column-gap, $min, $max)
+
 
     +device(desktop)
       display: grid
@@ -37,8 +41,11 @@
     color: color('white')
     fill: currentcolor
 
+
+
 .menu-search
   display: flex
+  +clamp(column-gap, $min, $max)
 
   +device(tablet)
     width: 100vw
@@ -49,6 +56,7 @@
     background-color: color('bg-soft')
     flex-direction: column
     padding-top: 2em
+    padding-inline: 1em
     position: absolute
     left: 50%
     transform: translateX(-50%)
@@ -75,10 +83,13 @@
 .menu
   display: flex
   flex-direction: column
-
+  
   +device(desktop)
     height: inherit
     flex-direction: row
+
+  &--main
+    +clamp(column-gap, $min, $max)
 
   &__item
     align-items: center

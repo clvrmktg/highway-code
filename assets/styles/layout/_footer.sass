@@ -11,8 +11,8 @@
 //   box-shadow: 0.5em 0.5em em(18) 0 rgba(0,0,0,0.3)
 //   transform: rotateZ(3deg)
 
-$min: $min-font-size * 2
-$max: $max-font-size * 3
+$min: $min-font-size * 1
+$max: $max-font-size * 2
   
 .footer
   background-color: #edf5ff
@@ -21,6 +21,18 @@ $max: $max-font-size * 3
   > .wrapper
     +clamp(padding-top, $min, $max)
     +clamp(gap, $min, $max)
+
+    > div
+      gap: inherit
+
+    +breakpoint(desktop)
+      grid-template-columns: [logo-start] minmax(30ch, 40ch) [logo-end] 1fr [nav-start] max-content [nav-end]
+
+      > div
+        grid-column: logo
+
+      > nav
+        grid-column: nav
 
   a:not(.logo)
     color: inherit    

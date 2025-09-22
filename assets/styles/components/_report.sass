@@ -1,83 +1,65 @@
 @use '../abstracts' as *
 
 .issue
-  background-color: color('bg-soft')
+  grid-template-rows: max-content 0fr
+  overflow: hidden
+  transform-origin: bottom
+  +transition(grid-template-rows)
 
-  > .wrapper
-    grid-template-rows: max-content 0fr 0fr
+  > *
+    min-height: 0
+
+  &__panel
+    grid-template-rows: max-content 0fr
     +transition(grid-template-rows)
     
     > *
       min-height: 0
 
-    /* when usefulness panel is open */
-    &:has(.issue__details.open)
-      grid-template-rows: 0fr 1fr 0fr
+#technical_feedback
+  display: none
 
-    /* when tech report panel is open */
-    &:has(.issue__report.open)           /* <-- note double underscore */
-      grid-template-rows: 0fr 0fr 1fr
+#general_feedback
+  display: none
 
-  // Top bar (Yes/No + Report button)
-  &__bar
-    grid-template-rows: 1fr
-    +transition((grid-template-rows, opacity))
+.feedback
+  
+  &__heading
+    color: color('white')
+    background-color: color('brand-500')
+    
+  &__control
+    display: inline-flex
+    cursor: pointer
 
-    +breakpoint(tablet)
-      grid-template-columns: [use-start] auto [use-end] 1fr [report-start] auto [report-end]
+    > span
+      text-decoration: underline
+      text-decoration-color: color('white')
 
-      .page-use
-        grid-column: use
+    .icon
+      +transition(transform)
 
-      .report-button
-        grid-column: report
 
-    &.collapsed
-      grid-template-rows: 0
-      opacity: 0
+.issue:has(#feedback-control:checked)
+  grid-template-rows: max-content 1fr
 
-    > .bar-inner
-      min-height: 0         // lets the single track actually collapse
-      overflow: hidden
+  .feedback__control .icon
+    transform: rotate(180deg)
 
-    &[aria-hidden="true"]
-      visibility: hidden
+.issue:has(#problem:checked), .issue:has(#feedback:checked)
 
-  // Collapsible panels (usefulness details + technical report)
-  &__details, &__report
-    block-size: 0                // collapse when closed
-    overflow: hidden            // fallback
-    @supports (overflow: clip)
-      overflow: clip             // stronger clip when supported
-    padding-block: 0             // prevent padding from forcing height
-    margin-block: 0
-    border-block-width: 0        // same for borders
+  .issue
 
-    // visibility: hidden           // avoid paint when closed
-    pointer-events: none         // no clicks
-    clip-path: inset(0)          // robust paint clipping
+    &__panel
+      grid-template-rows: max-content 1fr
 
-    min-width: 0
-    min-height: 0
-    // Non-interactive when inert
-    &[inert]
-      pointer-events: none
+.issue:has(#problem:checked)
 
-    // Visually hidden (still no display:none)
-    &[aria-hidden="true"]
-      visibility: hidden
-      +transition(visibility)
-      
-    &.open
-      block-size: auto
-      padding-block: var(--panel-padding, 1rem)
-      border-block-width: initial
-      visibility: visible
-      pointer-events: auto
-      clip-path: none
-  // Respect reduced motion
-  @media (prefers-reduced-motion: reduce)
-    &__bar,
-    &__details,
-    &__report
-      transition: none
+  #technical_feedback
+    display: grid
+
+.issue:has(#feedback:checked)
+
+  #general_feedback
+    display: grid
+    

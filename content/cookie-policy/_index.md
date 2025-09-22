@@ -11,6 +11,8 @@ description = "Read how Bahamas Highway Code Online uses cookies and tracking to
 
 ---
 
+{{< toc >}}
+
 ## What Are Cookies?
 
 Cookies are small text files placed on your device when you visit a website. They help remember your preferences, improve functionality, and provide insights into how people use our site.

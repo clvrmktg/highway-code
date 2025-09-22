@@ -1,41 +1,103 @@
-<form class="[ issue__form ][ x--800 grid row-gap--1 py--2 ]"
-      name="tech_issue"
-      method="POST"
-      action="/thank-you/"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      data-netlify-recaptcha="true">
+<form id="technical_feedback"
+class="[ x--700 row-gap--1 py--2 ]"
+name="technical_feedback"
+method="POST"
+action="/thank-you/"
+data-netlify="true"
+netlify-honeypot="bot-field"
+data-netlify-recaptcha="true"
+data-validate
+novalidate>
+
+  <aside class="[ callout callout--info ][ grid row-gap--0.5 px--1 py--1 r--5 ]"
+    role="note"
+    aria-label="Note"
+    id="callout-example">
+
+  <div class="[ callout__header ][ flex middle col-gap--0.5 ]">
+  <span class="[ callout__icon ][ flex middle ]" aria-hidden="true">
+    <!-- Inline SVG icon goes here -->
+    {{ readFile "static/icons/tabler/info-circle.svg" | safeHTML }}
+  </span>
+  <strong class="[ callout__title ]">Note</strong>
+  </div>
+
+  <div class="[ callout__body ]">
+  <p>You will not receive a reply. We will consider your feedback to help improve the site.</p>
+
+  <p>Don't include any personal or financial information, for example National Insurance, credit card numbers, or phone numbers.</p>
+  </div>
+  </aside>
 
   <!-- Hidden fields -->
-  <input type="hidden" name="form-name" value="tech_issue" />
+  <input type="hidden" name="form-name" value="page_feedback">
   <input type="hidden" name="page_url" value="{{ .Permalink }}">
   <input type="hidden" name="page_title" value="{{ .Title }}">
 
   <!-- Honeypot -->
-  <p class="visually-hidden">
-    <label>Don’t fill this out: <input name="bot-field"></label>
-  </p>
+  <label class="visually-hidden">Don't fill this out: <input name="bot-field"></label>
 
+  <!-- Problem categories (optional) -->
+  <fieldset class="[ grid row-gap--1 ]" data-show-when='{"about":"report_problem"}'>
+
+    <legend class="[ form__label ]">Which problem did you find? <small class="muted">(tick all that apply)</small></legend>
+
+    <ul class="[ grid gap--0.5 ]" role="list">
+      <li>
+        {{ partial "inputs/checkbox.html" (dict
+          "name" "problem[]"
+          "value" "link_button_video"
+          "label" "A link, button, or video is not working"
+        ) }}
+      </li>
+      <li>
+        {{ partial "inputs/checkbox.html" (dict
+          "name" "problem[]"
+          "value" "spelling"
+          "label" "There's a spelling mistake"
+        ) }}
+      </li>
+      <li>
+        {{ partial "inputs/checkbox.html" (dict
+          "name" "problem[]"
+          "value" "info_missing"
+          "label" "Information is missing, outdated, or wrong"
+        ) }}
+      </li>
+      <li>
+        {{ partial "inputs/checkbox.html" (dict
+          "name" "problem[]"
+          "value" "cannot_find"
+          "label" "I can't find what I'm looking for"
+        ) }}
+      </li>
+      <li>
+        {{ partial "inputs/checkbox.html" (dict
+          "name" "problem[]"
+          "value" "other"
+          "label" "Another issue"
+        ) }}
+      </li>
+    </ul>
+
+  </fieldset>
+
+  <!-- Main message -->
   <div>
-    <h2 class="[ font--3 mb--0.25 ]">Help us improve this website</h2>
-    <p>This is for website/technical issues (broken links, layout, accessibility).</p>
-  </div>
-
   <div class="[ form__field ][ grid row-gap--0.5 ]">
-    <label class="[ form__label ]" for="tech-action">What were you trying to do?</label>
-    <textarea class="[ form_message ]" name="action" id="tech-action" rows="4" data-autofocus required></textarea>
+  <label class="[ form__label ]" for="fb-details">Tell us more about the problem you're having with this page.</label>
+  <textarea id="fb-details" name="details" rows="6" required></textarea>
   </div>
-
-  <div class="[ form__field ][ grid row-gap--0.5 ]">
-    <label class="[ form__label ]" for="tech-problem">What went wrong?</label>
-    <textarea class="[ form_message ]" name="problem" id="tech-problem" rows="6" required></textarea>
   </div>
 
   <!-- reCAPTCHA -->
   <div data-netlify-recaptcha="true"></div>
 
-  <div class="[ flex end col-gap--1 ]">
-    <button type="button" class="[ btn btn--sm btn--ghost black ]" data-close="report-panel">Cancel</button>
-    <button class="[ btn btn--sm btn--primary ]" form="tech_issue" type="submit" value="submit">Submit</button>
+  <!-- Actions -->
+  <div>
+  <button class="[ btn btn--sm btn--primary ]" type="submit">Send feedback &rarr;</button>
   </div>
+
+  <!-- Live region for validation announcements (optional) -->
+  <div id="form-errors" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
 </form>

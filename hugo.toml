@@ -105,9 +105,9 @@ section  = ["HTML"]      # no /<section>/index.xml
 # -------------------------------------------------
 
 [[menu.policies]]
-  identifier = "disclaimer"
-  name = "Disclaimer"
-  url = "/disclaimer/"
+  identifier = "terms-conditions"
+  name = "Terms & Conditions"
+  url = "/terms-conditions/"
   weight = 1
 
 [[menu.policies]]

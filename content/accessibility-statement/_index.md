@@ -5,13 +5,13 @@ title = 'Accessibility Statement'
 description = "Bahamas Highway Code Online is committed to providing an accessible website for all users, following WCAG 2.1 Level AA standards. Learn about our accessibility features, ongoing improvements, and how to share feedback."
 +++
 
-# Accessibility Statement
-
 **Last Updated:** {{<date>}}
 
 At **Bahamas Highway Code Online**, we are committed to making our website accessible to everyone, including people with disabilities. We want all visitors to be able to access the information and services we provide without barriers.
 
 ---
+
+{{< toc >}}
 
 ## Our Commitment
 

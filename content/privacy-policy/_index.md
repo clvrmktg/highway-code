@@ -13,6 +13,8 @@ If you have questions about this policy, please [contact us](/contact-us).
 
 ---
 
+{{< toc >}}
+
 ## Information We Collect
 
 We may collect personal and non-personal information when you interact with our website, including:
