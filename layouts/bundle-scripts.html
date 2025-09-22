@@ -1,0 +1,35 @@
+{{- /* layouts/partials/bundle-scripts.html */ -}}
+{{- $args        := . -}}
+{{- $files       := $args.files | default (slice) -}}
+{{- $targetPath  := $args.targetPath | default "scripts/bundle.js" -}}
+{{- $attrs       := or $args.attributes (dict "defer" true) -}}
+{{- $algo        := $args.integrity | default "sha384" -}}
+
+{{- $module      := $attrs.module | default false -}}
+{{- $defer       := cond (isset $attrs "defer") ($attrs.defer) true -}}
+{{- $crossorigin := $attrs.crossorigin | default "anonymous" -}}
+
+{{- if not (len $files) -}}
+  {{- errorf "bundle-scripts.html: no files provided" -}}
+{{- end -}}
+
+{{- $resources := slice -}}
+{{- range $files }}
+  {{- $res := resources.Get . -}}
+  {{- if not $res -}}
+    {{- errorf "bundle-scripts.html: resource not found: %q (expected at /assets/%s)" . . -}}
+  {{- end -}}
+  {{- $resources = $resources | append $res -}}
+{{- end -}}
+
+{{- $bundle := $resources | resources.Concat $targetPath -}}
+
+{{- if hugo.IsProduction -}}
+  {{- $bundle = $bundle | resources.Minify | resources.Fingerprint $algo -}}
+  <script {{ if $module }}type="module"{{ end }} src="{{ $bundle.RelPermalink }}"
+          integrity="{{ $bundle.Data.Integrity }}" crossorigin="{{ $crossorigin }}"
+          {{ if $defer }}defer{{ end }}></script>
+{{- else -}}
+  <script {{ if $module }}type="module"{{ end }} src="{{ $bundle.RelPermalink }}"
+          {{ if $defer }}defer{{ end }}></script>
+{{- end -}}

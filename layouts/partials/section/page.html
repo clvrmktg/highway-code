@@ -35,12 +35,22 @@
         </aside>
       </div>
     </div>
-    <div>
+    <div class="[ sidebar__top ]">
       <a href="#navbar">↑ Back to top</a>
     </div>
   </div>
-
+  
   <div class="[ content ]">
+    <template id="feedback-thankyou">
+      <div class="[ success-message ][ pb--2 ]">
+        <p class="[ font--600 flex middle col-gap--0.5 p--1 r--5 ]">
+          <span class="[ flex middle ]">
+            {{ readFile "static/icons/tabler/circle-check.svg" | safeHTML }}
+          </span>
+          <span>Thank you for your feedback! We've received your submission.</span>
+        </p>
+      </div>
+    </template>
   
     <article class="[ longform ]">
       {{/* Main content */}}

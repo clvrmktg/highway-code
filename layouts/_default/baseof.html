@@ -15,7 +15,8 @@
     </div>
     {{ partial "notice.html" . }}
     {{partial "script.html" (dict "path" "scripts/components/prefetch.js" "targetPath" "scripts/prefetch.js" "attributes" (dict "defer" true))}}
-    {{ if or .IsHome ( $.Store.Get "hasObscure" ) }}
+    {{partial "script.html" (dict "path" "scripts/components/app.js" "targetPath" "scripts/app.js" "attributes" (dict "defer" true))}}
+    {{ if $.Store.Get "hasObscure" }}
     {{ partial "script.html" (dict "path" "scripts/components/obscure.js" "targetPath" "scripts/obscure.js" "attributes" (dict "defer" true))}}
     {{- end }}
     {{- if .Store.Get "hasYouTube" -}}
@@ -40,8 +41,8 @@
     {{ partial "script.html" (dict "path" "scripts/components/notice.js" "targetPath" "scripts/notice.js") }}
     {{ partial "analytics/mpixel.html" . }}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
+    <link rel="stylesheet" href="/styles/algolia.css" />
+    <script type="text/javascript" src="/scripts/algolia.js"></script>
     <script type="text/javascript">
       algoliasearchNetlify({
         appId: 'XIVQ2UYD9Y',

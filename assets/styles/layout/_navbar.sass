@@ -64,6 +64,10 @@ $max: $max-font-size * 2
     top: -200vw
     z-index: -2
     +transition((top, visibility))
+    transition-behaviour: allow-discrete
+
+    @starting-style
+      top: -200vw
   
   +device(desktop)
     display: grid

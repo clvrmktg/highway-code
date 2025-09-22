@@ -48,6 +48,12 @@ $border: color-mix(in srgb, var(--brand), #fff 65%)
       outline: em(3) solid mix($brand-700, transparent, 70%)
       outline-offset: em(2)
 
+.sidebar__top
+  display: none
+
+  +breakpoint(desktop)
+    display: block
+
 // Utilities
 .visually-hidden
   position: absolute !important

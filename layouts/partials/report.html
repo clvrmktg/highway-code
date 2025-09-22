@@ -1,14 +1,14 @@
-<section class="[ issue ][ full-width content-grid ]" aria-labelledby="feedback_heading">
+<section id="feedback-section" class="[ issue ][ full-width content-grid ]" aria-labelledby="feedback_heading">
   
   <h2 id="feedback_heading" class="[ feedback__heading ][ full-width content-grid font--5 py--1 ]">
     <label class="[ feedback__control ][ flex between middle ]" for="feedback-control">
-      <input id="feedback-control" class="[ hidden ]" type="checkbox">
+      <input id="feedback-control" class="[ hidden ]" type="checkbox" aria-controls="feedback_panel" aria-expanded="false">
       <span>Help improve this page — send your feedback</span>
       {{ readFile "static/icons/tabler/circle-arrow-down.svg" | safeHTML }}
     </label>
   </h2>
 
-  <div id="feedback__panel" class="[ issue__panel ][ grid ]">
+  <div id="feedback_panel" class="[ issue__panel ][ grid ]">
 
     <!-- What do you want to do? -->
     <div class="[ py--1 ]">
@@ -17,12 +17,12 @@
   
         <div class="[ flex col-gap--1 wrap ]">
           <label class="[ chip chip--radio ]">
-            <input type="radio" name="about" id="problem" value="problem" required>
+            <input type="radio" name="about" id="problem" value="problem" aria-controls="technical_feedback" aria-expanded="false" required>
             <span>Report a problem</span>
           </label>
   
           <label class="[ chip chip--radio ]">
-            <input type="radio" name="about" id="feedback" value="feedback" required>
+            <input type="radio" name="about" id="feedback" value="feedback" aria-controls="general_feedback" aria-expanded="false" required>
             <span>Leave feedback</span>
           </label>
   
